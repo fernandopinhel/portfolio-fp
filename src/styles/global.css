@@ -1,0 +1,141 @@
+/* ═══════════════════════════════════════════════════════════════════
+   GLOBAL STYLES — Fernando Pinhel Portfolio
+   Hotjar: classes hj-* marcam elementos para rastreamento de heatmaps
+   e recordings. Não interferem no visual.
+═══════════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;600;700;800&display=swap');
+
+/* ── Reset ──────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { -webkit-font-smoothing: antialiased; background: #070707; }
+img { display: block; max-width: 100%; }
+
+/* ── Design Tokens ──────────────────────────────────────────────── */
+:root {
+  --ac:     #C8FF00;
+  --dim:    rgba(237,233,227,.38);
+  --dimmer: rgba(237,233,227,.16);
+  --bd:     rgba(237,233,227,.07);
+  --bdh:    rgba(237,233,227,.18);
+  --fg:     #EDE9E3;
+  --bg:     #070707;
+  --font-mono: 'DM Mono', monospace;
+  --font-display: 'Syne', sans-serif;
+  --radius: 16px;
+  --max-w: 1160px;
+}
+
+/* ── Custom Cursor ──────────────────────────────────────────────── */
+@media (hover: hover) and (pointer: fine) {
+  html, a, button { cursor: none !important; }
+}
+.cur { position:fixed;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%); }
+.cur-dot { width:8px;height:8px;background:var(--ac);transition:width .15s,height .15s; }
+.cur-ring { width:36px;height:36px;border:1px solid rgba(200,255,0,.35);transition:all .22s ease; }
+.cur-ring.ex { width:54px;height:54px;border-color:var(--ac); }
+
+/* ── Animations ─────────────────────────────────────────────────── */
+@keyframes mql { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+@keyframes pu   { 0%,100%{opacity:1} 50%{opacity:.3} }
+@keyframes fu   { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+@keyframes sl   { from{opacity:0;transform:translateX(-32px)} to{opacity:1;transform:translateX(0)} }
+
+.mq { display:flex;gap:56px;animation:mql 22s linear infinite;white-space:nowrap; }
+.fu { animation:fu .7s ease forwards;opacity:0; }
+.sl { animation:sl .5s ease forwards;opacity:0; }
+.d1{animation-delay:.1s}.d2{animation-delay:.25s}.d3{animation-delay:.4s}.d4{animation-delay:.55s}.d5{animation-delay:.7s}
+
+/* ── Layout Helpers ─────────────────────────────────────────────── */
+.tr {
+  display:flex;justify-content:space-between;align-items:center;
+  padding:15px 0;border-bottom:1px solid var(--bd);transition:padding-left .2s;
+}
+.tr:hover { padding-left:8px; }
+
+/* ── Skill Tag ──────────────────────────────────────────────────── */
+.sk {
+  font-size:11px;font-family:var(--font-mono);color:var(--dim);
+  border:1px solid var(--bd);padding:7px 14px;border-radius:100px;
+  transition:color .2s,border-color .2s;display:inline-block;
+}
+.sk:hover { color:var(--fg);border-color:var(--bdh); }
+
+/* ── Article Row ────────────────────────────────────────────────── */
+.ac-row {
+  border-top:1px solid var(--bd);padding:28px 0;
+  display:flex;align-items:flex-start;gap:20px;
+  text-decoration:none;color:inherit;transition:border-color .2s;
+}
+.ac-row:hover { border-top-color:var(--bdh); }
+
+/* ── Case Step Dot ──────────────────────────────────────────────── */
+.step-dot { width:10px;height:10px;border-radius:50%;background:var(--ac);flex-shrink:0;margin-top:5px; }
+
+/* ── Case Image Grid ────────────────────────────────────────────── */
+.case-img-grid > div { margin:16px 0; }
+@media(max-width:640px) { .case-img-grid { grid-template-columns:1fr; } }
+
+/* ── Focus ──────────────────────────────────────────────────────── */
+a:focus-visible, button:focus-visible {
+  outline:2px solid var(--ac);outline-offset:4px;border-radius:4px;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────────── */
+::-webkit-scrollbar { width:6px; }
+::-webkit-scrollbar-track { background:#0a0a0a; }
+::-webkit-scrollbar-thumb { background:rgba(200,255,0,.25);border-radius:3px; }
+
+/* ── Contact Form ───────────────────────────────────────────────── */
+.form-input, .form-textarea {
+  background:#0F0F0F;border:1px solid var(--bd);border-radius:10px;
+  padding:14px 18px;color:var(--fg);font-family:var(--font-mono);
+  font-size:13px;outline:none;transition:border-color .2s,background .2s;width:100%;
+}
+.form-input:focus, .form-textarea:focus { border-color:var(--ac);background:#111; }
+.form-input::placeholder, .form-textarea::placeholder { color:var(--dim); }
+.form-textarea { resize:vertical;min-height:140px;line-height:1.7; }
+
+/* ── Responsive ─────────────────────────────────────────────────── */
+@media(max-width:768px) {
+  .hero-name      { font-size:clamp(48px,12vw,80px) !important; }
+  .section-title  { font-size:32px !important; }
+  .contact-title  { font-size:clamp(36px,11vw,72px) !important; }
+  .about-grid     { grid-template-columns:1fr !important; }
+  .stats-row      { flex-wrap:wrap;gap:28px !important; }
+  .footer-row     { flex-direction:column;gap:8px;text-align:center; }
+  .case-hero-title{ font-size:clamp(32px,9vw,56px) !important; }
+  .case-meta-row  { flex-direction:column;gap:12px !important; }
+  .case-two-col   { grid-template-columns:1fr !important; }
+  .contact-grid   { grid-template-columns:1fr !important; }
+  .kpis-row       { grid-template-columns:repeat(2,1fr) !important; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   HOTJAR TRACKING CLASSES
+   Adicione class="hj-*" em qualquer elemento para rastrear no Hotjar.
+   Exemplo de uso no Hotjar: selecionar .hj-cta-hero para medir cliques.
+
+   Referência de classes:
+   .hj-hero-section      → seção principal (scroll depth)
+   .hj-cta-hero          → botão CTA principal (ver projetos)
+   .hj-cta-storytelling  → link Saiba mais / storytelling Figma
+   .hj-projects-section  → seção de projetos (scroll depth)
+   .hj-project-card      → card de projeto (cliques + hover)
+   .hj-case-open         → botão abrir case
+   .hj-case-figma        → botão Ver no Figma dentro do case
+   .hj-case-external     → botão link externo do case
+   .hj-case-back         → botão Voltar ao portfólio
+   .hj-articles-section  → seção de artigos
+   .hj-article-link      → link de artigo externo
+   .hj-contact-section   → seção de contato
+   .hj-contact-email     → clique no e-mail
+   .hj-contact-whatsapp  → clique no WhatsApp
+   .hj-contact-form      → formulário de contato (interações)
+   .hj-contact-submit    → envio do formulário
+   .hj-nav-link          → clique em link da navegação
+   .hj-nav-logo          → clique no logo
+   .hj-mobile-menu-open  → abertura do menu mobile
+   .hj-footer-github     → link GitHub no rodapé
+═══════════════════════════════════════════════════════════════════ */
