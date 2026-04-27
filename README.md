@@ -298,7 +298,7 @@ Sem dependências de UI externas (Tailwind, MUI, etc.) — design system 100% pr
 ## 📞 Contato
 
 **Fernando Pinhel**
-- 🌐 [fernandopinhel.github.io](https://fernandopinhel.github.io)
+- 🌐 [fernandopinhel.com.br/](https://fernandopinhel.com.br/)
 - 💼 [linkedin.com/in/fernando-pinhel-designer](https://www.linkedin.com/in/fernando-pinhel-designer/)
 - ✉️ contato@fernandopinhel.com.br
 - 💬 [WhatsApp](https://api.whatsapp.com/send?phone=5521999866888)
