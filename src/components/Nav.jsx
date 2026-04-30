@@ -46,6 +46,7 @@ export const MobileMenu = ({ open, onClose, activeNav, scrollTo }) => (
     ))}
 
     <div style={{ display: "flex", gap: 12, marginTop: 20, flexWrap: "wrap", justifyContent: "center" }}>
+      {/* SECURITY: rel="noopener noreferrer" — Reverse Tabnapping prevention (OWASP) */}
       <BtnPrimary href="https://www.linkedin.com/in/fernando-pinhel-designer/" className="hj-nav-linkedin">
         LinkedIn ↗
       </BtnPrimary>
@@ -153,9 +154,11 @@ export const Nav = ({
       ) : (
         !onCaseBack && (
           <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+            {/* SECURITY: rel="noopener noreferrer" — Reverse Tabnapping prevention */}
             <a
               href="https://github.com/fernandopinhel"
-              target="_blank" rel="noreferrer"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hj-nav-github"
               style={{
                 display: "flex", alignItems: "center", gap: 6,
