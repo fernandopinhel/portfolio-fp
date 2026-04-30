@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": false,
+    "noEmit": true,
+
+    // ── Fix ts(1261) no Windows ──────────────────────────────────────
+    // Desabilita a verificação de consistência de maiúsculas/minúsculas
+    // em nomes de arquivo. O erro ocorre porque o sistema de arquivos
+    // do Windows é case-insensitive mas o compilador TS é case-sensitive.
+    "forceConsistentCasingInFileNames": false,
+
+    // ── Path aliases (opcional, mantém imports limpos) ───────────────
+    "baseUrl": ".",
+    "paths": {
+      "@/*":          ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@pages/*":     ["./src/pages/*"],
+      "@hooks/*":     ["./src/hooks/*"],
+      "@data/*":      ["./src/data/*"],
+      "@styles/*":    ["./src/styles/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}

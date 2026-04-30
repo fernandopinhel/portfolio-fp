@@ -43,7 +43,7 @@ const SectionTitle = ({ children, sub }) => (
    PORTFOLIO PAGE — all home sections
 ═══════════════════════════════════════════════════════════════════ */
 const PortfolioPage = ({
-  setCurrentCase, scrollTo, setHovLink, isMobile, isTablet,
+  setCurrentCase, scrollTo, setHovLink, isMobile, isTablet, onPrivacyOpen,
 }) => {
   const W = { maxWidth: "var(--max-w)", margin: "0 auto", padding: isMobile ? "0 20px" : "0 48px" };
   const sectionRefs = useRef({});
@@ -86,7 +86,7 @@ const PortfolioPage = ({
 
         {/* Tagline */}
         <p className="fu d3" style={{ fontFamily: "var(--font-mono)", fontSize: isMobile ? 14 : 16, color: "var(--dim)", maxWidth: 560, lineHeight: 1.8, marginBottom: 48 }}>
-          Product Designer com +10 anos de experiência em UX/UI e Front-end. Formado em Publicidade e Design Digital — da pesquisa ao código, do wireframe ao produto final em produção.
+        Product Designer com +10 anos de experiência em UX/UI e Front-end. Formado em Publicidade e Design Digital — da pesquisa ao código, do wireframe ao produto final em produção.
         </p>
 
         {/* CTAs */}
@@ -95,7 +95,7 @@ const PortfolioPage = ({
             Ver projetos →
           </BtnPrimary>
           <BtnOutline
-            href={import.meta.env.VITE_FIGMA_STORYTELLING}
+            href="https://www.figma.com/proto/V04XxK6UcOn5Y6gRFQD92J/Storytelling-Fernando-Pinhel?node-id=4-21&viewport=345%2C279%2C0.28&t=4lwJNLpv01zx1t7H-1&scaling=contain&content-scaling=fixed&starting-point-node-id=4%3A21&page-id=4%3A3"
             className="hj-cta-storytelling"
             onMouseEnter={() => setHovLink(true)}
             onMouseLeave={() => setHovLink(false)}
@@ -168,7 +168,7 @@ const PortfolioPage = ({
         className="hj-projects-section"
         style={{ ...W, paddingTop: isMobile ? 60 : 100, paddingBottom: isMobile ? 60 : 100 }}
       >
-        <SectionTitle sub="// projetos selecionados">Cases de design</SectionTitle>
+        <SectionTitle sub="// projetos selecionados">Cases</SectionTitle>
         <div
           style={{
             display: "grid",
@@ -313,7 +313,7 @@ const PortfolioPage = ({
           </div>
 
           {/* Right: form */}
-          <ContactForm />
+          <ContactForm onPrivacyOpen={onPrivacyOpen} />
         </div>
       </section>
     </main>
