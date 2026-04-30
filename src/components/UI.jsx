@@ -134,7 +134,7 @@ export const VideoEmbed = ({ src, title = "Case video", accent = "var(--ac)" }) 
  * - Link para Política de Privacidade no label do checkbox.
  * - Formulário não envia sem aceite explícito.
  */
-export const ContactForm = () => {
+export const ContactForm = ({ onPrivacyOpen }) => {
   const [form, setForm]       = useState({ name: "", email: "", message: "" });
   const [lgpdAccepted, setLgpdAccepted] = useState(false);
   const [sent, setSent]       = useState(false);
@@ -206,6 +206,9 @@ export const ContactForm = () => {
           Li e aceito a{" "}
           <a
             href="/politica-de-privacidade"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={onPrivacyOpen}
             style={{ color: "var(--ac)", textDecoration: "underline" }}
           >
             Política de Privacidade
