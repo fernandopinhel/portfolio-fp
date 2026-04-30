@@ -1,6 +1,18 @@
 // ─── DATA ───────────────────────────────────────────────────────────────────
 // Central data source for all portfolio content.
 // Update this file to add/edit projects, articles, skills and trajectory.
+//
+// SECURITY (SAST audit): Figma file keys and personal phone number have been
+// moved to environment variables (.env.local) to prevent exposure in the
+// public repository. Never hardcode sensitive links or PII here.
+
+// ── Helpers ──────────────────────────────────────────────────────────────────
+const env = (key, fallback = "") => import.meta.env[key] ?? fallback;
+
+// ── Env-backed values ─────────────────────────────────────────────────────────
+export const WHATSAPP_NUMBER  = env("VITE_WHATSAPP_NUMBER");
+export const FIGMA_DASHBOARD  = env("VITE_FIGMA_DASHBOARD");
+export const FIGMA_STORY      = env("VITE_FIGMA_STORYTELLING");
 
 export const NAV_LINKS = ["Sobre", "Projetos", "Artigos", "Contato"];
 
@@ -77,7 +89,7 @@ export const PROJECTS = [
     thumbImg:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80&auto=format",
     figmaLink:
-      "https://www.figma.com/proto/UQQ6gtXrroI58tX0Vr2vnb/Projeto-Reconhecimento-Facial?page-id=23%3A1547&type=design&node-id=23-5588",
+      FIGMA_DASHBOARD,
     year: "2023",
     role: "Product Designer · UX/UI",
     client: "Rede Estadual de Ensino",

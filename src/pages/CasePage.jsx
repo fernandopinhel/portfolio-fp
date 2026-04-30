@@ -3,6 +3,10 @@ import { BtnPrimary, BtnOutline, Pill, VideoEmbed } from "../components/UI";
 /**
  * CasePage
  * Full-screen case study view. Supports optional YouTube video embed.
+ *
+ * SECURITY: All external links use rel="noopener noreferrer" to prevent
+ * Reverse Tabnapping (OWASP vulnerability). BtnPrimary and BtnOutline
+ * already enforce this; direct <a> tags here also carry the attribute.
  */
 const CasePage = ({ project: p, onBack, setHovLink, isMobile }) => {
   if (!p) return null;

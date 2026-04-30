@@ -32,7 +32,8 @@ export const BtnPrimary = ({ href, onClick, children, style = {}, className = ""
     onMouseLeave: e => { e.currentTarget.style.transform = "scale(1)"; },
   };
   if (href)
-    return <a href={href} target="_blank" rel="noreferrer" style={s} className={className} {...ev}>{children}</a>;
+    // SECURITY: rel="noopener noreferrer" prevents Reverse Tabnapping (OWASP)
+    return <a href={href} target="_blank" rel="noopener noreferrer" style={s} className={className} {...ev}>{children}</a>;
   return <button onClick={onClick} style={s} className={className} {...ev}>{children}</button>;
 };
 
@@ -59,7 +60,8 @@ export const BtnOutline = ({ href, onClick, children, style = {}, className = ""
     },
   };
   if (href)
-    return <a href={href} target="_blank" rel="noreferrer" style={s} className={className} {...ev}>{children}</a>;
+    // SECURITY: rel="noopener noreferrer" prevents Reverse Tabnapping (OWASP)
+    return <a href={href} target="_blank" rel="noopener noreferrer" style={s} className={className} {...ev}>{children}</a>;
   return <button onClick={onClick} style={s} className={className} {...ev}>{children}</button>;
 };
 
@@ -90,11 +92,6 @@ export const Glow = ({ top = "-30vh", color = "rgba(200,255,0,.032)" }) => (
 );
 
 /* ── VideoEmbed ───────────────────────────────────────────────────── */
-/**
- * Renders a YouTube embed or a native <video> depending on the value.
- * - YouTube ID  (11 chars, no slash): renders <iframe>
- * - Full URL ending in .mp4/.webm:    renders <video>
- */
 export const VideoEmbed = ({ src, title = "Case video", accent = "var(--ac)" }) => {
   const isYT = src && !src.includes("/") && src.length === 11;
   const isMp4 = src && (src.endsWith(".mp4") || src.endsWith(".webm"));
@@ -130,15 +127,28 @@ export const VideoEmbed = ({ src, title = "Case video", accent = "var(--ac)" }) 
 };
 
 /* ── ContactForm ──────────────────────────────────────────────────── */
+/**
+ * LGPD Compliance:
+ * - Checkbox de opt-in obrigatório antes do envio (Art. 5º, XII LGPD —
+ *   Manifestação Livre e Inequívoca).
+ * - Link para Política de Privacidade no label do checkbox.
+ * - Formulário não envia sem aceite explícito.
+ */
 export const ContactForm = () => {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [sent, setSent] = useState(false);
+  const [form, setForm]       = useState({ name: "", email: "", message: "" });
+  const [lgpdAccepted, setLgpdAccepted] = useState(false);
+  const [sent, setSent]       = useState(false);
+  const [error, setError]     = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Replace with your preferred form service (Formspree, EmailJS, etc.)
+    if (!lgpdAccepted) {
+      setError("Por favor, aceite a Política de Privacidade para enviar sua mensagem.");
+      return;
+    }
+    setError("");
     const mailto = `mailto:contato@fernandopinhel.com.br?subject=Contato via portfólio — ${form.name}&body=${encodeURIComponent(form.message)}%0A%0A${form.email}`;
-    window.open(mailto, "_blank");
+    window.open(mailto, "_blank", "noopener,noreferrer");
     setSent(true);
     setTimeout(() => setSent(false), 4000);
   };
@@ -175,10 +185,46 @@ export const ContactForm = () => {
         required
         aria-label="Sua mensagem"
       />
+
+      {/* ── LGPD Opt-in (obrigatório — Art. 5º, XII LGPD) ───────── */}
+      <label
+        style={{
+          display: "flex", alignItems: "flex-start", gap: 10, cursor: "pointer",
+          fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--dim)",
+          lineHeight: 1.6,
+        }}
+      >
+        <input
+          type="checkbox"
+          checked={lgpdAccepted}
+          onChange={e => { setLgpdAccepted(e.target.checked); setError(""); }}
+          required
+          aria-required="true"
+          style={{ marginTop: 2, accentColor: "var(--ac)", flexShrink: 0, width: 15, height: 15 }}
+        />
+        <span>
+          Li e aceito a{" "}
+          <a
+            href="/politica-de-privacidade"
+            style={{ color: "var(--ac)", textDecoration: "underline" }}
+          >
+            Política de Privacidade
+          </a>
+          {" "}e concordo que meus dados sejam usados para responder à minha mensagem.
+        </span>
+      </label>
+
+      {/* Erro de validação LGPD */}
+      {error && (
+        <p role="alert" style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "#FF6B6B", marginTop: -4 }}>
+          {error}
+        </p>
+      )}
+
       <BtnPrimary
         onClick={handleSubmit}
         className="hj-contact-submit"
-        style={{ alignSelf: "flex-start" }}
+        style={{ alignSelf: "flex-start", opacity: lgpdAccepted ? 1 : 0.5 }}
       >
         {sent ? "✓ Mensagem enviada!" : "Enviar mensagem →"}
       </BtnPrimary>
