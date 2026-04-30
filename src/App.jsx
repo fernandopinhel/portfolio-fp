@@ -2,20 +2,22 @@
  * App.jsx — Fernando Pinhel Portfolio
  *
  * Root component. Manages global state (cursor, nav, menu, active case)
- * and renders Nav + the appropriate page (PortfolioPage or CasePage).
+ * and renders Nav + the appropriate page (PortfolioPage, CasePage ou PrivacyPage).
  *
- * Hotjar: hj-* classes are applied throughout for heatmap/recording tracking.
- * To configure Hotjar, create segments based on the classes defined in
- * src/styles/global.css.
+ * LGPD: o CookieBanner é exibido na primeira visita. Hotjar e GA4 só são
+ * inicializados após consentimento explícito via useCookieConsent.
  */
 
 import { useState, useEffect, useCallback } from "react";
 import { PROJECTS } from "./data";
 import { useMediaQuery } from "./hooks/useMediaQuery";
+import { useCookieConsent } from "./hooks/useCookieConsent";
 import { GridBg, Glow } from "./components/UI";
 import { Nav, MobileMenu } from "./components/Nav";
+import CookieBanner from "./components/CookieBanner";
 import PortfolioPage from "./pages/PortfolioPage";
 import CasePage from "./pages/CasePage";
+import PrivacyPage from "./pages/PrivacyPage";
 import "./styles/global.css";
 
 export default function App() {
@@ -25,6 +27,11 @@ export default function App() {
   const [scrolled, setScrolled]       = useState(false);
   const [menuOpen, setMenuOpen]       = useState(false);
   const [currentCase, setCurrentCase] = useState(null);
+  const [showPrivacy, setShowPrivacy] = useState(false);
+
+  /* ── Cookie consent (LGPD) ──────────────────────────────────────── */
+  const { consent, acceptCookies, declineCookies, resetConsent } = useCookieConsent();
+  const showCookieBanner = consent === null;
 
   const isMobile = useMediaQuery("(max-width: 768px)");
   const isTablet = useMediaQuery("(max-width: 1024px)");
@@ -49,13 +56,22 @@ export default function App() {
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 
-  /* ── Update document title when case changes ─────────────────────  */
+  /* ── Update document title ──────────────────────────────────────── */
   useEffect(() => {
+    if (showPrivacy) {
+      document.title = "Política de Privacidade — Fernando Pinhel";
+      return;
+    }
     const project = PROJECTS.find(p => p.id === currentCase);
     document.title = project
       ? `${project.title} — Fernando Pinhel`
       : "Fernando Pinhel | Product Designer";
-  }, [currentCase]);
+  }, [currentCase, showPrivacy]);
+
+  /* ── Scroll to top when view changes ───────────────────────────── */
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [showPrivacy]);
 
   /* ── Scroll to section ──────────────────────────────────────────── */
   const scrollTo = useCallback((id) => {
@@ -74,7 +90,23 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: "instant" });
   }, []);
 
+  /* ── Open / close privacy page ──────────────────────────────────── */
+  const handlePrivacyOpen = useCallback((e) => {
+    e?.preventDefault();
+    setShowPrivacy(true);
+  }, []);
+
+  const handlePrivacyBack = useCallback(() => {
+    setShowPrivacy(false);
+  }, []);
+
   const currentProject = currentCase ? PROJECTS.find(p => p.id === currentCase) : null;
+
+  /* ── Derived nav state ──────────────────────────────────────────── */
+  const isInSubpage = !!currentProject || showPrivacy;
+  const onCaseBack  = isInSubpage
+    ? (showPrivacy ? handlePrivacyBack : handleCaseBack)
+    : null;
 
   return (
     <div
@@ -100,6 +132,15 @@ export default function App() {
       <GridBg />
       <Glow />
 
+      {/* ── Cookie Banner (LGPD) — visível até o usuário decidir ───── */}
+      {showCookieBanner && (
+        <CookieBanner
+          onAccept={acceptCookies}
+          onDecline={declineCookies}
+          onPrivacyOpen={handlePrivacyOpen}
+        />
+      )}
+
       {/* Mobile menu overlay */}
       <MobileMenu
         open={menuOpen}
@@ -117,11 +158,13 @@ export default function App() {
         isMobile={isMobile}
         menuOpen={menuOpen}
         setMenuOpen={setMenuOpen}
-        onCaseBack={currentCase ? handleCaseBack : null}
+        onCaseBack={onCaseBack}
       />
 
-      {/* Main content: case or portfolio */}
-      {currentProject ? (
+      {/* Main content: privacy | case | portfolio */}
+      {showPrivacy ? (
+        <PrivacyPage onBack={handlePrivacyBack} />
+      ) : currentProject ? (
         <CasePage
           project={currentProject}
           onBack={handleCaseBack}
@@ -137,6 +180,7 @@ export default function App() {
           setHovLink={setHovLink}
           isMobile={isMobile}
           isTablet={isTablet}
+          onPrivacyOpen={handlePrivacyOpen}
         />
       )}
 
@@ -156,15 +200,54 @@ export default function App() {
           gap: 8,
         }}
       >
-        <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--dimmer)", letterSpacing: ".06em" }}>
+        <span style={{
+          fontFamily: "var(--font-mono)", fontSize: 11,
+          color: "var(--dimmer)", letterSpacing: ".06em",
+        }}>
           © 2026 Fernando Pinhel
         </span>
-        <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--dimmer)", letterSpacing: ".06em" }}>
+
+        <span style={{
+          fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--dimmer)",
+          letterSpacing: ".06em", display: "flex", gap: 16,
+          alignItems: "center", flexWrap: "wrap",
+        }}>
+          {/* LGPD: Política de Privacidade a um clique (exigência GRC) */}
+          <a
+            href="/politica-de-privacidade"
+            onClick={handlePrivacyOpen}
+            style={{ color: "var(--dimmer)", textDecoration: "none" }}
+          >
+            Política de Privacidade
+          </a>
+
+          <span aria-hidden="true">·</span>
+
+          {/* LGPD: permite rever/alterar decisão de cookies a qualquer momento */}
+          <button
+            onClick={resetConsent}
+            title="Rever preferências de cookies"
+            style={{
+              background: "none", border: "none", padding: 0,
+              cursor: "pointer", color: "var(--dimmer)",
+              fontFamily: "var(--font-mono)", fontSize: 11, letterSpacing: ".06em",
+            }}
+          >
+            {consent === "accepted"
+              ? "🍪 Cookies aceitos"
+              : consent === "declined"
+              ? "🍪 Cookies recusados"
+              : "🍪 Cookies"}
+          </button>
+
+          <span aria-hidden="true">·</span>
+
           Product Designer · Niterói, RJ ·{" "}
+          {/* SECURITY: rel="noopener noreferrer" — Reverse Tabnapping (OWASP) */}
           <a
             href="https://github.com/fernandopinhel"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="hj-footer-github"
             style={{ color: "var(--dimmer)", textDecoration: "none" }}
           >
