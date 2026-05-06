@@ -1,104 +1,30 @@
 # ═══════════════════════════════════════════════════════════════════
-# .htaccess — Fernando Pinhel Portfolio (fernandopinhel.com.br)
-# Servidor: Apache / HostGator
-#
-# Implementa todas as recomendações do Relatório GRC (Denatech):
-#   ✓ Ocultar assinatura do servidor (Information Disclosure)
-#   ✓ X-XSS-Protection (proteção XSS legada)
-#   ✓ X-Frame-Options (anti-Clickjacking)
-#   ✓ X-Content-Type-Options (MIME sniffing)
-#   ✓ Referrer-Policy (controle de vazamento de URL)
-#   ✓ Permissions-Policy (restrição de APIs do browser)
-#   ✓ Strict-Transport-Security / HSTS (força HTTPS)
-#   ✓ Content-Security-Policy / CSP (anti-XSS, anti-injeção)
-#
-# Após aplicar, validar em: https://securityheaders.com
-# Meta esperada: nota A ou B.
+# .htaccess — Fernando Pinhel Portfolio
 # ═══════════════════════════════════════════════════════════════════
 
-# ── Habilitar módulo de headers ──────────────────────────────────────
 <IfModule mod_headers.c>
-
-  # ── Ocultar informações do servidor (Information Disclosure) ──────
-  # Impede que o Apache exponha versão e tecnologia nos cabeçalhos HTTP.
+  # Segurança Básica
   Header unset X-Powered-By
   Header always unset X-Powered-By
   ServerSignature Off
-
-  # ── Proteção XSS legada (browsers mais antigos) ───────────────────
   Header set X-XSS-Protection "1; mode=block"
-
-  # ── Anti-Clickjacking ─────────────────────────────────────────────
-  # Impede que o site seja embutido em iframes de outros domínios.
   Header set X-Frame-Options "SAMEORIGIN"
-
-  # ── Prevenção de MIME Sniffing ────────────────────────────────────
   Header set X-Content-Type-Options "nosniff"
-
-  # ── Referrer Policy ──────────────────────────────────────────────
-  # Envia referrer apenas para o mesmo domínio; não vaza URL para externos.
   Header set Referrer-Policy "strict-origin-when-cross-origin"
-
-  # ── Permissions Policy ───────────────────────────────────────────
-  # Desabilita APIs sensíveis do browser que o site não utiliza.
   Header set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
 
-  # ── HSTS — HTTP Strict Transport Security ─────────────────────────
-  # Força HTTPS por 1 ano. Só ativar após confirmar que HTTPS está 100%.
-  # Remova o comentário abaixo quando o certificado SSL estiver estável:
-  # Header set Strict-Transport-Security "max-age=31536000; includeSubDomains"
-
-  # ── Content Security Policy (CSP) ────────────────────────────────
-  # Define quais origens podem carregar scripts, estilos, fontes e imagens.
-  # Ajuste os domínios conforme sua configuração de analytics/CMP.
-  #
-  # Inclui:
-  #   - Hotjar    (https://static.hotjar.com, https://script.hotjar.com)
-  #   - Google Analytics GA4 (https://www.googletagmanager.com)
-  #   - AdOpt CMP (https://app.adopt.io) — banner de cookies LGPD
-  #   - Google Fonts
-  #   - Unsplash  (imagens de fallback dos cases)
-  #   - YouTube   (embed de vídeos de cases)
-  Header set Content-Security-Policy "\
-default-src 'self'; \
-script-src 'self' 'unsafe-inline' \
-  https://static.hotjar.com \
-  https://script.hotjar.com \
-  https://www.googletagmanager.com \
-  https://www.google-analytics.com \
-  https://app.adopt.io; \
-style-src 'self' 'unsafe-inline' \
-  https://fonts.googleapis.com \
-  https://app.adopt.io; \
-font-src 'self' \
-  https://fonts.gstatic.com; \
-img-src 'self' data: \
-  https://images.unsplash.com \
-  https://plus.unsplash.com \
-  https://www.google-analytics.com \
-  https://www.googletagmanager.com; \
-frame-src \
-  https://www.youtube.com \
-  https://www.figma.com; \
-connect-src 'self' \
-  https://api.hotjar.com \
-  https://vc.hotjar.io \
-  https://www.google-analytics.com \
-  https://region1.google-analytics.com; \
-object-src 'none'; \
-base-uri 'self'; \
-form-action 'self' mailto:;"
-
+  # Content Security Policy (CSP) - Versão Corrigida sem Markdown
+  Header set Content-Security-Policy "default-src 'self'; connect-src 'self' https://formcarry.com https://*.hotjar.com https://*.hotjar.io https://*.google-analytics.com https://*.analytics.google.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.hotjar.com https://static.hotjar.com https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.hotjar.com https://*.google-analytics.com https://images.unsplash.com https://plus.unsplash.com; frame-src 'self' https://www.youtube.com https://www.figma.com;"
 </IfModule>
 
-# ── Redirecionar HTTP → HTTPS ────────────────────────────────────────
+# Redirecionar HTTP → HTTPS
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteCond %{HTTPS} off
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </IfModule>
 
-# ── SPA fallback (React Router / roteamento client-side) ─────────────
+# SPA fallback (React Router)
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
@@ -108,7 +34,7 @@ form-action 'self' mailto:;"
   RewriteRule . /index.html [L]
 </IfModule>
 
-# ── Cache de assets estáticos ────────────────────────────────────────
+# Cache de assets
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresByType image/jpeg "access plus 1 year"
@@ -117,5 +43,4 @@ form-action 'self' mailto:;"
   ExpiresByType image/svg+xml "access plus 1 year"
   ExpiresByType text/css   "access plus 1 month"
   ExpiresByType application/javascript "access plus 1 month"
-  ExpiresByType application/json "access plus 0 seconds"
 </IfModule>
