@@ -34,7 +34,7 @@ export const BtnPrimary = ({ href, onClick, children, style = {}, className = ""
   if (href)
     // SECURITY: rel="noopener noreferrer" prevents Reverse Tabnapping (OWASP)
     return <a href={href} target="_blank" rel="noopener noreferrer" style={s} className={className} {...ev}>{children}</a>;
-  return <button onClick={onClick} style={s} className={className} {...ev}>{children}</button>;
+  return <button type="button" onClick={onClick} style={s} className={className} {...ev}>{children}</button>;
 };
 
 /* ── BtnOutline ───────────────────────────────────────────────────── */
@@ -50,19 +50,19 @@ export const BtnOutline = ({ href, onClick, children, style = {}, className = ""
   const ev = {
     onMouseEnter: e => {
       e.currentTarget.style.borderColor = "rgba(237,233,227,.45)";
-      e.currentTarget.style.background = "rgba(237,233,227,.04)";
-      onMouseEnter && onMouseEnter();
+      e.currentTarget.style.background  = "rgba(237,233,227,.04)";
+      onMouseEnter?.();
     },
     onMouseLeave: e => {
       e.currentTarget.style.borderColor = "rgba(237,233,227,.2)";
-      e.currentTarget.style.background = "transparent";
-      onMouseLeave && onMouseLeave();
+      e.currentTarget.style.background  = "transparent";
+      onMouseLeave?.();
     },
   };
   if (href)
     // SECURITY: rel="noopener noreferrer" prevents Reverse Tabnapping (OWASP)
     return <a href={href} target="_blank" rel="noopener noreferrer" style={s} className={className} {...ev}>{children}</a>;
-  return <button onClick={onClick} style={s} className={className} {...ev}>{children}</button>;
+  return <button type="button" onClick={onClick} style={s} className={className} {...ev}>{children}</button>;
 };
 
 /* ── GitHub SVG Icon ──────────────────────────────────────────────── */
@@ -93,12 +93,16 @@ export const Glow = ({ top = "-30vh", color = "rgba(200,255,0,.032)" }) => (
 
 /* ── VideoEmbed ───────────────────────────────────────────────────── */
 export const VideoEmbed = ({ src, title = "Case video", accent = "var(--ac)" }) => {
-  const isYT = src && !src.includes("/") && src.length === 11;
+  const isYT  = src && !src.includes("/") && src.length === 11;
   const isMp4 = src && (src.endsWith(".mp4") || src.endsWith(".webm"));
 
   if (isYT) {
     return (
-      <div style={{ position: "relative", paddingBottom: "56.25%", height: 0, overflow: "hidden", borderRadius: 12, border: `1px solid ${accent}22` }}>
+      <div style={{
+        position: "relative", paddingBottom: "56.25%", height: 0,
+        overflow: "hidden", borderRadius: 12,
+        border: `1px solid ${accent}22`,
+      }}>
         <iframe
           title={title}
           src={`https://www.youtube.com/embed/${src}?rel=0&modestbranding=1`}
@@ -112,11 +116,7 @@ export const VideoEmbed = ({ src, title = "Case video", accent = "var(--ac)" }) 
 
   if (isMp4) {
     return (
-      <video
-        controls
-        playsInline
-        style={{ width: "100%", borderRadius: 12, border: `1px solid ${accent}22` }}
-      >
+      <video controls playsInline style={{ width: "100%", borderRadius: 12, border: `1px solid ${accent}22` }}>
         <source src={src} type="video/mp4" />
         Seu navegador não suporta vídeo HTML5.
       </video>
@@ -128,109 +128,295 @@ export const VideoEmbed = ({ src, title = "Case video", accent = "var(--ac)" }) 
 
 /* ── ContactForm ──────────────────────────────────────────────────── */
 /**
+ * Formulário de contato via POST /api/contact (Node.js + Nodemailer + SMTP HostGator).
+ * Sem mailto: — mensagens chegam diretamente no e-mail da hospedagem.
+ *
  * LGPD Compliance:
- * - Checkbox de opt-in obrigatório antes do envio (Art. 5º, XII LGPD —
- *   Manifestação Livre e Inequívoca).
- * - Link para Política de Privacidade no label do checkbox.
- * - Formulário não envia sem aceite explícito.
+ *   - Checkbox de opt-in obrigatório antes do envio (Art. 5º, XII LGPD)
+ *   - Link para Política de Privacidade no label do checkbox
+ *   - Nenhum dado enviado sem aceite explícito
+ *
+ * Estados:
+ *   idle     → formulário normal
+ *   sending  → botão desabilitado + spinner
+ *   success  → mensagem de confirmação
+ *   error    → mensagem de erro inline
+ *
+ * Backend necessário: api/contact.js
+ * Dev: Vite faz proxy de /api → localhost:3001 (vite.config.js)
  */
 export const ContactForm = ({ onPrivacyOpen }) => {
-  const [form, setForm]       = useState({ name: "", email: "", message: "" });
-  const [lgpdAccepted, setLgpdAccepted] = useState(false);
-  const [sent, setSent]       = useState(false);
-  const [error, setError]     = useState("");
+  const [fields, setFields]     = useState({ name: "", email: "", message: "" });
+  const [lgpd, setLgpd]         = useState(false);
+  const [status, setStatus]     = useState("idle"); // idle | sending | success | error
+  const [errorMsg, setErrorMsg] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!lgpdAccepted) {
-      setError("Por favor, aceite a Política de Privacidade para enviar sua mensagem.");
+  const set = (k) => (e) => setFields(f => ({ ...f, [k]: e.target.value }));
+
+  const handleSubmit = async () => {
+    if (!fields.name.trim() || !fields.email.trim() || !fields.message.trim()) {
+      setErrorMsg("Preencha todos os campos antes de enviar.");
+      setStatus("error");
       return;
     }
-    setError("");
-    const mailto = `mailto:contato@fernandopinhel.com.br?subject=Contato via portfólio — ${form.name}&body=${encodeURIComponent(form.message)}%0A%0A${form.email}`;
-    window.open(mailto, "_blank", "noopener,noreferrer");
-    setSent(true);
-    setTimeout(() => setSent(false), 4000);
+    if (!lgpd) {
+      setErrorMsg("Por favor, aceite a Política de Privacidade.");
+      setStatus("error");
+      return;
+    }
+
+    setStatus("sending");
+    setErrorMsg("");
+
+    // Detecta se é localhost ou produção
+    const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+    
+    // URL de Produção (Formcarry) ou Local (Sua API Node)
+    const endpoint = isLocal ? "/api/contact" : "https://formcarry.com/s/3yzii8xkQ3q";
+
+    try {
+      const res = await fetch(endpoint, {
+        method:  "POST",
+        headers: { 
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(fields),
+      });
+
+      const data = await res.json();
+
+      // Sucesso no Formcarry (code 200) ou no Node (res.ok)
+      if (res.ok && (isLocal || data.code === 200)) {
+        setStatus("success");
+        setFields({ name: "", email: "", message: "" });
+        setLgpd(false);
+      } else {
+        setErrorMsg(data.message || "Erro ao enviar. Tente novamente.");
+        setStatus("error");
+      }
+    } catch (err) {
+      setErrorMsg("Erro de conexão com o servidor.");
+      setStatus("error");
+    }
   };
 
-  return (
-    <form
-      onSubmit={handleSubmit}
-      className="hj-contact-form"
-      style={{ display: "flex", flexDirection: "column", gap: 16 }}
-    >
-      <input
-        className="form-input hj-contact-form"
-        type="text"
-        placeholder="Seu nome"
-        value={form.name}
-        onChange={e => setForm(p => ({ ...p, name: e.target.value }))}
-        required
-        aria-label="Seu nome"
-      />
-      <input
-        className="form-input hj-contact-form"
-        type="email"
-        placeholder="Seu e-mail"
-        value={form.email}
-        onChange={e => setForm(p => ({ ...p, email: e.target.value }))}
-        required
-        aria-label="Seu e-mail"
-      />
-      <textarea
-        className="form-textarea hj-contact-form"
-        placeholder="Me conta o que você está construindo..."
-        value={form.message}
-        onChange={e => setForm(p => ({ ...p, message: e.target.value }))}
-        required
-        aria-label="Sua mensagem"
-      />
+  /* ── Estado de sucesso ────────────────────────────────────────── */
+  if (status === "success") {
+    return (
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 12, padding: "32px 0" }}>
+        <div style={{
+          width: 48, height: 48, borderRadius: "50%",
+          background: "rgba(200,255,0,.1)",
+          border: "1px solid rgba(200,255,0,.3)",
+          display: "flex", alignItems: "center", justifyContent: "center",
+          fontSize: 22, color: "var(--ac)",
+        }}>
+          ✓
+        </div>
+        <h3 style={{
+          fontFamily: "var(--font-display)", fontWeight: 700,
+          fontSize: 20, color: "var(--fg)", letterSpacing: "-.02em",
+        }}>
+          Mensagem enviada!
+        </h3>
+        <p style={{ fontFamily: "var(--font-mono)", fontSize: 13, color: "var(--dim)", lineHeight: 1.8 }}>
+          Obrigado pelo contato. Responderei em breve pelo e-mail informado.
+        </p>
+        <button
+          type="button"
+          onClick={() => setStatus("idle")}
+          style={{
+            marginTop: 8, background: "none",
+            border: "1px solid rgba(237,233,227,.2)",
+            borderRadius: 100, padding: "10px 20px",
+            cursor: "pointer", color: "var(--dim)",
+            fontFamily: "var(--font-mono)", fontSize: 11,
+            letterSpacing: ".06em",
+          }}
+        >
+          Enviar outra mensagem
+        </button>
+      </div>
+    );
+  }
 
-      {/* ── LGPD Opt-in (obrigatório — Art. 5º, XII LGPD) ───────── */}
-      <label
-        style={{
-          display: "flex", alignItems: "flex-start", gap: 10, cursor: "pointer",
-          fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--dim)",
-          lineHeight: 1.6,
-        }}
-      >
+  /* ── Estilos compartilhados dos campos ────────────────────────── */
+  const inputStyle = {
+    width: "100%",
+    background: "rgba(237,233,227,.04)",
+    border: "1px solid rgba(237,233,227,.12)",
+    borderRadius: 12,
+    padding: "14px 16px",
+    color: "var(--fg)",
+    fontFamily: "var(--font-mono)",
+    fontSize: 13,
+    outline: "none",
+    transition: "border-color .2s",
+    boxSizing: "border-box",
+  };
+
+  const labelStyle = {
+    fontFamily: "var(--font-mono)",
+    fontSize: 11,
+    color: "var(--dimmer)",
+    letterSpacing: ".1em",
+    textTransform: "uppercase",
+    display: "block",
+    marginBottom: 8,
+  };
+
+  const focusOn  = e => { e.target.style.borderColor = "rgba(200,255,0,.4)"; };
+  const focusOff = e => { e.target.style.borderColor = "rgba(237,233,227,.12)"; };
+
+  /* ── Formulário ───────────────────────────────────────────────── */
+
+  return (
+    <div className="hj-contact-form" style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+
+      {/* Nome */}
+      <div>
+        <label htmlFor="contact-name" style={labelStyle}>Nome</label>
         <input
-          type="checkbox"
-          checked={lgpdAccepted}
-          onChange={e => { setLgpdAccepted(e.target.checked); setError(""); }}
-          required
-          aria-required="true"
-          style={{ marginTop: 2, accentColor: "var(--ac)", flexShrink: 0, width: 15, height: 15 }}
+          id="contact-name"
+          name="name"
+          type="text"
+          autoComplete="name"
+          placeholder="Seu nome"
+          value={fields.name}
+          onChange={set("name")}
+          disabled={status === "sending"}
+          style={inputStyle}
+          onFocus={focusOn}
+          onBlur={focusOff}
         />
-        <span>
+      </div>
+
+      {/* E-mail */}
+      <div>
+        <label htmlFor="contact-email" style={labelStyle}>E-mail</label>
+        <input
+          id="contact-email"
+          name="email"
+          type="email"
+          autoComplete="email"
+          placeholder="seu@email.com"
+          value={fields.email}
+          onChange={set("email")}
+          disabled={status === "sending"}
+          style={inputStyle}
+          onFocus={focusOn}
+          onBlur={focusOff}
+        />
+      </div>
+
+      {/* Mensagem */}
+      <div>
+        <label htmlFor="contact-message" style={labelStyle}>Mensagem</label>
+        <textarea
+          id="contact-message"
+          name="message"
+          placeholder="Me conta o que você está construindo..."
+          rows={5}
+          value={fields.message}
+          onChange={set("message")}
+          disabled={status === "sending"}
+          style={{ ...inputStyle, resize: "vertical", minHeight: 120 }}
+          onFocus={focusOn}
+          onBlur={focusOff}
+        />
+      </div>
+
+      {/* ── LGPD opt-in obrigatório (Art. 5º, XII LGPD) ─────────── */}
+      <label style={{
+        display: "flex", alignItems: "flex-start", gap: 10,
+        cursor: "pointer", userSelect: "none",
+      }}>
+        <input
+          id="contact-lgpd"
+          name="lgpd"
+          type="checkbox"
+          checked={lgpd}
+          onChange={e => { setLgpd(e.target.checked); setErrorMsg(""); setStatus("idle"); }}
+          disabled={status === "sending"}
+          aria-required="true"
+          style={{ marginTop: 2, accentColor: "var(--ac)", flexShrink: 0 }}
+        />
+        <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--dimmer)", lineHeight: 1.7 }}>
           Li e aceito a{" "}
-          <a
-            href="/politica-de-privacidade"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            type="button"
             onClick={onPrivacyOpen}
-            style={{ color: "var(--ac)", textDecoration: "underline" }}
+            style={{
+              background: "none", border: "none", padding: 0,
+              color: "var(--ac)", fontFamily: "var(--font-mono)",
+              fontSize: 11, cursor: "pointer",
+              textDecoration: "underline", textUnderlineOffset: 3,
+            }}
           >
             Política de Privacidade
-          </a>
-          {" "}e concordo que meus dados sejam usados para responder à minha mensagem.
+          </button>
+          {" "}e concordo com o tratamento dos meus dados para resposta ao contato.
         </span>
       </label>
 
-      {/* Erro de validação LGPD */}
-      {error && (
-        <p role="alert" style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "#FF6B6B", marginTop: -4 }}>
-          {error}
-        </p>
+      {/* Erro inline */}
+      {status === "error" && (
+        <div
+          role="alert"
+          style={{
+            background: "rgba(255,80,80,.08)",
+            border: "1px solid rgba(255,80,80,.25)",
+            borderRadius: 10, padding: "12px 16px",
+            fontFamily: "var(--font-mono)", fontSize: 12,
+            color: "rgba(255,130,130,.9)", lineHeight: 1.6,
+          }}
+        >
+          ⚠ {errorMsg}
+        </div>
       )}
 
-      <BtnPrimary
+      {/* Botão enviar */}
+      <button
+        type="button"
         onClick={handleSubmit}
+        disabled={status === "sending"}
         className="hj-contact-submit"
-        style={{ alignSelf: "flex-start", opacity: lgpdAccepted ? 1 : 0.5 }}
+        style={{
+          background: status === "sending" ? "rgba(200,255,0,.5)" : "var(--ac)",
+          color: "#070707",
+          border: "none", borderRadius: 100,
+          padding: "14px 28px",
+          fontFamily: "var(--font-mono)", fontSize: 12,
+          fontWeight: 500, letterSpacing: ".06em",
+          cursor: status === "sending" ? "not-allowed" : "pointer",
+          transition: "transform .15s",
+          alignSelf: "flex-start",
+          display: "inline-flex", alignItems: "center", gap: 8,
+        }}
+        onMouseEnter={e => { if (status !== "sending") e.currentTarget.style.transform = "scale(1.04)"; }}
+        onMouseLeave={e => { e.currentTarget.style.transform = "scale(1)"; }}
       >
-        {sent ? "✓ Mensagem enviada!" : "Enviar mensagem →"}
-      </BtnPrimary>
-    </form>
+        {status === "sending" ? (
+          <>
+            <span style={{
+              width: 12, height: 12,
+              border: "2px solid #070707",
+              borderTopColor: "transparent",
+              borderRadius: "50%",
+              animation: "cfSpin .7s linear infinite",
+              display: "inline-block",
+            }} />
+            Enviando…
+          </>
+        ) : (
+          "Enviar mensagem →"
+        )}
+      </button>
+
+      <style>{`
+        @keyframes cfSpin { to { transform: rotate(360deg); } }
+      `}</style>
+    </div>
   );
 };

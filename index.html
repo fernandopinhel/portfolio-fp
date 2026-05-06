@@ -11,7 +11,6 @@
     <meta name="robots" content="index, follow" />
 
     <!-- Open Graph -->
-    <!-- SECURITY (GRC): og:url corrigido para domínio oficial .com.br -->
     <meta property="og:type"        content="website" />
     <meta property="og:url"         content="https://fernandopinhel.com.br/" />
     <meta property="og:title"       content="Fernando Pinhel | Product Designer" />
@@ -35,15 +34,111 @@
       ════════════════════════════════════════════════════════════════════
       AVISO LGPD / SEGURANÇA (Relatório GRC — Denatech):
 
-      Hotjar e Google Analytics NÃO são carregados aqui.
-      Os scripts são injetados dinamicamente APENAS após consentimento
-      explícito do usuário via CookieBanner → useCookieConsent.js.
+      O Google Tag Manager NÃO é inicializado aqui.
+      O dataLayer é criado como array vazio (etapa 1 — segura, sem coleta).
+      O GTM só começa a disparar tags APÓS consentimento explícito do
+      usuário via CookieBanner → useCookieConsent.js, que chama
+      window.initGTM() injetando o script real do GTM.
 
-      Não adicione scripts de analytics neste arquivo.
+      Fluxo:
+        1. dataLayer = []          → criado aqui (sem coleta)
+        2. gtm.consent_default     → enviado aqui (negado por padrão)
+        3. window.initGTM()        → chamado em useCookieConsent após aceite
+        4. gtm.consent_update      → enviado em useCookieConsent após aceite
+
+      Não adicione o snippet completo do GTM neste arquivo.
       ════════════════════════════════════════════════════════════════════
     -->
+
+    <!--
+      GTM — Etapa 1: inicializa o dataLayer vazio ANTES do GTM carregar.
+      Isso é necessário para que o GTM Consent Mode v2 funcione corretamente.
+      Nenhum dado é coletado aqui — apenas a estrutura é preparada.
+    -->
+    <script>
+      // Inicializa dataLayer antes do GTM (requisito do Consent Mode v2)
+      window.dataLayer = window.dataLayer || [];
+
+      // Consent Mode v2 — todos os tipos negados por padrão (LGPD compliance)
+      // O GTM respeita esses valores e não dispara tags de analytics/marketing
+      // até que o usuário aceite via CookieBanner.
+      window.dataLayer.push({
+        event: 'gtm.consent_default',
+        'consent': {
+          'analytics_storage':    'denied',
+          'ad_storage':           'denied',
+          'ad_user_data':         'denied',
+          'ad_personalization':   'denied',
+          'functionality_storage':'denied',
+          'personalization_storage': 'denied',
+          'security_storage':     'granted'  // sempre permitido (LGPD Art. 11)
+        }
+      });
+
+      // Função chamada por useCookieConsent.js APÓS aceite do usuário.
+      // Injeta o script GTM dinamicamente — nunca carrega antes do consentimento.
+      window.initGTM = function() {
+        if (window.__gtmLoaded) return; // idempotente — evita injeção dupla
+        window.__gtmLoaded = true;
+
+        // Atualiza o Consent Mode v2 para "granted" após aceite
+        window.dataLayer.push({
+          event: 'gtm.consent_update',
+          'consent': {
+            'analytics_storage':     'granted',
+            'ad_storage':            'granted',
+            'ad_user_data':          'granted',
+            'ad_personalization':    'granted',
+            'functionality_storage': 'granted',
+            'personalization_storage': 'granted',
+            'security_storage':      'granted'
+          }
+        });
+
+        // Injeta o script GTM dinamicamente
+        (function(w,d,s,l,i){
+          w[l]=w[l]||[];
+          w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
+          var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),
+              dl=l!='dataLayer'?'&l='+l:'';
+          j.async=true;
+          j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+          j.onerror=function(){
+            // Falha silenciosa — não bloqueia a experiência do usuário
+            console.warn('[GTM] Falha ao carregar o script.');
+          };
+          f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-T42DCDTH');
+      };
+
+      // Função chamada por useCookieConsent.js quando o usuário RECUSA cookies.
+      // Garante que o GTM nunca seja inicializado nessa sessão.
+      window.denyGTM = function() {
+        window.__gtmLoaded = false;
+        window.dataLayer.push({
+          event: 'gtm.consent_denied'
+        });
+      };
+    </script>
   </head>
   <body>
+    <!--
+      GTM noscript — fallback para navegadores sem JavaScript.
+      Colocado imediatamente após <body> conforme documentação do Google.
+      O iframe é inofensivo sem JS e não coleta dados analíticos.
+      height/width=0 + display:none garante que seja invisível.
+    -->
+    <noscript>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-T42DCDTH"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"
+        title="Google Tag Manager"
+      ></iframe>
+    </noscript>
+
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

@@ -1,13 +1,13 @@
 /**
  * PrivacyPage.jsx — Política de Privacidade
  *
- * Exigência LGPD (Relatório GRC / Denatech):
- * - Informa quais dados são coletados e com qual finalidade.
- * - Identifica o responsável (DPO).
- * - Lista os direitos do titular.
- * - Deve estar acessível a um clique de distância (link no rodapé).
+ * Atualizada para incluir:
+ * - Google Tag Manager (GTM) como ferramenta de rastreamento
+ * - Formulário de contato via backend SMTP (sem mailto:)
+ * - Consent Mode v2 (negado por padrão, ativado após aceite)
  *
- * Base legal: Lei Geral de Proteção de Dados (LGPD — Lei 13.709/2018)
+ * Base legal: LGPD — Lei 13.709/2018
+ * Última revisão: maio de 2026
  */
 
 const PrivacyPage = ({ onBack }) => {
@@ -21,7 +21,10 @@ const PrivacyPage = ({ onBack }) => {
       }}>
         {title}
       </h2>
-      <div style={{ fontFamily: "var(--font-mono)", fontSize: 14, color: "var(--dim)", lineHeight: 1.9 }}>
+      <div style={{
+        fontFamily: "var(--font-mono)", fontSize: 14,
+        color: "var(--dim)", lineHeight: 1.9,
+      }}>
         {children}
       </div>
     </div>
@@ -40,13 +43,15 @@ const PrivacyPage = ({ onBack }) => {
             // legal
           </div>
           <h1 style={{
-            fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(36px,6vw,64px)",
-            letterSpacing: "-.03em", color: "var(--fg)", lineHeight: 1.05, marginBottom: 16,
+            fontFamily: "var(--font-display)", fontWeight: 800,
+            fontSize: "clamp(36px,6vw,64px)",
+            letterSpacing: "-.03em", color: "var(--fg)",
+            lineHeight: 1.05, marginBottom: 16,
           }}>
             Política de Privacidade
           </h1>
           <p style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--dimmer)" }}>
-            Última atualização: abril de 2026 · Base legal: LGPD (Lei 13.709/2018)
+            Última atualização: maio de 2026 · Base legal: LGPD (Lei 13.709/2018)
           </p>
         </div>
 
@@ -68,13 +73,15 @@ const PrivacyPage = ({ onBack }) => {
           <p style={{ marginBottom: 12 }}>
             <strong style={{ color: "var(--fg)" }}>a) Dados de navegação (Cookies e Analytics)</strong><br />
             Informações sobre como você interage com este site: páginas visitadas, tempo de permanência,
-            cliques e comportamento de scroll. Coletados por ferramentas de análise (Hotjar e/ou Google Analytics)
-            <em> somente após seu consentimento explícito</em> via banner de cookies.
+            cliques e comportamento de scroll. Coletados pelas ferramentas listadas na seção 4{" "}
+            <em>somente após seu consentimento explícito</em> via banner de cookies.
           </p>
           <p>
             <strong style={{ color: "var(--fg)" }}>b) Dados de contato (Formulário)</strong><br />
-            Quando você preenche o formulário de contato, coletamos: seu nome, endereço de e-mail e a
-            mensagem enviada. Esses dados são utilizados exclusivamente para responder à sua solicitação.
+            Quando você preenche o formulário de contato, coletamos: nome, endereço de e-mail e a
+            mensagem enviada. Esses dados são transmitidos via conexão segura (HTTPS) para o servidor
+            de e-mail da hospedagem (HostGator/SMTP) e utilizados exclusivamente para responder
+            à sua solicitação. Não são armazenados em bancos de dados externos.
           </p>
         </Section>
 
@@ -82,26 +89,105 @@ const PrivacyPage = ({ onBack }) => {
         <Section title="3. Finalidade do tratamento">
           <p>Utilizamos seus dados para as seguintes finalidades:</p>
           <ul style={{ paddingLeft: 20, marginTop: 12, display: "flex", flexDirection: "column", gap: 8 }}>
-            <li><strong style={{ color: "var(--fg)" }}>Análise de tráfego:</strong> entender quais conteúdos são mais relevantes e melhorar a experiência do site.</li>
-            <li><strong style={{ color: "var(--fg)" }}>Resposta a orçamentos e mensagens:</strong> entrar em contato com quem nos escreveu pelo formulário.</li>
-            <li><strong style={{ color: "var(--fg)" }}>Melhoria contínua:</strong> identificar pontos de atrito na navegação para otimizar o portfólio.</li>
+            <li>
+              <strong style={{ color: "var(--fg)" }}>Análise de tráfego:</strong>{" "}
+              entender quais conteúdos são mais relevantes e melhorar a experiência do site.
+            </li>
+            <li>
+              <strong style={{ color: "var(--fg)" }}>Resposta a mensagens:</strong>{" "}
+              entrar em contato com quem nos escreveu pelo formulário.
+            </li>
+            <li>
+              <strong style={{ color: "var(--fg)" }}>Melhoria contínua:</strong>{" "}
+              identificar pontos de atrito na navegação para otimizar o portfólio.
+            </li>
           </ul>
           <p style={{ marginTop: 16 }}>
-            Seus dados <strong style={{ color: "var(--fg)" }}>não são vendidos, alugados ou compartilhados</strong> com terceiros
-            para fins comerciais ou publicitários.
+            Seus dados{" "}
+            <strong style={{ color: "var(--fg)" }}>não são vendidos, alugados ou compartilhados</strong>{" "}
+            com terceiros para fins comerciais ou publicitários.
           </p>
         </Section>
 
         {/* 4. Cookies */}
         <Section title="4. Uso de cookies e rastreadores">
-          <p style={{ marginBottom: 12 }}>
-            Este site pode utilizar cookies de análise e rastreamento de comportamento. Nenhum rastreador
-            é ativado antes do seu consentimento explícito. Você pode aceitar, recusar ou personalizar
-            suas preferências a qualquer momento pelo banner de cookies exibido na primeira visita.
+          <p style={{ marginBottom: 16 }}>
+            Nenhum rastreador é ativado antes do seu consentimento explícito. Você pode aceitar,
+            recusar ou rever suas preferências a qualquer momento pelo banner de cookies exibido
+            na primeira visita ou pelo botão "🍪 Cookies" no rodapé.
           </p>
-          <p>
-            <strong style={{ color: "var(--fg)" }}>Ferramentas utilizadas:</strong> Hotjar (análise de comportamento),
-            Google Analytics GA4 (métricas de tráfego). Ambas operam sob suas respectivas políticas de privacidade.
+
+          <p style={{ marginBottom: 12 }}>
+            <strong style={{ color: "var(--fg)" }}>Ferramentas utilizadas:</strong>
+          </p>
+
+          {/* Tabela de ferramentas */}
+          <div style={{
+            border: "1px solid var(--bd)", borderRadius: 12, overflow: "hidden", marginBottom: 16,
+          }}>
+            {[
+              {
+                name: "Google Tag Manager (GTM)",
+                id:   "GTM-T42DCDTH",
+                desc: "Gerenciador de tags que controla o carregamento de todos os scripts de rastreamento. Implementado com Consent Mode v2 — nenhuma tag dispara antes do consentimento.",
+                link: "https://policies.google.com/privacy",
+              },
+              {
+                name: "Hotjar",
+                id:   "ID: 6702110",
+                desc: "Análise de comportamento: heatmaps, gravações de sessão e funis de conversão. Carregado dinamicamente via GTM após consentimento.",
+                link: "https://www.hotjar.com/legal/policies/privacy/",
+              },
+              {
+                name: "Google Analytics GA4",
+                id:   "Medido via GTM",
+                desc: "Métricas de tráfego: sessões, origem de visitantes, páginas mais acessadas. Ativado com IP anonimizado (anonymize_ip: true).",
+                link: "https://policies.google.com/privacy",
+              },
+            ].map((tool, i, arr) => (
+              <div
+                key={tool.name}
+                style={{
+                  padding: "16px 20px",
+                  borderBottom: i < arr.length - 1 ? "1px solid var(--bd)" : "none",
+                  background: i % 2 === 0 ? "rgba(237,233,227,.02)" : "transparent",
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6, flexWrap: "wrap" }}>
+                  <span style={{
+                    width: 6, height: 6, borderRadius: "50%",
+                    background: "var(--ac)", flexShrink: 0,
+                  }} />
+                  <strong style={{ color: "var(--fg)", fontSize: 13 }}>{tool.name}</strong>
+                  <span style={{
+                    fontFamily: "var(--font-mono)", fontSize: 10,
+                    color: "var(--ac)", letterSpacing: ".1em",
+                    background: "rgba(200,255,0,.08)",
+                    border: "1px solid rgba(200,255,0,.2)",
+                    borderRadius: 100, padding: "2px 8px",
+                  }}>
+                    {tool.id}
+                  </span>
+                </div>
+                <p style={{ fontSize: 13, marginBottom: 6, paddingLeft: 16 }}>{tool.desc}</p>
+                <a
+                  href={tool.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ fontSize: 12, color: "var(--ac)", paddingLeft: 16 }}
+                >
+                  Política de privacidade da ferramenta →
+                </a>
+              </div>
+            ))}
+          </div>
+
+          <p style={{ fontSize: 13 }}>
+            O GTM opera com{" "}
+            <strong style={{ color: "var(--fg)" }}>Consent Mode v2</strong>: ao carregar a página,
+            todos os tipos de consentimento ficam com valor <code style={{ color: "var(--ac)" }}>"denied"</code>.
+            Somente após o clique em "Aceitar cookies" os valores são atualizados para{" "}
+            <code style={{ color: "var(--ac)" }}>"granted"</code> e as tags de analytics são disparadas.
           </p>
         </Section>
 
@@ -129,10 +215,11 @@ const PrivacyPage = ({ onBack }) => {
         {/* 6. Retenção */}
         <Section title="6. Retenção dos dados">
           <p>
-            Dados de formulário de contato são mantidos apenas pelo tempo necessário para responder à
-            solicitação e por até 6 meses após o encerramento da troca de mensagens. Dados de analytics
-            seguem os prazos definidos pelas plataformas (Hotjar: 365 dias; Google Analytics: 14 meses),
-            conforme configuração padrão. Você pode solicitar a exclusão antecipada a qualquer momento.
+            Dados de formulário de contato são mantidos apenas pelo tempo necessário para responder
+            à solicitação e por até 6 meses após o encerramento da troca de mensagens.
+            Dados de analytics seguem os prazos definidos pelas plataformas:
+            Hotjar (365 dias) e Google Analytics (14 meses), conforme configuração padrão.
+            Você pode solicitar a exclusão antecipada a qualquer momento.
           </p>
         </Section>
 
@@ -140,9 +227,9 @@ const PrivacyPage = ({ onBack }) => {
         <Section title="7. Segurança">
           <p>
             Adotamos medidas técnicas para proteger os dados coletados: HTTPS em todo o site,
-            cabeçalhos de segurança HTTP (CSP, X-Frame-Options, HSTS), política DMARC no e-mail
-            e variáveis de ambiente para dados sensíveis no código. Nenhum sistema é 100% seguro,
-            mas adotamos as melhores práticas disponíveis.
+            cabeçalhos de segurança HTTP (CSP, X-Frame-Options, HSTS), política DMARC no e-mail,
+            envio de formulário via SMTP autenticado (sem exposição de credenciais no front-end),
+            e variáveis de ambiente para dados sensíveis no código-fonte.
           </p>
         </Section>
 
@@ -158,14 +245,16 @@ const PrivacyPage = ({ onBack }) => {
           </p>
         </Section>
 
-        {/* Back */}
+        {/* Voltar */}
         <div style={{ paddingTop: 40, borderTop: "1px solid var(--bd)" }}>
           <button
             onClick={onBack}
             style={{
-              background: "none", border: "1px solid rgba(237,233,227,.2)",
-              borderRadius: 100, padding: "13px 28px", cursor: "pointer",
-              color: "var(--fg)", fontFamily: "var(--font-mono)", fontSize: 12,
+              background: "none",
+              border: "1px solid rgba(237,233,227,.2)",
+              borderRadius: 100, padding: "13px 28px",
+              cursor: "pointer", color: "var(--fg)",
+              fontFamily: "var(--font-mono)", fontSize: 12,
               letterSpacing: ".06em",
             }}
           >
