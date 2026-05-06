@@ -4,7 +4,7 @@
  * Root component. Manages global state (cursor, nav, menu, active case)
  * and renders Nav + the appropriate page (PortfolioPage, CasePage ou PrivacyPage).
  *
- * LGPD: o CookieBanner é exibido na primeira visita. Hotjar e GA4 só são
+ * LGPD: o CookieBanner é exibido na primeira visita. Hotjar, GA4 e GTM só são
  * inicializados após consentimento explícito via useCookieConsent.
  */
 
@@ -30,6 +30,7 @@ export default function App() {
   const [showPrivacy, setShowPrivacy] = useState(false);
 
   /* ── Cookie consent (LGPD) ──────────────────────────────────────── */
+  // consent: null = não decidido | true = aceito | false = recusado
   const { consent, acceptCookies, declineCookies, resetConsent } = useCookieConsent();
   const showCookieBanner = consent === null;
 
@@ -67,6 +68,19 @@ export default function App() {
       ? `${project.title} — Fernando Pinhel`
       : "Fernando Pinhel | Product Designer";
   }, [currentCase, showPrivacy]);
+
+  /* ── Dentro do App.jsx ── */
+useEffect(() => {
+  // Só inicializa ferramentas de tracking se o consentimento for TRUE
+  if (consent === true) {
+    // Exemplo: Inicialização do Hotjar
+    if (typeof window.hj === 'function') {
+      window.hj('consent', true); 
+    }
+    // Aqui você pode inserir os scripts de GA4 ou GTM dinamicamente
+    console.log("Tracking ativado (LGPD Aceita)");
+  }
+}, [consent]);
 
   /* ── Scroll to top when view changes ───────────────────────────── */
   useEffect(() => {
@@ -107,6 +121,14 @@ export default function App() {
   const onCaseBack  = isInSubpage
     ? (showPrivacy ? handlePrivacyBack : handleCaseBack)
     : null;
+
+  /* ── Label do botão de cookies no footer ────────────────────────── */
+  // consent é boolean (true/false) ou null — NÃO é string
+  const cookieLabel = consent === true
+    ? "🍪 Cookies aceitos"
+    : consent === false
+    ? "🍪 Cookies recusados"
+    : "🍪 Cookies";
 
   return (
     <div
@@ -233,11 +255,7 @@ export default function App() {
               fontFamily: "var(--font-mono)", fontSize: 11, letterSpacing: ".06em",
             }}
           >
-            {consent === "accepted"
-              ? "🍪 Cookies aceitos"
-              : consent === "declined"
-              ? "🍪 Cookies recusados"
-              : "🍪 Cookies"}
+            {cookieLabel}
           </button>
 
           <span aria-hidden="true">·</span>

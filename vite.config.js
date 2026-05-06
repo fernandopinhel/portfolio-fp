@@ -2,7 +2,6 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { fileURLToPath, URL } from "node:url";
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
 
@@ -28,6 +27,17 @@ export default defineConfig({
 
   server: {
     port: 5173,
-    open: false,
+    open: true,
+
+    // Proxy /api/* → backend Node.js em desenvolvimento.
+    // IMPORTANTE: secure: false — o backend local usa HTTP (sem certificado).
+    // Em produção, o Apache faz o proxy via ProxyPass no .htaccess.
+    proxy: {
+      "/api": {
+        target:       "http://localhost:3001",
+        changeOrigin: true,
+        secure:       false,   // ← false obrigatório para HTTP local
+      },
+    },
   },
 });
