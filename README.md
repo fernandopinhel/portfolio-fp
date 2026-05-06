@@ -29,8 +29,6 @@ Com mais de **10 anos de estrada**, atuo na intersecção entre a estratégia de
 
 A organização deste projeto reflete o cuidado com a manutenção e escalabilidade de produtos profissionais.
 
-![Estrutura do Projeto](https://r.jina.ai/i/6f8902be34be495f87b32230eb49a888)
-
 * **`@api/`**: Servidor Node.js para processamento de contatos e automação SMTP.
 * **`@src/hooks/`**: Lógicas de estado, hooks customizados e o motor inteligente de consentimento de privacidade.
 * **`@src/pages/`**: Storytelling de cases de alta complexidade, documentando do wireframe ao código final.
