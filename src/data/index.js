@@ -222,7 +222,7 @@ export const PROJECTS = [
     thumbImg:
       "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=800&q=80&auto=format",
     figmaLink: null,
-    externalLink: "https://www.aquiemprestimo.com.br/",
+    // externalLink: "https://www.aquiemprestimo.com.br/",
     year: "2019",
     role: "UX/UI Designer",
     client: "Aqui Empréstimo",

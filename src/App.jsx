@@ -236,6 +236,8 @@ useEffect(() => {
         }}>
           {/* LGPD: Política de Privacidade a um clique (exigência GRC) */}
           <a
+            className="hj-footer-privacy"
+            data-gtm="footer-privacy"
             href="/politica-de-privacidade"
             onClick={handlePrivacyOpen}
             style={{ color: "var(--dimmer)", textDecoration: "none" }}
@@ -248,6 +250,8 @@ useEffect(() => {
           {/* LGPD: permite rever/alterar decisão de cookies a qualquer momento */}
           <button
             onClick={resetConsent}
+            className="hj-footer-cookies"
+            data-gtm="footer-cookies"
             title="Rever preferências de cookies"
             style={{
               background: "none", border: "none", padding: 0,
@@ -267,6 +271,7 @@ useEffect(() => {
             target="_blank"
             rel="noopener noreferrer"
             className="hj-footer-github"
+            data-gtm="footer-github"
             style={{ color: "var(--dimmer)", textDecoration: "none" }}
           >
             github.com/fernandopinhel

@@ -106,6 +106,7 @@ export const VideoEmbed = ({ src, title = "Case video", accent = "var(--ac)" }) 
         <iframe
           title={title}
           src={`https://www.youtube.com/embed/${src}?rel=0&modestbranding=1`}
+          data-gtm={dataGtm}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
           style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: "none" }}
@@ -116,8 +117,8 @@ export const VideoEmbed = ({ src, title = "Case video", accent = "var(--ac)" }) 
 
   if (isMp4) {
     return (
-      <video controls playsInline style={{ width: "100%", borderRadius: 12, border: `1px solid ${accent}22` }}>
-        <source src={src} type="video/mp4" />
+      <video controls playsInline style={{ width: "100%", borderRadius: 12, border: `1px solid ${accent}22` }} >
+        <source src={src} type="video/mp4" data-gtm="case-video"/>
         Seu navegador não suporta vídeo HTML5.
       </video>
     );
@@ -347,6 +348,8 @@ export const ContactForm = ({ onPrivacyOpen }) => {
           <button
             type="button"
             onClick={onPrivacyOpen}
+            className="link-contact-privacy"
+            data-gtm="link-contact-privacy"
             style={{
               background: "none", border: "none", padding: 0,
               color: "var(--ac)", fontFamily: "var(--font-mono)",
@@ -382,6 +385,7 @@ export const ContactForm = ({ onPrivacyOpen }) => {
         onClick={handleSubmit}
         disabled={status === "sending"}
         className="hj-contact-submit"
+        data-gtm="contact-submit"
         style={{
           background: status === "sending" ? "rgba(200,255,0,.5)" : "var(--ac)",
           color: "#070707",

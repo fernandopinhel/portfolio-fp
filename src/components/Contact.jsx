@@ -44,22 +44,22 @@ export default function BasicForm() {
     <form onSubmit={(e) => onSubmit(e)}>
     
       <div className="formcarry-block">
-        <label htmlFor="name">Full Name</label>
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} id="name" placeholder="Your first and last name" />
+        <label htmlFor="name">Nome completo</label>
+        <input type="text" value={name} onChange={(e) => setName(e.target.value)} id="name" placeholder="Nome completo" />
       </div>
       
       <div className="formcarry-block">
-        <label htmlFor="email">Your Email Address</label>
+        <label htmlFor="email">Seu e-mail</label>
         <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} id="email" placeholder="john@doe.com" />
       </div>
       
       <div className="formcarry-block">
-        <label htmlFor="message">Your message</label>
-        <textarea value={message} onChange={(e) => setMessage(e.target.value)} id="message" placeholder="Enter your message..."></textarea>
+        <label htmlFor="message">Sua mensagem</label>
+        <textarea value={message} onChange={(e) => setMessage(e.target.value)} id="message" placeholder="Escreva sua mensagem..."></textarea>
       </div>
       
       <div className="formcarry-block">  
-        <button type="submit">Send</button>
+        <button type="submit">Enviar</button>
       </div>
     </form>
   )

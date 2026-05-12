@@ -61,6 +61,7 @@ const PortfolioPage = ({
         id="sobre"
         aria-label="Apresentação"
         className="hj-hero-section"
+        data-gtm="hj-hero-section"
         style={{ ...W, paddingTop: isMobile ? 120 : 160, paddingBottom: isMobile ? 60 : 100 }}
       >
         {/* Status badge */}
@@ -91,12 +92,13 @@ const PortfolioPage = ({
 
         {/* CTAs */}
         <div className="fu d4" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-          <BtnPrimary onClick={() => scrollTo("Projetos")} className="hj-cta-hero">
+          <BtnPrimary onClick={() => scrollTo("Projetos")} className="hj-cta-projetos-hero" data-gtm="cta-projetos-hero">
             Ver projetos →
           </BtnPrimary>
           <BtnOutline
             href="https://www.figma.com/proto/V04XxK6UcOn5Y6gRFQD92J/Storytelling-Fernando-Pinhel?node-id=4-21&viewport=345%2C279%2C0.28&t=4lwJNLpv01zx1t7H-1&scaling=contain&content-scaling=fixed&starting-point-node-id=4%3A21&page-id=4%3A3"
             className="hj-cta-storytelling"
+            data-gtm="cta-storytelling-hero"
             onMouseEnter={() => setHovLink(true)}
             onMouseLeave={() => setHovLink(false)}
           >
@@ -124,7 +126,9 @@ const PortfolioPage = ({
 
       {/* ═══ ABOUT ══════════════════════════════════════════════════ */}
       <section
-        id="sobre-detalhes"
+        id="about-details"
+        className="hj-about-details-section"
+        data-gtm="about-details"
         style={{ ...W, paddingTop: isMobile ? 60 : 100, paddingBottom: isMobile ? 60 : 100 }}
       >
         <div className="about-grid" style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 80, alignItems: "start" }}>
@@ -166,6 +170,7 @@ const PortfolioPage = ({
       <section
         id="projetos"
         className="hj-projects-section"
+        data-gtm="projects-section"
         style={{ ...W, paddingTop: isMobile ? 60 : 100, paddingBottom: isMobile ? 60 : 100 }}
       >
         <SectionTitle sub="// projetos selecionados">Cases</SectionTitle>
@@ -191,6 +196,7 @@ const PortfolioPage = ({
       <section
         id="artigos"
         className="hj-articles-section"
+        data-gtm="articles-section"
         style={{ ...W, paddingTop: isMobile ? 60 : 100, paddingBottom: isMobile ? 60 : 100, borderTop: "1px solid var(--bd)" }}
       >
         <SectionTitle sub="// escrita">Artigos</SectionTitle>
@@ -202,6 +208,7 @@ const PortfolioPage = ({
               target="_blank"
               rel="noopener noreferrer"
               className="ac-row hj-article-link"
+              data-gtm={`article-link-${a.id}`}
               onMouseEnter={() => setHovLink(true)}
               onMouseLeave={() => setHovLink(false)}
             >
@@ -232,6 +239,7 @@ const PortfolioPage = ({
       <section
         id="contato"
         className="hj-contact-section"
+        data-gtm="contact-section"
         style={{ ...W, paddingTop: isMobile ? 60 : 100, paddingBottom: isMobile ? 60 : 100, borderTop: "1px solid var(--bd)" }}
       >
         <h2
@@ -259,6 +267,7 @@ const PortfolioPage = ({
               <a
                 href="mailto:contato@fernandopinhel.com.br"
                 className="hj-contact-email"
+                data-gtm="contact-email"
                 style={{ display: "flex", alignItems: "center", gap: 8, color: "var(--fg)", textDecoration: "none", fontFamily: "var(--font-mono)", fontSize: 13, transition: "color .2s" }}
                 onMouseEnter={e => { e.currentTarget.style.color = "var(--ac)"; setHovLink(true); }}
                 onMouseLeave={e => { e.currentTarget.style.color = "var(--fg)"; setHovLink(false); }}
@@ -271,6 +280,7 @@ const PortfolioPage = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hj-contact-whatsapp"
+                data-gtm="contact-whatsapp"
                 style={{ display: "flex", alignItems: "center", gap: 8, color: "var(--fg)", textDecoration: "none", fontFamily: "var(--font-mono)", fontSize: 13, transition: "color .2s" }}
                 onMouseEnter={e => { e.currentTarget.style.color = "var(--ac)"; setHovLink(true); }}
                 onMouseLeave={e => { e.currentTarget.style.color = "var(--fg)"; setHovLink(false); }}
@@ -281,7 +291,8 @@ const PortfolioPage = ({
                 href="https://github.com/fernandopinhel"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hj-footer-github"
+                className="hj-contact-github"
+                data-gtm="contact-github"
                 style={{ display: "flex", alignItems: "center", gap: 8, color: "var(--fg)", textDecoration: "none", fontFamily: "var(--font-mono)", fontSize: 13, transition: "color .2s" }}
                 onMouseEnter={e => { e.currentTarget.style.color = "var(--ac)"; setHovLink(true); }}
                 onMouseLeave={e => { e.currentTarget.style.color = "var(--fg)"; setHovLink(false); }}
@@ -301,6 +312,8 @@ const PortfolioPage = ({
                   key={lk.l}
                   href={lk.h}
                   target="_blank"
+                  className="hj-links-contact"
+                  data-gtm={`contact-links-${lk.l.toLowerCase()}`}
                   rel="noopener noreferrer"
                   style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--dim)", textDecoration: "none", display: "flex", alignItems: "center", gap: 6, transition: "color .2s", letterSpacing: ".05em" }}
                   onMouseEnter={e => { e.currentTarget.style.color = "var(--ac)"; setHovLink(true); }}

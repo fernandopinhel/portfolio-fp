@@ -13,8 +13,8 @@
   Header set Referrer-Policy "strict-origin-when-cross-origin"
   Header set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
 
-  # Content Security Policy (CSP) - Versão Corrigida sem Markdown
-  Header set Content-Security-Policy "default-src 'self'; connect-src 'self' https://formcarry.com https://*.hotjar.com https://*.hotjar.io https://*.google-analytics.com https://*.analytics.google.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.hotjar.com https://static.hotjar.com https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.hotjar.com https://*.google-analytics.com https://images.unsplash.com https://plus.unsplash.com; frame-src 'self' https://www.youtube.com https://www.figma.com;"
+  # Content Security Policy (CSP) - Versão Corrigida
+  Header set Content-Security-Policy "default-src 'self'; connect-src 'self' https://formcarry.com https://*.hotjar.com https://*.hotjar.io wss://*.hotjar.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://region1.google-analytics.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.hotjar.com https://static.hotjar.com https://*.google-analytics.com https://www.googletagmanager.com https://ssl.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.hotjar.com https://*.google-analytics.com https://www.googletagmanager.com https://ssl.gstatic.com https://images.unsplash.com https://plus.unsplash.com; frame-src 'self' https://www.googletagmanager.com https://www.youtube.com https://www.figma.com;"
 </IfModule>
 
 # Redirecionar HTTP → HTTPS
