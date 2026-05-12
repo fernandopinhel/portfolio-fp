@@ -21,6 +21,7 @@ export const MobileMenu = ({ open, onClose, activeNav, scrollTo }) => (
       onClick={onClose}
       aria-label="Fechar menu"
       className="hj-mobile-menu-close"
+      data-gtm="mobile-menu-close"
       style={{
         position: "absolute", top: 24, right: 24,
         background: "none", border: "none",
@@ -33,6 +34,7 @@ export const MobileMenu = ({ open, onClose, activeNav, scrollTo }) => (
         key={l}
         onClick={() => { scrollTo(l); onClose(); }}
         className="hj-nav-link"
+        data-gtm={`mobile-menu-${l.toLowerCase()}`}
         style={{
           background: "none", border: "none", cursor: "pointer",
           fontFamily: "var(--font-display)", fontWeight: 700,
@@ -47,10 +49,10 @@ export const MobileMenu = ({ open, onClose, activeNav, scrollTo }) => (
 
     <div style={{ display: "flex", gap: 12, marginTop: 20, flexWrap: "wrap", justifyContent: "center" }}>
       {/* SECURITY: rel="noopener noreferrer" — Reverse Tabnapping prevention (OWASP) */}
-      <BtnPrimary href="https://www.linkedin.com/in/fernando-pinhel-designer/" className="hj-nav-linkedin">
+      <BtnPrimary href="https://www.linkedin.com/in/fernando-pinhel-designer/" className="hj-nav-linkedin" data-gtm="mobile-social-linkedin">
         LinkedIn ↗
       </BtnPrimary>
-      <BtnOutline href="https://github.com/fernandopinhel" className="hj-nav-github">
+      <BtnOutline href="https://github.com/fernandopinhel" className="hj-nav-github" data-gtm="mobile-social-github">
         GitHub ↗
       </BtnOutline>
     </div>
@@ -80,9 +82,10 @@ export const Nav = ({
     }}>
       {/* Logo */}
       <button
-        onClick={onCaseBack || (() => scrollTo("Sobre"))}
+        onClick={onCaseBack || (() => scrollTo("sobre"))}
         aria-label="Ir ao topo"
         className="hj-nav-logo"
+        data-gtm="nav-logo"
         style={{ background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 10 }}
         onMouseEnter={() => setHovLink(true)}
         onMouseLeave={() => setHovLink(false)}
@@ -106,6 +109,7 @@ export const Nav = ({
               onMouseEnter={() => setHovLink(true)}
               onMouseLeave={() => setHovLink(false)}
               className="hj-nav-link"
+              data-gtm={`desktop-menu-${l.toLowerCase()}`}
               style={{
                 background: "none", border: "none", cursor: "none",
                 fontFamily: "var(--font-mono)", fontSize: 13,
@@ -127,6 +131,7 @@ export const Nav = ({
           onMouseEnter={() => setHovLink(true)}
           onMouseLeave={() => setHovLink(false)}
           className="hj-case-back"
+          data-gtm="case-back-portfolio"
           style={{
             background: "none", border: "none", cursor: "none",
             fontFamily: "var(--font-mono)", fontSize: 12,
@@ -145,6 +150,7 @@ export const Nav = ({
           aria-label="Abrir menu"
           aria-expanded={menuOpen}
           className="hj-mobile-menu-open"
+          data-gtm="mobile-menu-open"
           style={{
             background: "none", border: "1px solid rgba(237,233,227,.18)",
             borderRadius: 8, padding: "8px 12px", cursor: "pointer",
@@ -160,6 +166,7 @@ export const Nav = ({
               target="_blank"
               rel="noopener noreferrer"
               className="hj-nav-github"
+              data-gtm="desktop-social-github"
               style={{
                 display: "flex", alignItems: "center", gap: 6,
                 color: "var(--dim)", textDecoration: "none",
@@ -174,6 +181,7 @@ export const Nav = ({
             <BtnOutline
               href="https://www.linkedin.com/in/fernando-pinhel-designer/"
               style={{ padding: "9px 18px", fontSize: 11 }}
+              data-gtm="desktop-social-linkedin"
               className="hj-nav-linkedin"
               onMouseEnter={() => setHovLink(true)}
               onMouseLeave={() => setHovLink(false)}

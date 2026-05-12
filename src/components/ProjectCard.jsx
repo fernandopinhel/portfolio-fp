@@ -19,6 +19,7 @@ const ProjectCard = ({ p, isMobile, onClick }) => {
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
       className="hj-project-card"
+      data-gtm={p.id}
       data-project-id={p.id}
       style={{
         gridColumn: p.size === "large" && !isMobile ? "span 2" : "span 1",
@@ -82,6 +83,7 @@ const ProjectCard = ({ p, isMobile, onClick }) => {
         <div style={{ display: "flex", alignItems: "center", gap: 16, marginTop: 24 }}>
           <span
             className="hj-case-open"
+            data-gtm="case-open"
             style={{
               fontFamily: "var(--font-mono)", fontSize: 12,
               color: hov ? p.accent || "var(--ac)" : "var(--dim)",
@@ -92,7 +94,7 @@ const ProjectCard = ({ p, isMobile, onClick }) => {
             Ver case →
           </span>
           {p.figmaLink && (
-            <span style={{
+            <span data-gtm="case-link-figma" className="case-link-figma" style={{
               fontFamily: "var(--font-mono)", fontSize: 11,
               color: "var(--dimmer)", letterSpacing: ".06em",
             }}>
@@ -100,7 +102,7 @@ const ProjectCard = ({ p, isMobile, onClick }) => {
             </span>
           )}
           {p.externalLink && (
-            <span style={{
+            <span data-gtm="case-link-site" className="case-link-site" style={{
               fontFamily: "var(--font-mono)", fontSize: 11,
               color: "var(--dimmer)", letterSpacing: ".06em",
             }}>

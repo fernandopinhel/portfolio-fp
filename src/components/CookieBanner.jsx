@@ -102,6 +102,8 @@ const CookieBanner = ({ onAccept, onDecline, onPrivacyOpen }) => {
           Nenhum dado é coletado antes do seu consentimento.{" "}
           <button
             onClick={onPrivacyOpen}
+            className="hj-cookie-policy"
+            data-gtm="cookie-policy"
             style={{
               background: "none", border: "none", padding: 0,
               color: "var(--ac)", fontFamily: "var(--font-mono)",
@@ -144,6 +146,8 @@ const CookieBanner = ({ onAccept, onDecline, onPrivacyOpen }) => {
           <button
             ref={acceptRef}
             onClick={onAccept}
+            className="hj-cookie-accept"
+            data-gtm="cookie-accept"
             style={{
               background: "var(--ac)", color: "#070707",
               border: "none", borderRadius: 100,
@@ -162,6 +166,8 @@ const CookieBanner = ({ onAccept, onDecline, onPrivacyOpen }) => {
 
           <button
             onClick={onDecline}
+            className="hj-cookie-decline"
+            data-gtm="cookie-decline"
             style={{
               background: "transparent", color: "var(--fg)",
               border: "1px solid rgba(237,233,227,.18)",

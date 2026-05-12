@@ -17,6 +17,7 @@ const CasePage = ({ project: p, onBack, setHovLink, isMobile }) => {
     <main
       id="case-page"
       className="hj-case-page"
+      data-gtm={`case-page-${p.id}`}
       data-case-id={p.id}
       style={{ paddingTop: 80, position: "relative", zIndex: 2 }}
     >
@@ -160,14 +161,14 @@ const CasePage = ({ project: p, onBack, setHovLink, isMobile }) => {
 
       {/* ── Video ────────────────────────────────────────────────── */}
       {p.video && (
-        <section style={{ ...W, marginBottom: isMobile ? 40 : 64 }}>
+        <section data-gtm={`case-video-${p.id}`} style={{ ...W, marginBottom: isMobile ? 40 : 64 }}>
           <h2 style={{
             fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 22,
             color: "var(--fg)", marginBottom: 24, letterSpacing: "-.02em",
           }}>
             Vídeo do Projeto
           </h2>
-          <VideoEmbed src={p.video} title={`${p.title} — vídeo`} accent={p.accent} />
+          <VideoEmbed src={p.video} title={`${p.title} — vídeo`} accent={p.accent}/>
         </section>
       )}
 
@@ -271,7 +272,7 @@ const CasePage = ({ project: p, onBack, setHovLink, isMobile }) => {
           paddingTop: 40, borderTop: "1px solid var(--bd)",
         }}>
           {p.figmaLink && (
-            <BtnPrimary href={p.figmaLink} className="hj-case-figma">
+            <BtnPrimary href={p.figmaLink} className="hj-case-figma" data-gtm="hj-case-figma">
               Ver no Figma ↗
             </BtnPrimary>
           )}
