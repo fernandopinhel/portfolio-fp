@@ -118,7 +118,7 @@ const PortfolioPage = ({
           ].map(s => (
             <div key={s.l}>
               <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 36, color: "var(--fg)", letterSpacing: "-.03em" }}>{s.v}</div>
-              <div style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--dimmer)", letterSpacing: ".1em", textTransform: "uppercase", marginTop: 4 }}>{s.l}</div>
+              <div style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--dim)", letterSpacing: ".1em", textTransform: "uppercase", marginTop: 4 }}>{s.l}</div>
             </div>
           ))}
         </div>
