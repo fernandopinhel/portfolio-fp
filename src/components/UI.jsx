@@ -175,10 +175,15 @@ export const ContactForm = ({ onPrivacyOpen }) => {
       body: JSON.stringify(fields),
     };
 
-    // Tenta a API própria primeiro; se falhar, usa Formcarry como fallback
+    // Tenta a API própria primeiro; se falhar, usa Formcarry como fallback.
+    // res.json() lança SyntaxError se o Apache devolver o HTML do SPA fallback
+    // (status 200 mas corpo HTML) — isso garante que o fallback seja acionado
+    // quando o servidor Node não está rodando em produção.
     const tryApi = async () => {
       const res = await fetch("/api/contact", payload);
       if (!res.ok) throw new Error("api-error");
+      const data = await res.json();
+      if (!data.ok) throw new Error(data.message || "api-error");
       return true;
     };
 
