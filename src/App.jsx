@@ -270,12 +270,14 @@ useEffect(() => {
           borderTop: "1px solid var(--bd)",
           padding: isMobile ? "20px" : "24px 48px",
           display: "flex",
-          justifyContent: "space-between",
+          flexDirection: isMobile ? "column" : "row",
+          justifyContent: isMobile ? "center" : "space-between",
           alignItems: "center",
+          textAlign: isMobile ? "center" : undefined,
           position: "relative",
           zIndex: 2,
           flexWrap: "wrap",
-          gap: 8,
+          gap: isMobile ? 12 : 8,
         }}
       >
         <span style={{
@@ -289,6 +291,7 @@ useEffect(() => {
           fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--dim)",
           letterSpacing: ".06em", display: "flex", gap: 16,
           alignItems: "center", flexWrap: "wrap",
+          justifyContent: isMobile ? "center" : undefined,
         }}>
           {/* LGPD: Política de Privacidade a um clique (exigência GRC) */}
           <a
