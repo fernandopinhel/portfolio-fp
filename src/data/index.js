@@ -119,7 +119,7 @@ export const PROJECTS = [
         content:
           "Mapeamos todos os módulos do sistema: painel geral, controle de presença por turma, gestão de refeitório, relatórios de aceitabilidade alimentar e configurações de câmeras. O wireframe foi validado em 3 rodadas com gestores antes de avançar para o visual.",
         imgs: [
-          "images/cases/dashboard/img-wireframe.png",
+          "/images/cases/dashboard/img-wireframe.png",
         ],
       },
       {
@@ -127,9 +127,9 @@ export const PROJECTS = [
         content:
           "Criamos um guia de estilo completo com tokens de cor, tipografia, componentes de dados (tabelas, gráficos, cards de presença) e estados interativos. A paleta verde-neon reforça o contexto de monitoramento em tempo real. O protótipo navegável no Figma foi apresentado à secretaria estadual com todos os 12 fluxos documentados.",
         imgs: [
-          "images/cases/dashboard/img-prototipo-01.png",
-          "images/cases/dashboard/img-prototipo-02.png",
-          "images/cases/dashboard/img-prototipo-03.png",
+          "/images/cases/dashboard/img-prototipo-01.png",
+          "/images/cases/dashboard/img-prototipo-02.png",
+          "/images/cases/dashboard/img-prototipo-03.png",
         ],
       },
     ],
@@ -186,7 +186,7 @@ export const PROJECTS = [
         content:
           "Realizamos survey e entrevistas em profundidade. Criamos a persona Artur, 22 anos, analista de sistemas, apaixonado pelo Mengão. Artur quer notícias antes da imprensa, quer sentir que faz parte da comunidade e busca exclusividade — algo que redes sociais genéricas não entregam. O mapa de empatia revelou frustração com conteúdo repetido e falta de interatividade.",
         imgs: [
-          "images/cases/paparazzo-rrn/img-mapa-de-empatia.png",
+          "/images/cases/paparazzo-rrn/img-mapa-de-empatia.png",
         ],
       },
       {
@@ -194,8 +194,8 @@ export const PROJECTS = [
         content:
           "Definimos 5 módulos principais: Feed exclusivo, Ao vivo, Sorteios, Loja e Perfil. O onboarding foi projetado para 3 telas — clean e direto. O protótipo navegável no Figma apresenta a jornada completa com microinterações, sistema de notificações push e integração com pagamento.",
         imgs: [
-          "images/cases/paparazzo-rrn/img-wireframe.png",
-          "images/cases/paparazzo-rrn/img-prototipo.png",
+          "/images/cases/paparazzo-rrn/img-wireframe.png",
+          "/images/cases/paparazzo-rrn/img-prototipo.png",
         ],
       },
     ],
@@ -260,9 +260,9 @@ export const PROJECTS = [
         content:
           "Arquitetura com 6 páginas, priorizando o simulador na dobra inicial. Tipografia grande (mínimo 18px no corpo), contraste AAA, sem pop-ups. O resultado: site claro, humano e que gera confiança desde o primeiro scroll.",
         imgs: [
-          "images/cases/aqui-emprestimo/img-site-map.png",
-          "images/cases/aqui-emprestimo/img-wireframe.png",
-          "images/cases/aqui-emprestimo/img-mockup.png",
+          "/images/cases/aqui-emprestimo/img-site-map.png",
+          "/images/cases/aqui-emprestimo/img-wireframe.png",
+          "/images/cases/aqui-emprestimo/img-mockup.png",
         ],
       },
     ],
@@ -303,7 +303,7 @@ export const PROJECTS = [
     problem:
       "Analistas precisavam de um sistema eficiente para consultar e cadastrar NIPs, garantindo conformidade regulatória e visão estratégica dos dados de saúde.",
     // video: "SEU_YOUTUBE_ID_AQUI",
-    video: "videos/bradesco/ans/navegacao-ans.mp4",
+    video: "/videos/bradesco/ans/navegacao-ans.mp4",
     sections: [
       {
         title: "Contexto: O Designer que Também Codava",
@@ -326,7 +326,7 @@ export const PROJECTS = [
         content:
           "Criei um guia de estilo para este projeto com tokens de cor, tipografia e 60+ componentes documentados para ambientes de alta densidade de dados. O Guia foi adotado em mais produtos internos. A implementação front-end utilizou CSS/SASS modular com BEM.",
         imgs: [
-          "images/cases/ans/img-prototipo.png",
+          "/images/cases/ans/img-prototipo.png",
         ],
       },
     ],
@@ -369,7 +369,7 @@ export const PROJECTS = [
     problem:
       "Como digitalizar e auditar o ciclo de vida completo de aditivos contratuais, eliminando processos manuais e garantindo conformidade regulatória?",
     // video: "SEU_YOUTUBE_ID_AQUI",
-    video: "videos/bradesco/sgta/navegacao-sgta.mp4",
+    video: "/videos/bradesco/sgta/navegacao-sgta.mp4",
     sections: [
       {
         title: "Diagnóstico: Caos Documental",
@@ -392,7 +392,7 @@ export const PROJECTS = [
         content:
           "O sistema foi desenvolvido com o mesmo guia de estilo do projeto ANS, garantindo consistência visual entre os sistemas internos. Implementação front-end em HTML/CSS/SASS com componentes reutilizáveis documentados.",
         imgs: [
-          "images/cases/painel-aditivo/img-prototipo.png",
+          "/images/cases/painel-aditivo/img-prototipo.png",
         ],
       },
     ],
@@ -434,7 +434,7 @@ export const PROJECTS = [
     problem:
       "Como transformar uma jornada burocrática de cotação de seguros em algo fluido, envolvente e com alta taxa de conclusão?",
     // video: "SEU_YOUTUBE_ID_AQUI",
-    video: "videos/generali/navegacao-generali.mp4",
+    video: "/videos/generali/navegacao-generali.mp4",
     sections: [
       {
         title: "O Problema dos Formulários Intermináveis",
@@ -457,7 +457,7 @@ export const PROJECTS = [
         content:
           "O guia de estilo foi documentado e apresentado para toda a empresa. O case foi premiado internamente como inovação — reconhecimento que validou a abordagem centrada no usuário em um setor tradicionalmente conservador.",
         imgs: [
-          "images/cases/generali/img-prototipo.png",
+          "/images/cases/generali/img-prototipo.png",
         ],
       },
     ],
@@ -522,9 +522,9 @@ export const PROJECTS = [
         content:
           "Entre os projetos mais relevantes: portal educacional com área logada e gerenciamento de conteúdo, landing page de lançamento com integração de leads, site institucional para clínica médica com telemedicina, e portais de notícias com CMS customizado. Cada projeto com entrega de código-fonte documentado.",
         imgs: [
-          "images/cases/sites/site-ccjxxiii.png",
-          "images/cases/sites/site-pitila-ramalhoto.png",
-          "images/cases/sites/aictv.png",
+          "/images/cases/sites/site-ccjxxiii.png",
+          "/images/cases/sites/site-pitila-ramalhoto.png",
+          "/images/cases/sites/aictv.png",
         ],
       },
     ],
@@ -586,11 +586,11 @@ export const PROJECTS = [
         content:
           "Clientes em 6 segmentos: Viveka (bem-estar), Caramelada (casa de festas), Pessoal e Prático (doceria, Espaço 18 (salão de beleza), The Boss (bets), Blog do Tuco (entretenimento), Fênix Comunicação (agência), Aqui Empréstimo (financeiro) e Nane Trupe (turismo). Cada projeto com conceito, manual e 3 rounds de revisão.",
         imgs: [
-          "images/cases/branding/1-slide.png",
-          "images/cases/branding/2-slide.png",
-          "images/cases/branding/3-slide.png",
-          "images/cases/branding/4-slide.png",
-          "images/cases/branding/5-slide.png",
+          "/images/cases/branding/1-slide.png",
+          "/images/cases/branding/2-slide.png",
+          "/images/cases/branding/3-slide.png",
+          "/images/cases/branding/4-slide.png",
+          "/images/cases/branding/5-slide.png",
         ],
       },
       {

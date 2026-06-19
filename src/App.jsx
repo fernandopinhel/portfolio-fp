@@ -15,6 +15,7 @@ import { useCookieConsent } from "./hooks/useCookieConsent";
 import { GridBg, Glow } from "./components/UI";
 import { Nav, MobileMenu } from "./components/Nav";
 import CookieBanner from "./components/CookieBanner";
+import ErrorBoundary from "./components/ErrorBoundary";
 import PortfolioPage from "./pages/PortfolioPage";
 import CasePage from "./pages/CasePage";
 import PrivacyPage from "./pages/PrivacyPage";
@@ -82,10 +83,43 @@ useEffect(() => {
   }
 }, [consent]);
 
-  /* ── Scroll to top when view changes ───────────────────────────── */
+  /* ── History API — sync URL with view state ────────────────────── */
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "instant" });
-  }, [showPrivacy]);
+    const onPopState = (e) => {
+      const s = e.state;
+      if (s?.caseId) {
+        setCurrentCase(s.caseId);
+        setShowPrivacy(false);
+      } else if (s?.privacy) {
+        setShowPrivacy(true);
+        setCurrentCase(null);
+      } else {
+        setCurrentCase(null);
+        setShowPrivacy(false);
+      }
+      window.scrollTo({ top: 0, behavior: "instant" });
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
+
+  /* ── Restore state from URL on first load ───────────────────────── */
+  useEffect(() => {
+    const path = window.location.pathname;
+    const match = path.match(/^\/case\/(.+)$/);
+    if (match) {
+      const id = match[1];
+      if (PROJECTS.find(p => p.id === id)) setCurrentCase(id);
+    } else if (path === "/politica-de-privacidade") {
+      setShowPrivacy(true);
+    }
+  }, []);
+
+  /* ── Move focus to page content when view changes (WCAG 2.4.3) ─── */
+  useEffect(() => {
+    const el = document.getElementById("page-content");
+    if (el) { el.setAttribute("tabindex", "-1"); el.focus({ preventScroll: true }); }
+  }, [currentCase, showPrivacy]);
 
   /* ── Scroll to section ──────────────────────────────────────────── */
   const scrollTo = useCallback((id) => {
@@ -96,11 +130,13 @@ useEffect(() => {
   /* ── Open / close case ──────────────────────────────────────────── */
   const handleCaseOpen = useCallback((id) => {
     setCurrentCase(id);
+    window.history.pushState({ caseId: id }, "", `/case/${id}`);
     window.scrollTo({ top: 0, behavior: "instant" });
   }, []);
 
   const handleCaseBack = useCallback(() => {
     setCurrentCase(null);
+    window.history.pushState(null, "", "/");
     window.scrollTo({ top: 0, behavior: "instant" });
   }, []);
 
@@ -108,10 +144,12 @@ useEffect(() => {
   const handlePrivacyOpen = useCallback((e) => {
     e?.preventDefault();
     setShowPrivacy(true);
+    window.history.pushState({ privacy: true }, "", "/politica-de-privacidade");
   }, []);
 
   const handlePrivacyBack = useCallback(() => {
     setShowPrivacy(false);
+    window.history.pushState(null, "", "/");
   }, []);
 
   const currentProject = currentCase ? PROJECTS.find(p => p.id === currentCase) : null;
@@ -142,6 +180,22 @@ useEffect(() => {
         cursor: isMobile ? "auto" : "none",
       }}
     >
+      {/* Skip navigation — acessibilidade para teclado e leitores de tela */}
+      <a
+        href="#page-content"
+        style={{
+          position: "absolute", top: -80, left: 8, zIndex: 9999,
+          padding: "10px 20px", background: "var(--ac)", color: "#070707",
+          fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 500,
+          borderRadius: 100, textDecoration: "none", letterSpacing: ".06em",
+          transition: "top .15s",
+        }}
+        onFocus={e => { e.currentTarget.style.top = "8px"; }}
+        onBlur={e => { e.currentTarget.style.top = "-80px"; }}
+      >
+        Ir para o conteúdo
+      </a>
+
       {/* Custom cursor (desktop only) */}
       {!isMobile && (
         <>
@@ -184,27 +238,29 @@ useEffect(() => {
       />
 
       {/* Main content: privacy | case | portfolio */}
-      {showPrivacy ? (
-        <PrivacyPage onBack={handlePrivacyBack} />
-      ) : currentProject ? (
-        <CasePage
-          project={currentProject}
-          onBack={handleCaseBack}
-          setHovLink={setHovLink}
-          isMobile={isMobile}
-        />
-      ) : (
-        <PortfolioPage
-          setCurrentCase={handleCaseOpen}
-          scrollTo={scrollTo}
-          activeNav={activeNav}
-          setActiveNav={setActiveNav}
-          setHovLink={setHovLink}
-          isMobile={isMobile}
-          isTablet={isTablet}
-          onPrivacyOpen={handlePrivacyOpen}
-        />
-      )}
+      <ErrorBoundary>
+        {showPrivacy ? (
+          <PrivacyPage onBack={handlePrivacyBack} />
+        ) : currentProject ? (
+          <CasePage
+            project={currentProject}
+            onBack={handleCaseBack}
+            setHovLink={setHovLink}
+            isMobile={isMobile}
+          />
+        ) : (
+          <PortfolioPage
+            setCurrentCase={handleCaseOpen}
+            scrollTo={scrollTo}
+            activeNav={activeNav}
+            setActiveNav={setActiveNav}
+            setHovLink={setHovLink}
+            isMobile={isMobile}
+            isTablet={isTablet}
+            onPrivacyOpen={handlePrivacyOpen}
+          />
+        )}
+      </ErrorBoundary>
 
       {/* Footer */}
       <footer
@@ -224,13 +280,13 @@ useEffect(() => {
       >
         <span style={{
           fontFamily: "var(--font-mono)", fontSize: 11,
-          color: "var(--dimmer)", letterSpacing: ".06em",
+          color: "var(--dim)", letterSpacing: ".06em",
         }}>
           © 2026 Fernando Pinhel
         </span>
 
         <span style={{
-          fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--dimmer)",
+          fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--dim)",
           letterSpacing: ".06em", display: "flex", gap: 16,
           alignItems: "center", flexWrap: "wrap",
         }}>
@@ -240,7 +296,7 @@ useEffect(() => {
             data-gtm="footer-privacy"
             href="/politica-de-privacidade"
             onClick={handlePrivacyOpen}
-            style={{ color: "var(--dimmer)", textDecoration: "none" }}
+            style={{ color: "var(--dim)", textDecoration: "none" }}
           >
             Política de Privacidade
           </a>
@@ -255,7 +311,7 @@ useEffect(() => {
             title="Rever preferências de cookies"
             style={{
               background: "none", border: "none", padding: 0,
-              cursor: "pointer", color: "var(--dimmer)",
+              cursor: "pointer", color: "var(--dim)",
               fontFamily: "var(--font-mono)", fontSize: 11, letterSpacing: ".06em",
             }}
           >
@@ -272,7 +328,7 @@ useEffect(() => {
             rel="noopener noreferrer"
             className="hj-footer-github"
             data-gtm="footer-github"
-            style={{ color: "var(--dimmer)", textDecoration: "none" }}
+            style={{ color: "var(--dim)", textDecoration: "none" }}
           >
             github.com/fernandopinhel
           </a>

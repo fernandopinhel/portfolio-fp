@@ -106,7 +106,7 @@ export const VideoEmbed = ({ src, title = "Case video", accent = "var(--ac)" }) 
         <iframe
           title={title}
           src={`https://www.youtube.com/embed/${src}?rel=0&modestbranding=1`}
-          data-gtm={dataGtm}
+          data-gtm="case-video"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
           style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: "none" }}
@@ -169,35 +169,37 @@ export const ContactForm = ({ onPrivacyOpen }) => {
     setStatus("sending");
     setErrorMsg("");
 
-    // Detecta se é localhost ou produção
-    const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-    
-    // URL de Produção (Formcarry) ou Local (Sua API Node)
-    const endpoint = isLocal ? "/api/contact" : "https://formcarry.com/s/3yzii8xkQ3q";
+    const payload = {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify(fields),
+    };
+
+    // Tenta a API própria primeiro; se falhar, usa Formcarry como fallback
+    const tryApi = async () => {
+      const res = await fetch("/api/contact", payload);
+      if (!res.ok) throw new Error("api-error");
+      return true;
+    };
+
+    const tryFormcarry = async () => {
+      const res = await fetch("https://formcarry.com/s/3yzii8xkQ3q", payload);
+      const data = await res.json();
+      if (res.ok && data.code === 200) return true;
+      throw new Error(data.message || "Erro ao enviar.");
+    };
 
     try {
-      const res = await fetch(endpoint, {
-        method:  "POST",
-        headers: { 
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: JSON.stringify(fields),
-      });
-
-      const data = await res.json();
-
-      // Sucesso no Formcarry (code 200) ou no Node (res.ok)
-      if (res.ok && (isLocal || data.code === 200)) {
-        setStatus("success");
-        setFields({ name: "", email: "", message: "" });
-        setLgpd(false);
-      } else {
-        setErrorMsg(data.message || "Erro ao enviar. Tente novamente.");
-        setStatus("error");
+      try {
+        await tryApi();
+      } catch {
+        await tryFormcarry();
       }
+      setStatus("success");
+      setFields({ name: "", email: "", message: "" });
+      setLgpd(false);
     } catch (err) {
-      setErrorMsg("Erro de conexão com o servidor.");
+      setErrorMsg(err.message === "Erro ao enviar." ? err.message : "Erro de conexão. Tente novamente ou envie para contato@fernandopinhel.com.br");
       setStatus("error");
     }
   };
@@ -205,7 +207,7 @@ export const ContactForm = ({ onPrivacyOpen }) => {
   /* ── Estado de sucesso ────────────────────────────────────────── */
   if (status === "success") {
     return (
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 12, padding: "32px 0" }}>
+      <div role="status" aria-live="polite" style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 12, padding: "32px 0" }}>
         <div style={{
           width: 48, height: 48, borderRadius: "50%",
           background: "rgba(200,255,0,.1)",
@@ -260,7 +262,7 @@ export const ContactForm = ({ onPrivacyOpen }) => {
   const labelStyle = {
     fontFamily: "var(--font-mono)",
     fontSize: 11,
-    color: "var(--dimmer)",
+    color: "var(--dim)",
     letterSpacing: ".1em",
     textTransform: "uppercase",
     display: "block",
@@ -343,7 +345,7 @@ export const ContactForm = ({ onPrivacyOpen }) => {
           aria-required="true"
           style={{ marginTop: 2, accentColor: "var(--ac)", flexShrink: 0 }}
         />
-        <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--dimmer)", lineHeight: 1.7 }}>
+        <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--dim)", lineHeight: 1.7 }}>
           Li e aceito a{" "}
           <button
             type="button"
