@@ -15,7 +15,7 @@ const ProjectCard = ({ p, isMobile, onClick }) => {
       tabIndex={0}
       aria-label={`Ver case: ${p.title}`}
       onClick={() => onClick(p.id)}
-      onKeyDown={e => e.key === "Enter" && onClick(p.id)}
+      onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onClick(p.id); } }}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
       className="hj-project-card"

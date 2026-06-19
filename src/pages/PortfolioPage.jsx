@@ -23,11 +23,13 @@ const SkillsMarquee = () => {
 };
 
 /* ── Section Title ───────────────────────────────────────────────── */
-const SectionTitle = ({ children, sub }) => (
+const SectionTitle = ({ children, sub }) => {
+  const subText = sub ? sub.replace(/^\/\/ /, "") : null;
+  return (
   <div style={{ marginBottom: 56 }}>
-    {sub && (
+    {subText && (
       <div style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--ac)", letterSpacing: ".18em", textTransform: "uppercase", marginBottom: 14 }}>
-        {sub}
+        <span aria-hidden="true">// </span>{subText}
       </div>
     )}
     <h2
@@ -37,7 +39,8 @@ const SectionTitle = ({ children, sub }) => (
       {children}
     </h2>
   </div>
-);
+  );
+};
 
 /* ═══════════════════════════════════════════════════════════════════
    PORTFOLIO PAGE — all home sections
@@ -54,7 +57,7 @@ const PortfolioPage = ({
     : "https://wa.me/";
 
   return (
-    <main style={{ position: "relative", zIndex: 2 }}>
+    <main id="page-content" style={{ position: "relative", zIndex: 2 }}>
 
       {/* ═══ HERO ═══════════════════════════════════════════════════ */}
       <section
@@ -66,7 +69,7 @@ const PortfolioPage = ({
       >
         {/* Status badge */}
         <div className="fu d1" style={{ display: "inline-flex", alignItems: "center", gap: 8, border: "1px solid var(--bd)", borderRadius: 100, padding: "8px 16px", marginBottom: 32 }}>
-          <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--ac)", animation: "pu 2s ease infinite", display: "block" }} />
+          <span aria-hidden="true" style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--ac)", animation: "pu 2s ease infinite", display: "block" }} />
           <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--dim)", letterSpacing: ".1em" }}>
             Design que inspira e conecta
           </span>
@@ -150,7 +153,7 @@ const PortfolioPage = ({
           {/* Trajectory */}
           <div>
             <div style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--ac)", letterSpacing: ".18em", textTransform: "uppercase", marginBottom: 32 }}>
-              // trajetória
+              <span aria-hidden="true">// </span>trajetória
             </div>
             {TRAJECTORY.map((t, i) => (
               <div key={i} className="tr">

@@ -31,7 +31,7 @@ const PrivacyPage = ({ onBack }) => {
   );
 
   return (
-    <main style={{ paddingTop: 100, paddingBottom: 100, position: "relative", zIndex: 2 }}>
+    <main id="page-content" style={{ paddingTop: 100, paddingBottom: 100, position: "relative", zIndex: 2 }}>
       <div style={W}>
 
         {/* Header */}

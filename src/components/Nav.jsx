@@ -1,9 +1,48 @@
+import { useEffect, useRef } from "react";
 import { NAV_LINKS } from "../data";
 import { BtnPrimary, BtnOutline, GithubIcon } from "./UI";
 
 /* ── Mobile Menu ─────────────────────────────────────────────────── */
-export const MobileMenu = ({ open, onClose, activeNav, scrollTo }) => (
+export const MobileMenu = ({ open, onClose, activeNav, scrollTo }) => {
+  const menuRef = useRef(null);
+  const closeRef = useRef(null);
+
+  // Move focus to close button when menu opens
+  useEffect(() => {
+    if (open) {
+      const t = setTimeout(() => closeRef.current?.focus(), 50);
+      return () => clearTimeout(t);
+    }
+  }, [open]);
+
+  // Focus trap + Escape key
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") { onClose(); return; }
+      if (e.key !== "Tab") return;
+      const el = menuRef.current;
+      if (!el) return;
+      const focusables = Array.from(
+        el.querySelectorAll("button, [href], [tabindex]:not([tabindex='-1'])")
+      ).filter(n => !n.disabled);
+      if (!focusables.length) return;
+      const first = focusables[0];
+      const last  = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault(); last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); first.focus();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [open, onClose]);
+
+  return (
   <div
+    ref={menuRef}
+    id="mobile-menu"
     role="dialog"
     aria-modal="true"
     aria-label="Menu de navegação"
@@ -18,6 +57,7 @@ export const MobileMenu = ({ open, onClose, activeNav, scrollTo }) => (
     }}
   >
     <button
+      ref={closeRef}
       onClick={onClose}
       aria-label="Fechar menu"
       className="hj-mobile-menu-close"
@@ -57,7 +97,8 @@ export const MobileMenu = ({ open, onClose, activeNav, scrollTo }) => (
       </BtnOutline>
     </div>
   </div>
-);
+  );
+};
 
 /* ── Nav ─────────────────────────────────────────────────────────── */
 export const Nav = ({
@@ -149,6 +190,7 @@ export const Nav = ({
           onClick={() => setMenuOpen(true)}
           aria-label="Abrir menu"
           aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
           className="hj-mobile-menu-open"
           data-gtm="mobile-menu-open"
           style={{

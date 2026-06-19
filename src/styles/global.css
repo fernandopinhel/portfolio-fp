@@ -78,8 +78,19 @@ img { display: block; max-width: 100%; }
 @media(max-width:640px) { .case-img-grid { grid-template-columns:1fr; } }
 
 /* ── Focus ──────────────────────────────────────────────────────── */
-a:focus-visible, button:focus-visible {
+a:focus-visible, button:focus-visible, [role="button"]:focus-visible {
   outline:2px solid var(--ac);outline-offset:4px;border-radius:4px;
+}
+
+/* ── Reduced Motion (WCAG 2.2.2 / 2.3.1) ───────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .mq { animation: none; overflow-x: auto; }
+  .fu, .sl { opacity: 1; transform: none; }
 }
 
 /* ── Scrollbar ──────────────────────────────────────────────────── */

@@ -15,7 +15,7 @@ const CasePage = ({ project: p, onBack, setHovLink, isMobile }) => {
 
   return (
     <main
-      id="case-page"
+      id="page-content"
       className="hj-case-page"
       data-gtm={`case-page-${p.id}`}
       data-case-id={p.id}
@@ -52,7 +52,7 @@ const CasePage = ({ project: p, onBack, setHovLink, isMobile }) => {
             { l: "Cliente", v: p.client },
           ].map(item => (
             <div key={item.l}>
-              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--dimmer)", letterSpacing: ".12em", textTransform: "uppercase", marginBottom: 4 }}>
+              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--dim)", letterSpacing: ".12em", textTransform: "uppercase", marginBottom: 4 }}>
                 {item.l}
               </div>
               <div style={{ fontFamily: "var(--font-mono)", fontSize: 13, color: "var(--fg)" }}>
@@ -225,7 +225,7 @@ const CasePage = ({ project: p, onBack, setHovLink, isMobile }) => {
           <div style={{
             background: "#0C0C0C", border: "1px solid var(--bd)", borderRadius: 16, padding: isMobile ? 24 : 40,
           }}>
-            <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--dimmer)", letterSpacing: ".12em", textTransform: "uppercase", marginBottom: 12 }}>
+            <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--dim)", letterSpacing: ".12em", textTransform: "uppercase", marginBottom: 12 }}>
               Impacto
             </div>
             <p style={{ fontFamily: "var(--font-mono)", fontSize: 14, color: "var(--fg)", lineHeight: 1.8 }}>
