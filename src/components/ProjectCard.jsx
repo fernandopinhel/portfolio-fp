@@ -96,7 +96,7 @@ const ProjectCard = ({ p, isMobile, onClick }) => {
           {p.figmaLink && (
             <span data-gtm="case-link-figma" className="case-link-figma" style={{
               fontFamily: "var(--font-mono)", fontSize: 11,
-              color: "var(--dimmer)", letterSpacing: ".06em",
+              color: "var(--dim)", letterSpacing: ".06em",
             }}>
               + Figma
             </span>
@@ -104,9 +104,9 @@ const ProjectCard = ({ p, isMobile, onClick }) => {
           {p.externalLink && (
             <span data-gtm="case-link-site" className="case-link-site" style={{
               fontFamily: "var(--font-mono)", fontSize: 11,
-              color: "var(--dimmer)", letterSpacing: ".06em",
+              color: "var(--dim)", letterSpacing: ".06em",
             }}>
-              + Site ao vivo
+              + Sistema
             </span>
           )}
         </div>

@@ -203,7 +203,14 @@ const CasePage = ({ project: p, onBack, setHovLink, isMobile }) => {
 
           {/* Section images */}
           {sec.imgs?.length > 0 && (
-            <div className="case-img-grid" style={{ paddingLeft: 0, display: "grid", gap: 16 }}>
+            <div
+              className="case-img-grid"
+              style={{
+                paddingLeft: sec.compact ? 26 : 0,
+                display: "grid", gap: 16,
+                maxWidth: sec.compact ? "min(380px, 100%)" : undefined,
+              }}
+            >
               {sec.imgs.map((img, idx) => (
                 <div key={idx} style={{ borderRadius: 12, overflow: "hidden", border: "1px solid var(--bd)" }}>
                   <img
@@ -271,21 +278,6 @@ const CasePage = ({ project: p, onBack, setHovLink, isMobile }) => {
           display: "flex", gap: 16, flexWrap: "wrap", alignItems: "center",
           paddingTop: 40, borderTop: "1px solid var(--bd)",
         }}>
-          {p.figmaLink && (
-            <BtnPrimary href={p.figmaLink} className="hj-case-figma" data-gtm="hj-case-figma">
-              Ver no Figma ↗
-            </BtnPrimary>
-          )}
-          {p.externalLink && (
-            <BtnOutline
-              href={p.externalLink}
-              className="hj-case-external"
-              onMouseEnter={() => setHovLink(true)}
-              onMouseLeave={() => setHovLink(false)}
-            >
-              Ver site ao vivo ↗
-            </BtnOutline>
-          )}
           <BtnOutline
             onClick={onBack}
             className="hj-case-back"
@@ -294,6 +286,27 @@ const CasePage = ({ project: p, onBack, setHovLink, isMobile }) => {
           >
             ← Voltar aos projetos
           </BtnOutline>
+          {p.githubLink && (
+            <BtnOutline
+              href={p.githubLink}
+              className="hj-case-github"
+              data-gtm="hj-case-github"
+              onMouseEnter={() => setHovLink(true)}
+              onMouseLeave={() => setHovLink(false)}
+            >
+              Ver repositório (GitHub) ↗
+            </BtnOutline>
+          )}
+          {p.figmaLink && (
+            <BtnPrimary href={p.figmaLink} className="hj-case-figma" data-gtm="hj-case-figma">
+              Ver no Figma ↗
+            </BtnPrimary>
+          )}
+          {p.externalLink && (
+            <BtnPrimary href={p.externalLink} className="hj-case-external" data-gtm="hj-case-external">
+              Ver sistema ↗
+            </BtnPrimary>
+          )}
         </div>
       </section>
     </main>

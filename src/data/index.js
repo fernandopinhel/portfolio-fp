@@ -19,7 +19,10 @@ export const NAV_LINKS = ["Sobre", "Projetos", "Artigos", "Contato"];
 export const SKILLS = [
   "Product Design", "UX Research", "UI Design", "IA",
   "Figma", "Prototipagem", "Design Systems", "Front-end",
-  "Acessibilidade", "React", "Web Design", "Branding",
+  "Acessibilidade", "React", "Web Design",
+  "Product Discovery", "Jornada do Usuário", "Strategic Design",
+  "Ideação", "Testes de Usabilidade", "Mentoria de Designers", "Facilitação",
+  "PHP", "Wordpress",
 ];
 
 export const TRAJECTORY = [
@@ -74,7 +77,90 @@ export const ARTICLES = [
 // images in /images/cases/<id>/ are local; Unsplash URLs are fallbacks
 
 export const PROJECTS = [
-  // ── 1 ─────────────────────────────────────────────────────────────────────
+  // ── 1 — CASE NOVO: Finanças FP ───────────────────────────────────────────
+  {
+    id: "financas-fp",
+    tag: "Designer Engineer · Fintech Pessoal",
+    title: "Finanças FP",
+    description:
+      "Sistema de gestão financeira pessoal desenhado e construído em parceria com IA — do design system extraído do próprio código ao login por Face ID e PWA instalável.",
+    accent: "#4361EE",
+    bg: "#0A0E1F",
+    size: "large",
+    heroImg:
+      "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1400&q=85&auto=format",
+    thumbImg:
+      "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80&auto=format",
+    figmaLink: null,
+    externalLink: "https://financas.fernandopinhel.com.br/",
+    githubLink: "https://github.com/fernandopinhel/sistema-financeiro",
+    year: "2026",
+    role: "Designer Engineer · Full-stack Developer",
+    client: "Projeto pessoal — produto próprio em produção",
+    challenge:
+      "Nenhum app de finanças pronto respeitava o jeito como eu organizo dinheiro: categorias com cor própria, contas recorrentes com lembrete e nenhum dado saindo da minha própria infraestrutura. Mais do que resolver isso, o desafio real era provar — no próprio produto — que design e engenharia de software podem ser a mesma disciplina quando praticadas por uma pessoa só, com IA como parceira de arquitetura, não como atalho.",
+    impact:
+      "Ferramenta que uso diariamente para controlar minhas finanças, com autenticação por biometria, PWA instalável e um design system extraído do próprio código-fonte — hoje sincronizado com o Figma via Tokens Studio. Também virou um caso de estudo sobre como um Designer Engineer usa IA como par de engenharia em cada camada do produto, do CSS à arquitetura de autenticação.",
+    overview:
+      "Aplicação web full-stack (Laravel 12 + Alpine.js) para gestão financeira pessoal: transações, categorias com cor e indicador de dashboard, contas recorrentes com lembrete automático, exportação de relatórios em Excel e PDF, autenticação multi-camada (senha + reCAPTCHA, Google OAuth e Face ID/biometria via WebAuthn) e instalação como PWA no Android e iOS. Projetado, construído e mantido sozinho, com Claude atuando como par de engenharia em cada decisão de arquitetura, refatoração e revisão de UX.",
+    methodology: "Design Engineering em par com IA (Claude)",
+    methodologyDesc:
+      "Sem handoff entre quem desenha e quem constrói — cada funcionalidade nasceu ao mesmo tempo como decisão de interface e decisão técnica. O ciclo: discutir o problema com Claude, prototipar a solução direto em Blade/Alpine, revisar acessibilidade e consistência visual, documentar a decisão. Claude atuou como par ativo — sugerindo a arquitetura de serviços (como o RecurringService, que calcula contas recorrentes pendentes do mês), auditando o CSS em busca de tokens duplicados e ajudando a pesar trade-offs de UX, como o fallback de setas para quem prefere não arrastar cards no toque.",
+    problem:
+      "Como um profissional que projeta e constrói consegue entregar um produto financeiro com o rigor técnico de um time de engenharia — autenticação forte, conformidade com a LGPD, PWA, design system documentado — sozinho, usando IA como parceira de raciocínio em vez de gerador de código?",
+    sections: [
+      {
+        title: "O Problema Era Meu",
+        content:
+          "Em vez de adaptar meu comportamento a um app genérico de finanças, decidi construir o meu: Laravel no back-end, pela robustez de migrations e Eloquent para modelar transações, categorias e recorrências; Alpine.js no front, pela reatividade leve de um dashboard sem o peso de carregar um framework SPA inteiro. Da ideia ao primeiro dashboard funcional, cada tela nasceu de uma necessidade real de organizar o próprio orçamento.",
+        imgs: [
+          "/images/cases/financas-fp/img-dashboard.png",
+        ],
+      },
+      {
+        title: "Design System ao Contrário: do Código para o Figma",
+        content:
+          "Em vez do fluxo tradicional — Figma primeiro, código depois — segui o caminho inverso: pedi ao Claude para auditar as views Blade e o CSS reais em produção e extrair um design system do que já existia, em vez de desenhar um do zero. Os tokens (core → semantic → component) foram estruturados em JSON no formato Tokens Studio e sincronizados com um arquivo Figma via GitHub. Fui além e escrevi um plugin próprio do Figma que lê esses tokens e os ícones reais do app e monta as páginas de Foundations, Components e Patterns automaticamente — o design system documenta o código, e não o contrário.",
+        imgs: [
+          "/images/cases/financas-fp/img-design-system.png",
+        ],
+      },
+      {
+        title: "Autenticação Sem Fricção, Confiança Sem Concessão",
+        content:
+          "Dinheiro exige confiança. Implementei três caminhos de login — senha com reCAPTCHA v2, OAuth do Google e Face ID/Touch ID/biometria via WebAuthn (Passkeys) — todos aditivos entre si, sem forçar o usuário a escolher um caminho único. A privacidade seguiu o mesmo rigor: arquitetura de consentimento LGPD/GDPR com Google Consent Mode v2, em que o Tag Manager sempre carrega mas só libera Analytics e Hotjar depois do opt-in explícito. Junto com o Claude, depurei um bug sutil nessa camada: o container de tags nunca disparava na primeira visita porque dependia de um cookie de consentimento que, óbvio, ainda não existia.",
+        imgs: [
+          "/images/cases/financas-fp/img-login-passkeys.png",
+        ],
+        compact: true,
+      },
+      {
+        title: "Detalhes que Só um Designer Engineer Nota",
+        content:
+          "Controle financeiro acontece no bolso, não na mesa — então o app precisava ser pensado pra tela do celular com a mesma seriedade da tela do computador, não como uma versão reduzida dela. O dashboard tem cards e blocos reordenáveis por drag-and-drop, com toque e mouse recebendo o mesmo cuidado de interação, e a ordem escolhida fica salva pra cada pessoa organizar o painel do seu jeito. Categorias ganham badges de maior receita e maior despesa direto no total, deixando o resumo legível num único olhar, em qualquer tamanho de tela. E transformar o site em PWA instalável no Android e no iOS — com ícone próprio, tela cheia e cache que nunca deixa dados financeiros desatualizados offline — foi a decisão que fechou essa conta: um sistema que se comporta como aplicativo nativo, sem depender de loja de aplicativos.",
+        imgs: [
+          "/images/cases/financas-fp/img-pwa.png",
+        ],
+        compact: true,
+      },
+    ],
+    kpis: [
+      { v: "3", l: "Métodos de login" },
+      { v: "2", l: "Plataformas PWA" },
+      { v: "100%", l: "Design system derivado do código" },
+      { v: "1", l: "Dev — solo com IA em par" },
+    ],
+    results: [
+      "Design system 100% derivado do código real, sincronizado com o Figma via Tokens Studio + GitHub",
+      "Plugin próprio do Figma que gera Foundations, Components e Patterns a partir dos tokens e ícones do app",
+      "3 métodos de autenticação (senha, Google OAuth, Face ID/biometria via Passkeys) coexistindo sem fricção",
+      "PWA instalável no Android e iOS, com cache que nunca deixa dados financeiros desatualizados offline",
+      "Arquitetura de consentimento LGPD/GDPR com Google Consent Mode v2",
+      "Dashboard com reorganização por drag-and-drop e fallback acessível por toque",
+    ],
+  },
+
+  // ── 2 ─────────────────────────────────────────────────────────────────────
   {
     id: "dashboard-gestao-alunos",
     tag: "UX/UI · Gestão Pública",
@@ -142,7 +228,7 @@ export const PROJECTS = [
     ],
   },
 
-  // ── 2 ─────────────────────────────────────────────────────────────────────
+  // ── 3 ─────────────────────────────────────────────────────────────────────
   {
     id: "paparazzo-rubro-negro",
     tag: "Product Design · Mobile",
@@ -207,7 +293,7 @@ export const PROJECTS = [
     ],
   },
 
-  // ── 3 ─────────────────────────────────────────────────────────────────────
+  // ── 4 ─────────────────────────────────────────────────────────────────────
   {
     id: "aqui-emprestimo",
     tag: "UX/UI · Financeiro",
@@ -274,7 +360,7 @@ export const PROJECTS = [
     ],
   },
 
-  // ── 4 ─────────────────────────────────────────────────────────────────────
+  // ── 5 ─────────────────────────────────────────────────────────────────────
   {
     id: "bradesco-saude-ans",
     tag: "UX/UI · Saúde",
@@ -339,7 +425,7 @@ export const PROJECTS = [
     ],
   },
 
-  // ── 5 — CASE NOVO: Painel de Aditivos ────────────────────────────────────
+  // ── 6 — CASE NOVO: Painel de Aditivos ────────────────────────────────────
   {
     id: "painel-aditivos",
     tag: "UX/UI · Saúde · B2B",
@@ -405,7 +491,7 @@ export const PROJECTS = [
     ],
   },
 
-  // ── 6 ─────────────────────────────────────────────────────────────────────
+  // ── 7 ─────────────────────────────────────────────────────────────────────
   {
     id: "generali",
     tag: "UX/UI · Seguros",
@@ -469,7 +555,7 @@ export const PROJECTS = [
     ],
   },
 
-  // ── 7 — CASE NOVO: Sites / Web Design ────────────────────────────────────
+  // ── 8 — CASE NOVO: Sites / Web Design ────────────────────────────────────
   {
     id: "websites",
     tag: "Web Design · Front-end",
@@ -536,7 +622,7 @@ export const PROJECTS = [
     ],
   },
 
-  // ── 8 ─────────────────────────────────────────────────────────────────────
+  // ── 9 ─────────────────────────────────────────────────────────────────────
   {
     id: "branding",
     tag: "Branding · Gráfico",

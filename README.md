@@ -56,15 +56,17 @@ portfolio-fp/
 │
 ├── public/                     # Assets estáticos servidos diretamente
 │   ├── images/
-│   │   └── cases/              # Imagens locais dos cases (por pasta de projeto)
-│   │       ├── dashboard/
-│   │       ├── paparazzo-rrn/
-│   │       ├── aqui-emprestimo/
-│   │       ├── ans/
-│   │       ├── painel-aditivo/
-│   │       ├── generali/
-│   │       ├── sites/
-│   │       └── branding/
+│   │   ├── cases/              # Imagens locais dos cases (por pasta de projeto)
+│   │   │   ├── financas-fp/
+│   │   │   ├── dashboard/
+│   │   │   ├── paparazzo-rrn/
+│   │   │   ├── aqui-emprestimo/
+│   │   │   ├── ans/
+│   │   │   ├── painel-aditivo/
+│   │   │   ├── generali/
+│   │   │   ├── sites/
+│   │   │   └── branding/
+│   │   └── profile/            # Foto de perfil exibida no hero
 │   ├── videos/                 # Vídeos MP4 dos cases
 │   │   ├── bradesco/
 │   │   └── generali/
@@ -95,7 +97,7 @@ portfolio-fp/
 │   │
 │   ├── data/
 │   │   └── index.js            # Fonte única de dados: NAV_LINKS, SKILLS, TRAJECTORY,
-│   │                           #   ARTICLES, PROJECTS (8 cases completos)
+│   │                           #   ARTICLES, PROJECTS (9 cases completos)
 │   │
 │   ├── styles/
 │   │   └── global.css          # Tokens de design, reset, animações, responsivo,
@@ -248,7 +250,9 @@ GA4, Hotjar e GTM só são inicializados após consentimento explícito. O `data
 
 ## Funcionalidades
 
-- **8 cases documentados** com hero, overview, metodologia, KPIs, vídeo, seções com imagens e resultados
+- **9 cases documentados** com hero, overview, metodologia, KPIs, vídeo, seções com imagens e resultados
+- **Case study com múltiplos CTAs**: Figma, sistema ao vivo e repositório GitHub, exibidos condicionalmente por projeto (`figmaLink`, `externalLink`, `githubLink`)
+- **Foto de perfil no hero**, ao lado do nome, com borda no tom de destaque do design system
 - **Cursor customizado** animado (desktop apenas)
 - **Marquee de skills** com animação contínua
 - **Formulário de contato** com validação client-side, estados idle/sending/success/error, LGPD opt-in obrigatório
