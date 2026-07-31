@@ -175,7 +175,6 @@ useEffect(() => {
         fontFamily: "var(--font-mono)",
         background: "var(--bg)",
         color: "var(--fg)",
-        minHeight: "100vh",
         overflowX: "hidden",
         cursor: isMobile ? "auto" : "none",
       }}

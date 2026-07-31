@@ -12,6 +12,12 @@ html { scroll-behavior: smooth; }
 body { -webkit-font-smoothing: antialiased; background: #070707; }
 img { display: block; max-width: 100%; }
 
+/* ── Root height ────────────────────────────────────────────────── */
+/* 100vh em mobile usa a viewport "cheia" (barra de endereço escondida);
+   ao rolar até o fim a barra recolhe e sobra espaço vazio após o footer.
+   100dvh acompanha a viewport real; fallback pro 100vh acima se não suportado. */
+#fp-portfolio { min-height: 100vh; min-height: 100dvh; }
+
 /* ── Design Tokens ──────────────────────────────────────────────── */
 :root {
   --ac:     #C8FF00;
