@@ -75,18 +75,46 @@ const PortfolioPage = ({
           </span>
         </div>
 
-        {/* Name */}
-        <h1
-          className="hero-name fu d2"
+        {/* Name + Photo */}
+        <div
+          className="fu d2"
           style={{
-            fontFamily: "var(--font-display)", fontWeight: 800,
-            fontSize: "clamp(56px,9vw,112px)", letterSpacing: "-.04em",
-            lineHeight: 1, color: "var(--fg)", marginBottom: 32,
+            display: "flex", alignItems: "center",
+            gap: isMobile ? 24 : 40, flexWrap: "wrap",
+            marginBottom: 32,
           }}
         >
-          Fernando<br />
-          <span style={{ color: "var(--ac)" }}>Pinhel</span>
-        </h1>
+          <div style={{ position: "relative", flexShrink: 0 }}>
+            <div
+              style={{
+                width: isMobile ? 140 : 220, height: isMobile ? 140 : 220,
+                borderRadius: 24, overflow: "hidden",
+                border: "1.5px solid var(--ac)",
+                boxShadow: "0 0 24px -4px rgba(200,255,0,.35), 0 24px 48px -16px rgba(0,0,0,.7)",
+              }}
+            >
+              <img
+                src="/images/profile/fernando-pinhel.jpg"
+                alt="Fernando Pinhel"
+                loading="eager"
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              />
+            </div>
+          </div>
+
+          <h1
+            className="hero-name"
+            style={{
+              fontFamily: "var(--font-display)", fontWeight: 800,
+              fontSize: "clamp(48px,8vw,104px)", letterSpacing: "-.04em",
+              lineHeight: 1, color: "var(--fg)", margin: 0,
+              flex: "1 1 auto", minWidth: 0,
+            }}
+          >
+            Fernando<br />
+            <span style={{ color: "var(--ac)" }}>Pinhel</span>
+          </h1>
+        </div>
 
         {/* Tagline */}
         <p className="fu d3" style={{ fontFamily: "var(--font-mono)", fontSize: isMobile ? 14 : 16, color: "var(--dim)", maxWidth: 560, lineHeight: 1.8, marginBottom: 48 }}>
@@ -138,13 +166,19 @@ const PortfolioPage = ({
           <div>
             <SectionTitle sub="// sobre">Trajetória & Visão</SectionTitle>
             <p style={{ fontFamily: "var(--font-mono)", fontSize: 14, color: "var(--dim)", lineHeight: 1.9, marginBottom: 24 }}>
-              Minha jornada começou no design gráfico — onde aprendi que toda comunicação visual conta uma história. De lá, passei pelo web design, pelo motion e pelo front-end, até me especializar em Product Design.
+              Há mais de 10 anos atuo no mercado digital, com trajetória construída em grandes empresas, participando de iniciativas de alto impacto e gerando resultados relevantes para o negócio e para os clientes.
+            </p>
+            <p style={{ fontFamily: "var(--font-mono)", fontSize: 14, color: "var(--dim)", lineHeight: 1.9, marginBottom: 24 }}>
+              Atuo de ponta a ponta no desenvolvimento de produtos digitais, com experiência em UX, UI, Discovery, pesquisa com usuários e definição de jornadas, sempre construindo soluções centradas nas necessidades dos clientes. Meu conhecimento técnico me permite compreender todo o ciclo de desenvolvimento de um produto e promover uma comunicação eficiente entre negócio, design e tecnologia.
+            </p>
+            <p style={{ fontFamily: "var(--font-mono)", fontSize: 14, color: "var(--dim)", lineHeight: 1.9, marginBottom: 24 }}>
+              Além da entrega, contribuo para a maturidade de design das equipes por onde passo: mentoro designers em seu desenvolvimento profissional, influencio lideranças e stakeholders sobre o valor estratégico do design e implemento ritos essenciais da área, como critique, discovery e testes de usabilidade. Liderei também a construção de Design System e Style Guide, reduzindo o esforço operacional do dia a dia dos designers e elevando a consistência das entregas.
             </p>
             <p style={{ fontFamily: "var(--font-mono)", fontSize: 14, color: "var(--dim)", lineHeight: 1.9, marginBottom: 40 }}>
-              Hoje atuo na interseção entre design, tecnologia e negócios — criando produtos digitais que são ao mesmo tempo bonitos, funcionais e mensuráveis.
+              Essa combinação de visão de produto, experiência do usuário e domínio técnico me permite identificar oportunidades, resolver problemas complexos e transformar necessidades dos clientes em soluções intuitivas, escaláveis e alinhadas aos objetivos estratégicos da empresa.
             </p>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              {SKILLS.slice(0, 8).map(s => (
+              {SKILLS.map(s => (
                 <span key={s} className="sk">{s}</span>
               ))}
             </div>

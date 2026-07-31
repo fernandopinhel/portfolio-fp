@@ -110,7 +110,7 @@ a:focus-visible, button:focus-visible, [role="button"]:focus-visible {
 
 /* ── Responsive ─────────────────────────────────────────────────── */
 @media(max-width:768px) {
-  .hero-name      { font-size:clamp(48px,12vw,80px) !important; }
+  .hero-name      { font-size:clamp(36px,10vw,64px) !important; }
   .section-title  { font-size:32px !important; }
   .contact-title  { font-size:clamp(36px,11vw,72px) !important; }
   .about-grid     { grid-template-columns:1fr !important; }
