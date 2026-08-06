@@ -12,6 +12,7 @@ import { useState, useEffect, useCallback } from "react";
 import { PROJECTS } from "./data";
 import { useMediaQuery } from "./hooks/useMediaQuery";
 import { useCookieConsent } from "./hooks/useCookieConsent";
+import { useTheme } from "./hooks/useTheme";
 import { GridBg, Glow } from "./components/UI";
 import { Nav, MobileMenu } from "./components/Nav";
 import CookieBanner from "./components/CookieBanner";
@@ -34,6 +35,9 @@ export default function App() {
   // consent: null = não decidido | true = aceito | false = recusado
   const { consent, acceptCookies, declineCookies, resetConsent } = useCookieConsent();
   const showCookieBanner = consent === null;
+
+  /* ── Tema claro/escuro ───────────────────────────────────────────── */
+  const { theme, toggleTheme } = useTheme();
 
   const isMobile = useMediaQuery("(max-width: 768px)");
   const isTablet = useMediaQuery("(max-width: 1024px)");
@@ -177,6 +181,7 @@ useEffect(() => {
         color: "var(--fg)",
         overflowX: "hidden",
         cursor: isMobile ? "auto" : "none",
+        transition: "background-color .25s ease, color .25s ease",
       }}
     >
       {/* Skip navigation — acessibilidade para teclado e leitores de tela */}
@@ -184,7 +189,7 @@ useEffect(() => {
         href="#page-content"
         style={{
           position: "absolute", top: -80, left: 8, zIndex: 9999,
-          padding: "10px 20px", background: "var(--ac)", color: "#070707",
+          padding: "10px 20px", background: "var(--ac-solid)", color: "var(--ac-ink)",
           fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 500,
           borderRadius: 100, textDecoration: "none", letterSpacing: ".06em",
           transition: "top .15s",
@@ -222,6 +227,8 @@ useEffect(() => {
         onClose={() => setMenuOpen(false)}
         activeNav={activeNav}
         scrollTo={scrollTo}
+        theme={theme}
+        toggleTheme={toggleTheme}
       />
 
       {/* Top navigation */}
@@ -234,6 +241,8 @@ useEffect(() => {
         menuOpen={menuOpen}
         setMenuOpen={setMenuOpen}
         onCaseBack={onCaseBack}
+        theme={theme}
+        toggleTheme={toggleTheme}
       />
 
       {/* Main content: privacy | case | portfolio */}
@@ -246,6 +255,7 @@ useEffect(() => {
             onBack={handleCaseBack}
             setHovLink={setHovLink}
             isMobile={isMobile}
+            theme={theme}
           />
         ) : (
           <PortfolioPage
@@ -257,6 +267,7 @@ useEffect(() => {
             isMobile={isMobile}
             isTablet={isTablet}
             onPrivacyOpen={handlePrivacyOpen}
+            theme={theme}
           />
         )}
       </ErrorBoundary>

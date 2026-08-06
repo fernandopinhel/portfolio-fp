@@ -21,7 +21,7 @@ export const Pill = ({ children, color }) => (
 export const BtnPrimary = ({ href, onClick, children, style = {}, className = "" }) => {
   const s = {
     display: "inline-flex", alignItems: "center", gap: 8,
-    background: "var(--ac)", color: "#070707",
+    background: "var(--ac-solid)", color: "var(--ac-ink)",
     fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 500,
     letterSpacing: ".06em", padding: "14px 28px",
     borderRadius: 100, border: "none", cursor: "pointer",
@@ -44,17 +44,17 @@ export const BtnOutline = ({ href, onClick, children, style = {}, className = ""
     background: "transparent", color: "var(--fg)",
     fontFamily: "var(--font-mono)", fontSize: 12, letterSpacing: ".06em",
     padding: "13px 28px", borderRadius: 100,
-    border: "1px solid rgba(237,233,227,.2)", cursor: "pointer",
+    border: "1px solid rgba(var(--fg-rgb),.2)", cursor: "pointer",
     textDecoration: "none", transition: "border-color .2s, background .2s", ...style,
   };
   const ev = {
     onMouseEnter: e => {
-      e.currentTarget.style.borderColor = "rgba(237,233,227,.45)";
-      e.currentTarget.style.background  = "rgba(237,233,227,.04)";
+      e.currentTarget.style.borderColor = "rgba(var(--fg-rgb),.45)";
+      e.currentTarget.style.background  = "rgba(var(--fg-rgb),.04)";
       onMouseEnter?.();
     },
     onMouseLeave: e => {
-      e.currentTarget.style.borderColor = "rgba(237,233,227,.2)";
+      e.currentTarget.style.borderColor = "rgba(var(--fg-rgb),.2)";
       e.currentTarget.style.background  = "transparent";
       onMouseLeave?.();
     },
@@ -76,20 +76,53 @@ export const GithubIcon = ({ size = 16 }) => (
 export const GridBg = () => (
   <div aria-hidden="true" style={{
     position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0,
-    backgroundImage: `linear-gradient(rgba(237,233,227,.022) 1px,transparent 1px),
-                      linear-gradient(90deg,rgba(237,233,227,.022) 1px,transparent 1px)`,
+    backgroundImage: `linear-gradient(rgba(var(--fg-rgb),.022) 1px,transparent 1px),
+                      linear-gradient(90deg,rgba(var(--fg-rgb),.022) 1px,transparent 1px)`,
     backgroundSize: "64px 64px",
   }} />
 );
 
 /* ── Glow ─────────────────────────────────────────────────────────── */
-export const Glow = ({ top = "-30vh", color = "rgba(200,255,0,.032)" }) => (
+export const Glow = ({ top = "-30vh", color = "rgba(var(--ac-rgb),.032)" }) => (
   <div aria-hidden="true" style={{
     position: "fixed", top, left: "50%", transform: "translateX(-50%)",
     width: 900, height: 600, pointerEvents: "none", zIndex: 0,
     background: `radial-gradient(ellipse,${color} 0%,transparent 65%)`,
   }} />
 );
+
+/* ── ThemeToggle ──────────────────────────────────────────────────── */
+export const ThemeToggle = ({ theme, onToggle, size = 40 }) => {
+  const isLight = theme === "light";
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      aria-label={isLight ? "Ativar modo escuro" : "Ativar modo claro"}
+      title={isLight ? "Modo escuro" : "Modo claro"}
+      className="hj-theme-toggle"
+      data-gtm="theme-toggle"
+      style={{
+        width: size, height: size, borderRadius: "50%",
+        background: "none", border: "1px solid var(--bd)",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        cursor: "pointer", color: "var(--fg)", flexShrink: 0,
+        transition: "border-color .2s, color .2s",
+      }}
+    >
+      {isLight ? (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+        </svg>
+      ) : (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 1020.354 15.354z" />
+        </svg>
+      )}
+    </button>
+  );
+};
 
 /* ── VideoEmbed ───────────────────────────────────────────────────── */
 export const VideoEmbed = ({ src, title = "Case video", accent = "var(--ac)" }) => {
@@ -215,8 +248,8 @@ export const ContactForm = ({ onPrivacyOpen }) => {
       <div role="status" aria-live="polite" style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 12, padding: "32px 0" }}>
         <div style={{
           width: 48, height: 48, borderRadius: "50%",
-          background: "rgba(200,255,0,.1)",
-          border: "1px solid rgba(200,255,0,.3)",
+          background: "rgba(var(--ac-rgb),.1)",
+          border: "1px solid rgba(var(--ac-rgb),.3)",
           display: "flex", alignItems: "center", justifyContent: "center",
           fontSize: 22, color: "var(--ac)",
         }}>
@@ -236,7 +269,7 @@ export const ContactForm = ({ onPrivacyOpen }) => {
           onClick={() => setStatus("idle")}
           style={{
             marginTop: 8, background: "none",
-            border: "1px solid rgba(237,233,227,.2)",
+            border: "1px solid rgba(var(--fg-rgb),.2)",
             borderRadius: 100, padding: "10px 20px",
             cursor: "pointer", color: "var(--dim)",
             fontFamily: "var(--font-mono)", fontSize: 11,
@@ -252,8 +285,8 @@ export const ContactForm = ({ onPrivacyOpen }) => {
   /* ── Estilos compartilhados dos campos ────────────────────────── */
   const inputStyle = {
     width: "100%",
-    background: "rgba(237,233,227,.04)",
-    border: "1px solid rgba(237,233,227,.12)",
+    background: "rgba(var(--fg-rgb),.04)",
+    border: "1px solid rgba(var(--fg-rgb),.12)",
     borderRadius: 12,
     padding: "14px 16px",
     color: "var(--fg)",
@@ -274,8 +307,8 @@ export const ContactForm = ({ onPrivacyOpen }) => {
     marginBottom: 8,
   };
 
-  const focusOn  = e => { e.target.style.borderColor = "rgba(200,255,0,.4)"; };
-  const focusOff = e => { e.target.style.borderColor = "rgba(237,233,227,.12)"; };
+  const focusOn  = e => { e.target.style.borderColor = "rgba(var(--ac-rgb),.4)"; };
+  const focusOff = e => { e.target.style.borderColor = "rgba(var(--fg-rgb),.12)"; };
 
   /* ── Formulário ───────────────────────────────────────────────── */
 
@@ -375,11 +408,11 @@ export const ContactForm = ({ onPrivacyOpen }) => {
         <div
           role="alert"
           style={{
-            background: "rgba(255,80,80,.08)",
-            border: "1px solid rgba(255,80,80,.25)",
+            background: "rgba(var(--danger-rgb),.08)",
+            border: "1px solid rgba(var(--danger-rgb),.25)",
             borderRadius: 10, padding: "12px 16px",
             fontFamily: "var(--font-mono)", fontSize: 12,
-            color: "rgba(255,130,130,.9)", lineHeight: 1.6,
+            color: "var(--danger)", lineHeight: 1.6,
           }}
         >
           ⚠ {errorMsg}
@@ -394,8 +427,8 @@ export const ContactForm = ({ onPrivacyOpen }) => {
         className="hj-contact-submit"
         data-gtm="contact-submit"
         style={{
-          background: status === "sending" ? "rgba(200,255,0,.5)" : "var(--ac)",
-          color: "#070707",
+          background: status === "sending" ? "rgba(var(--ac-solid-rgb),.5)" : "var(--ac-solid)",
+          color: "var(--ac-ink)",
           border: "none", borderRadius: 100,
           padding: "14px 28px",
           fontFamily: "var(--font-mono)", fontSize: 12,
@@ -412,7 +445,7 @@ export const ContactForm = ({ onPrivacyOpen }) => {
           <>
             <span style={{
               width: 12, height: 12,
-              border: "2px solid #070707",
+              border: "2px solid var(--ac-ink)",
               borderTopColor: "transparent",
               borderRadius: "50%",
               animation: "cfSpin .7s linear infinite",

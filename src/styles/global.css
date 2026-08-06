@@ -9,7 +9,7 @@
 /* ── Reset ──────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body { -webkit-font-smoothing: antialiased; background: #070707; }
+body { -webkit-font-smoothing: antialiased; background: var(--bg); transition: background-color .25s ease; }
 img { display: block; max-width: 100%; }
 
 /* ── Root height ────────────────────────────────────────────────── */
@@ -18,19 +18,67 @@ img { display: block; max-width: 100%; }
    100dvh acompanha a viewport real; fallback pro 100vh acima se não suportado. */
 #fp-portfolio { min-height: 100vh; min-height: 100dvh; }
 
-/* ── Design Tokens ──────────────────────────────────────────────── */
+/* ── Design Tokens — tema escuro (padrão) ──────────────────────────
+   --fg-rgb/--bg-rgb/--ac-rgb existem para permitir rgba(var(--x-rgb),alfa)
+   em qualquer lugar do código — assim um único bloco [data-theme="light"]
+   troca cor de fundo/texto/acento e TODOS os tons derivados (bordas,
+   hovers, glows) se recalculam sozinhos via cascata do CSS. */
 :root {
-  --ac:     #C8FF00;
-  --dim:    rgba(237,233,227,.88);
-  --dimmer: rgba(237,233,227,.16);
-  --bd:     rgba(237,233,227,.07);
-  --bdh:    rgba(237,233,227,.18);
-  --fg:     #EDE9E3;
   --bg:     #070707;
+  --bg-rgb: 7,7,7;
+  --fg:     #EDE9E3;
+  --fg-rgb: 237,233,227;
+  --ac:     #C8FF00;
+  --ac-rgb: 200,255,0;
+
+  /* Acento "sólido": usado em fundos preenchidos com texto/ícone escuro
+     por cima (botões primários, badges). Não muda entre temas — lima
+     vivo + tinta escura sempre tem contraste alto, em qualquer fundo. */
+  --ac-solid:     #C8FF00;
+  --ac-solid-rgb: 200,255,0;
+  --ac-ink:       #070707;
+
+  /* Tons derivados do foreground — recalculam sozinhos por tema */
+  --dim:    rgba(var(--fg-rgb), .88);
+  --dimmer: rgba(var(--fg-rgb), .16);
+  --bd:     rgba(var(--fg-rgb), .07);
+  --bdh:    rgba(var(--fg-rgb), .18);
+
+  /* Superfícies elevadas (cards, inputs, banners) */
+  --surface:        #0C0C0C;
+  --surface-2:      #0F0F0F;
+  --overlay:        rgba(var(--bg-rgb), .92);
+  --overlay-strong: rgba(var(--bg-rgb), .97);
+
+  /* Estado de erro */
+  --danger:     #FF5050;
+  --danger-rgb: 255,80,80;
+
   --font-mono: 'DM Mono', monospace;
   --font-display: 'Syne', sans-serif;
   --radius: 16px;
   --max-w: 1160px;
+}
+
+/* ── Tema claro ─────────────────────────────────────────────────────
+   Mesma identidade (mono, lima, alto contraste), fundo/texto invertidos.
+   --ac escurecido para manter contraste AA (>=4.5:1) como texto/borda
+   sobre fundo claro — calculado a partir do mesmo lima do tema escuro
+   (ver src/utils/color.js, mesma lógica usada nas cores por-case).
+   --ac-solid/--ac-ink ficam de fora de propósito (ver comentário acima). */
+:root[data-theme="light"] {
+  --bg:     #FAFAF7;
+  --bg-rgb: 250,250,247;
+  --fg:     #14140F;
+  --fg-rgb: 20,20,15;
+  --ac:     #658100;
+  --ac-rgb: 101,129,0;
+
+  --surface:   #FFFFFF;
+  --surface-2: #F1F0EA;
+
+  --danger:     #EF0000;
+  --danger-rgb: 239,0,0;
 }
 
 /* ── Custom Cursor ──────────────────────────────────────────────── */
@@ -39,7 +87,7 @@ img { display: block; max-width: 100%; }
 }
 .cur { position:fixed;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%); }
 .cur-dot { width:8px;height:8px;background:var(--ac);transition:width .15s,height .15s; }
-.cur-ring { width:36px;height:36px;border:1px solid rgba(200,255,0,.35);transition:all .22s ease; }
+.cur-ring { width:36px;height:36px;border:1px solid rgba(var(--ac-rgb),.35);transition:all .22s ease; }
 .cur-ring.ex { width:54px;height:54px;border-color:var(--ac); }
 
 /* ── Animations ─────────────────────────────────────────────────── */
@@ -101,16 +149,16 @@ a:focus-visible, button:focus-visible, [role="button"]:focus-visible {
 
 /* ── Scrollbar ──────────────────────────────────────────────────── */
 ::-webkit-scrollbar { width:6px; }
-::-webkit-scrollbar-track { background:#0a0a0a; }
-::-webkit-scrollbar-thumb { background:rgba(200,255,0,.25);border-radius:3px; }
+::-webkit-scrollbar-track { background:var(--surface); }
+::-webkit-scrollbar-thumb { background:rgba(var(--ac-rgb),.35);border-radius:3px; }
 
 /* ── Contact Form ───────────────────────────────────────────────── */
 .form-input, .form-textarea {
-  background:#0F0F0F;border:1px solid var(--bd);border-radius:10px;
+  background:var(--surface-2);border:1px solid var(--bd);border-radius:10px;
   padding:14px 18px;color:var(--fg);font-family:var(--font-mono);
   font-size:13px;outline:none;transition:border-color .2s,background .2s;width:100%;
 }
-.form-input:focus, .form-textarea:focus { border-color:var(--ac);background:#111; }
+.form-input:focus, .form-textarea:focus { border-color:var(--ac);background:var(--surface-2); }
 .form-input::placeholder, .form-textarea::placeholder { color:var(--dim); }
 .form-textarea { resize:vertical;min-height:140px;line-height:1.7; }
 
