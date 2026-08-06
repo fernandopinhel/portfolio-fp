@@ -167,8 +167,8 @@ export const Nav = ({
         </div>
       )}
 
-      {/* Back button (case view) */}
-      {onCaseBack && !isMobile && (
+      {/* Back button (case view) — mobile e desktop */}
+      {onCaseBack && (
         <button
           onClick={onCaseBack}
           onMouseEnter={() => setHovLink(true)}
@@ -176,32 +176,34 @@ export const Nav = ({
           className="hj-case-back"
           data-gtm="case-back-portfolio"
           style={{
-            background: "none", border: "none", cursor: "none",
+            background: "none", border: "none", cursor: isMobile ? "pointer" : "none",
             fontFamily: "var(--font-mono)", fontSize: 12,
             color: "var(--dim)", display: "flex", alignItems: "center",
             gap: 8, letterSpacing: ".06em",
           }}
         >
-          ← Voltar ao portfólio
+          ← Voltar {isMobile ? "aos projetos" : "ao portfólio"}
         </button>
       )}
 
       {/* Right side */}
       <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
         {isMobile ? (
-          <button
-            onClick={() => setMenuOpen(true)}
-            aria-label="Abrir menu"
-            aria-expanded={menuOpen}
-            aria-controls="mobile-menu"
-            className="hj-mobile-menu-open"
-            data-gtm="mobile-menu-open"
-            style={{
-              background: "none", border: "1px solid rgba(var(--fg-rgb),.18)",
-              borderRadius: 8, padding: "8px 12px", cursor: "pointer",
-              color: "var(--fg)", fontSize: 18, lineHeight: 1,
-            }}
-          >☰</button>
+          !onCaseBack && (
+            <button
+              onClick={() => setMenuOpen(true)}
+              aria-label="Abrir menu"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
+              className="hj-mobile-menu-open"
+              data-gtm="mobile-menu-open"
+              style={{
+                background: "none", border: "1px solid rgba(var(--fg-rgb),.18)",
+                borderRadius: 8, padding: "8px 12px", cursor: "pointer",
+                color: "var(--fg)", fontSize: 18, lineHeight: 1,
+              }}
+            >☰</button>
+          )
         ) : (
           !onCaseBack && (
             <>

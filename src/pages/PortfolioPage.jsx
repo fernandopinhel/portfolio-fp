@@ -90,7 +90,9 @@ const PortfolioPage = ({
                 width: isMobile ? 140 : 220, height: isMobile ? 140 : 220,
                 borderRadius: 24, overflow: "hidden",
                 border: "1.5px solid var(--ac)",
-                boxShadow: "0 0 24px -4px rgba(var(--ac-rgb),.35), 0 24px 48px -16px rgba(0,0,0,.7)",
+                boxShadow: theme === "light"
+                  ? "0 0 16px -6px rgba(var(--ac-rgb),.18), 0 12px 28px -16px rgba(0,0,0,.18)"
+                  : "0 0 24px -4px rgba(var(--ac-rgb),.35), 0 24px 48px -16px rgba(0,0,0,.7)",
               }}
             >
               <img
