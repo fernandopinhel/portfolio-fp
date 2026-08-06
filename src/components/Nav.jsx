@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
 import { NAV_LINKS } from "../data";
-import { BtnPrimary, BtnOutline, GithubIcon } from "./UI";
+import { BtnPrimary, BtnOutline, GithubIcon, ThemeToggle } from "./UI";
 
 /* ── Mobile Menu ─────────────────────────────────────────────────── */
-export const MobileMenu = ({ open, onClose, activeNav, scrollTo }) => {
+export const MobileMenu = ({ open, onClose, activeNav, scrollTo, theme, toggleTheme }) => {
   const menuRef = useRef(null);
   const closeRef = useRef(null);
 
@@ -48,7 +48,7 @@ export const MobileMenu = ({ open, onClose, activeNav, scrollTo }) => {
     aria-label="Menu de navegação"
     style={{
       position: "fixed", inset: 0, zIndex: 200,
-      background: "rgba(7,7,7,.97)", backdropFilter: "blur(20px)",
+      background: "var(--overlay-strong)", backdropFilter: "blur(20px)",
       display: "flex", flexDirection: "column", alignItems: "center",
       justifyContent: "center", gap: 40,
       transform: open ? "translateY(0)" : "translateY(-100%)",
@@ -79,7 +79,7 @@ export const MobileMenu = ({ open, onClose, activeNav, scrollTo }) => {
           background: "none", border: "none", cursor: "pointer",
           fontFamily: "var(--font-display)", fontWeight: 700,
           fontSize: 38, letterSpacing: "-.03em",
-          color: activeNav === l ? "var(--ac)" : "rgba(237,233,227,.5)",
+          color: activeNav === l ? "var(--ac)" : "rgba(var(--fg-rgb),.5)",
           transition: "color .2s",
         }}
       >
@@ -87,7 +87,7 @@ export const MobileMenu = ({ open, onClose, activeNav, scrollTo }) => {
       </button>
     ))}
 
-    <div style={{ display: "flex", gap: 12, marginTop: 20, flexWrap: "wrap", justifyContent: "center" }}>
+    <div style={{ display: "flex", gap: 12, marginTop: 20, flexWrap: "wrap", justifyContent: "center", alignItems: "center" }}>
       {/* SECURITY: rel="noopener noreferrer" — Reverse Tabnapping prevention (OWASP) */}
       <BtnPrimary href="https://www.linkedin.com/in/fernando-pinhel-designer/" className="hj-nav-linkedin" data-gtm="mobile-social-linkedin">
         LinkedIn ↗
@@ -95,6 +95,7 @@ export const MobileMenu = ({ open, onClose, activeNav, scrollTo }) => {
       <BtnOutline href="https://github.com/fernandopinhel" className="hj-nav-github" data-gtm="mobile-social-github">
         GitHub ↗
       </BtnOutline>
+      <ThemeToggle theme={theme} onToggle={toggleTheme} />
     </div>
   </div>
   );
@@ -104,13 +105,14 @@ export const MobileMenu = ({ open, onClose, activeNav, scrollTo }) => {
 export const Nav = ({
   scrolled, activeNav, scrollTo, setHovLink,
   isMobile, menuOpen, setMenuOpen, onCaseBack,
+  theme, toggleTheme,
 }) => (
   <nav
     role="navigation"
     aria-label="Navegação principal"
     style={{
       position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-      background: scrolled ? "rgba(7,7,7,.92)" : "transparent",
+      background: scrolled ? "var(--overlay)" : "transparent",
       backdropFilter: scrolled ? "blur(16px)" : "none",
       borderBottom: scrolled ? "1px solid var(--bd)" : "1px solid transparent",
       transition: "background .4s, border-color .4s",
@@ -185,54 +187,57 @@ export const Nav = ({
       )}
 
       {/* Right side */}
-      {isMobile ? (
-        <button
-          onClick={() => setMenuOpen(true)}
-          aria-label="Abrir menu"
-          aria-expanded={menuOpen}
-          aria-controls="mobile-menu"
-          className="hj-mobile-menu-open"
-          data-gtm="mobile-menu-open"
-          style={{
-            background: "none", border: "1px solid rgba(237,233,227,.18)",
-            borderRadius: 8, padding: "8px 12px", cursor: "pointer",
-            color: "var(--fg)", fontSize: 18, lineHeight: 1,
-          }}
-        >☰</button>
-      ) : (
-        !onCaseBack && (
-          <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-            {/* SECURITY: rel="noopener noreferrer" — Reverse Tabnapping prevention */}
-            <a
-              href="https://github.com/fernandopinhel"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hj-nav-github"
-              data-gtm="desktop-social-github"
-              style={{
-                display: "flex", alignItems: "center", gap: 6,
-                color: "var(--dim)", textDecoration: "none",
-                fontFamily: "var(--font-mono)", fontSize: 11,
-                letterSpacing: ".06em", transition: "color .2s",
-              }}
-              onMouseEnter={e => { e.currentTarget.style.color = "var(--fg)"; setHovLink(true); }}
-              onMouseLeave={e => { e.currentTarget.style.color = "var(--dim)"; setHovLink(false); }}
-            >
-              <GithubIcon size={14} /> GitHub
-            </a>
-            <BtnOutline
-              href="https://www.linkedin.com/in/fernando-pinhel-designer/"
-              style={{ padding: "9px 18px", fontSize: 11 }}
-              data-gtm="desktop-social-linkedin"
-              className="hj-nav-linkedin"
-              onMouseEnter={() => setHovLink(true)}
-              onMouseLeave={() => setHovLink(false)}
-            >
-              LinkedIn ↗
-            </BtnOutline>
-          </div>
-        )
-      )}
+      <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+        {isMobile ? (
+          <button
+            onClick={() => setMenuOpen(true)}
+            aria-label="Abrir menu"
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            className="hj-mobile-menu-open"
+            data-gtm="mobile-menu-open"
+            style={{
+              background: "none", border: "1px solid rgba(var(--fg-rgb),.18)",
+              borderRadius: 8, padding: "8px 12px", cursor: "pointer",
+              color: "var(--fg)", fontSize: 18, lineHeight: 1,
+            }}
+          >☰</button>
+        ) : (
+          !onCaseBack && (
+            <>
+              {/* SECURITY: rel="noopener noreferrer" — Reverse Tabnapping prevention */}
+              <a
+                href="https://github.com/fernandopinhel"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hj-nav-github"
+                data-gtm="desktop-social-github"
+                style={{
+                  display: "flex", alignItems: "center", gap: 6,
+                  color: "var(--dim)", textDecoration: "none",
+                  fontFamily: "var(--font-mono)", fontSize: 11,
+                  letterSpacing: ".06em", transition: "color .2s",
+                }}
+                onMouseEnter={e => { e.currentTarget.style.color = "var(--fg)"; setHovLink(true); }}
+                onMouseLeave={e => { e.currentTarget.style.color = "var(--dim)"; setHovLink(false); }}
+              >
+                <GithubIcon size={14} /> GitHub
+              </a>
+              <BtnOutline
+                href="https://www.linkedin.com/in/fernando-pinhel-designer/"
+                style={{ padding: "9px 18px", fontSize: 11 }}
+                data-gtm="desktop-social-linkedin"
+                className="hj-nav-linkedin"
+                onMouseEnter={() => setHovLink(true)}
+                onMouseLeave={() => setHovLink(false)}
+              >
+                LinkedIn ↗
+              </BtnOutline>
+            </>
+          )
+        )}
+        <ThemeToggle theme={theme} onToggle={toggleTheme} size={36} />
+      </div>
     </div>
   </nav>
 );

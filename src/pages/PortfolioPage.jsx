@@ -46,7 +46,7 @@ const SectionTitle = ({ children, sub }) => {
    PORTFOLIO PAGE — all home sections
 ═══════════════════════════════════════════════════════════════════ */
 const PortfolioPage = ({
-  setCurrentCase, scrollTo, setHovLink, isMobile, isTablet, onPrivacyOpen,
+  setCurrentCase, scrollTo, setHovLink, isMobile, isTablet, onPrivacyOpen, theme,
 }) => {
   const W = { maxWidth: "var(--max-w)", margin: "0 auto", padding: isMobile ? "0 20px" : "0 48px" };
   const sectionRefs = useRef({});
@@ -90,7 +90,7 @@ const PortfolioPage = ({
                 width: isMobile ? 140 : 220, height: isMobile ? 140 : 220,
                 borderRadius: 24, overflow: "hidden",
                 border: "1.5px solid var(--ac)",
-                boxShadow: "0 0 24px -4px rgba(200,255,0,.35), 0 24px 48px -16px rgba(0,0,0,.7)",
+                boxShadow: "0 0 24px -4px rgba(var(--ac-rgb),.35), 0 24px 48px -16px rgba(0,0,0,.7)",
               }}
             >
               <img
@@ -224,6 +224,7 @@ const PortfolioPage = ({
               p={p}
               isMobile={isMobile}
               onClick={setCurrentCase}
+              theme={theme}
             />
           ))}
         </div>

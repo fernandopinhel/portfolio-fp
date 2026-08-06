@@ -33,8 +33,8 @@ export default class ErrorBoundary extends Component {
       }}>
         <div style={{
           width: 56, height: 56, borderRadius: "50%",
-          border: "1px solid rgba(255,80,80,.3)",
-          background: "rgba(255,80,80,.06)",
+          border: "1px solid rgba(var(--danger-rgb),.3)",
+          background: "rgba(var(--danger-rgb),.06)",
           display: "flex", alignItems: "center", justifyContent: "center",
           fontSize: 24,
         }}>
@@ -57,7 +57,7 @@ export default class ErrorBoundary extends Component {
           type="button"
           onClick={() => window.location.assign("/")}
           style={{
-            background: "var(--ac)", color: "#070707",
+            background: "var(--ac-solid)", color: "var(--ac-ink)",
             border: "none", borderRadius: 100,
             padding: "14px 28px", cursor: "pointer",
             fontFamily: "var(--font-mono)", fontSize: 12,

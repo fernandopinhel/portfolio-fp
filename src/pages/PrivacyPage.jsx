@@ -150,7 +150,7 @@ const PrivacyPage = ({ onBack }) => {
                 style={{
                   padding: "16px 20px",
                   borderBottom: i < arr.length - 1 ? "1px solid var(--bd)" : "none",
-                  background: i % 2 === 0 ? "rgba(237,233,227,.02)" : "transparent",
+                  background: i % 2 === 0 ? "rgba(var(--fg-rgb),.02)" : "transparent",
                 }}
               >
                 <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6, flexWrap: "wrap" }}>
@@ -162,8 +162,8 @@ const PrivacyPage = ({ onBack }) => {
                   <span style={{
                     fontFamily: "var(--font-mono)", fontSize: 10,
                     color: "var(--ac)", letterSpacing: ".1em",
-                    background: "rgba(200,255,0,.08)",
-                    border: "1px solid rgba(200,255,0,.2)",
+                    background: "rgba(var(--ac-rgb),.08)",
+                    border: "1px solid rgba(var(--ac-rgb),.2)",
                     borderRadius: 100, padding: "2px 8px",
                   }}>
                     {tool.id}
@@ -251,7 +251,7 @@ const PrivacyPage = ({ onBack }) => {
             onClick={onBack}
             style={{
               background: "none",
-              border: "1px solid rgba(237,233,227,.2)",
+              border: "1px solid rgba(var(--fg-rgb),.2)",
               borderRadius: 100, padding: "13px 28px",
               cursor: "pointer", color: "var(--fg)",
               fontFamily: "var(--font-mono)", fontSize: 12,

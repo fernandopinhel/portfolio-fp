@@ -1,4 +1,5 @@
 import { BtnPrimary, BtnOutline, Pill, VideoEmbed } from "../components/UI";
+import { accessibleAccent } from "../utils/color";
 
 /**
  * CasePage
@@ -8,9 +9,11 @@ import { BtnPrimary, BtnOutline, Pill, VideoEmbed } from "../components/UI";
  * Reverse Tabnapping (OWASP vulnerability). BtnPrimary and BtnOutline
  * already enforce this; direct <a> tags here also carry the attribute.
  */
-const CasePage = ({ project: p, onBack, setHovLink, isMobile }) => {
+const CasePage = ({ project: p, onBack, setHovLink, isMobile, theme }) => {
   if (!p) return null;
 
+  // Cor de destaque do case, escurecida no tema claro pra manter contraste AA
+  const accent = accessibleAccent(p.accent, theme === "light");
   const W = { maxWidth: "var(--max-w)", margin: "0 auto", padding: isMobile ? "0 20px" : "0 48px" };
 
   return (
@@ -24,7 +27,7 @@ const CasePage = ({ project: p, onBack, setHovLink, isMobile }) => {
       {/* ── Hero ──────────────────────────────────────────────────── */}
       <section style={{ ...W, paddingTop: isMobile ? 40 : 80, paddingBottom: isMobile ? 40 : 64 }}>
         <div style={{ marginBottom: 24 }}>
-          <Pill color={p.accent}>{p.tag}</Pill>
+          <Pill color={accent}>{p.tag}</Pill>
         </div>
         <h1
           className="case-hero-title"
@@ -103,10 +106,10 @@ const CasePage = ({ project: p, onBack, setHovLink, isMobile }) => {
       {p.problem && (
         <section style={{ ...W, marginBottom: isMobile ? 40 : 64 }}>
           <div style={{
-            background: `${p.accent}0D`, border: `1px solid ${p.accent}33`,
+            background: `${accent}0D`, border: `1px solid ${accent}33`,
             borderRadius: 16, padding: isMobile ? 24 : 40,
           }}>
-            <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, color: p.accent, letterSpacing: ".15em", textTransform: "uppercase", marginBottom: 16 }}>
+            <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, color: accent, letterSpacing: ".15em", textTransform: "uppercase", marginBottom: 16 }}>
               HMW — How Might We
             </div>
             <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: isMobile ? 20 : 28, color: "var(--fg)", lineHeight: 1.4, letterSpacing: "-.02em" }}>
@@ -120,7 +123,7 @@ const CasePage = ({ project: p, onBack, setHovLink, isMobile }) => {
       {p.methodology && (
         <section style={{ ...W, marginBottom: isMobile ? 40 : 64 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 16 }}>
-            <div style={{ width: 3, height: 32, background: p.accent || "var(--ac)", borderRadius: 2, flexShrink: 0 }} />
+            <div style={{ width: 3, height: 32, background: accent || "var(--ac)", borderRadius: 2, flexShrink: 0 }} />
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 22, color: "var(--fg)", letterSpacing: "-.02em" }}>
               Metodologia: {p.methodology}
             </h2>
@@ -142,12 +145,12 @@ const CasePage = ({ project: p, onBack, setHovLink, isMobile }) => {
               <div
                 key={k.l}
                 style={{
-                  background: "#0C0C0C", border: "1px solid var(--bd)",
+                  background: "var(--surface)", border: "1px solid var(--bd)",
                   borderRadius: 14, padding: isMobile ? "20px 16px" : "28px 24px",
                   textAlign: "center",
                 }}
               >
-                <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 36, color: p.accent || "var(--ac)", letterSpacing: "-.03em", marginBottom: 6 }}>
+                <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 36, color: accent || "var(--ac)", letterSpacing: "-.03em", marginBottom: 6 }}>
                   {k.v}
                 </div>
                 <div style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--dim)", letterSpacing: ".08em" }}>
@@ -168,7 +171,7 @@ const CasePage = ({ project: p, onBack, setHovLink, isMobile }) => {
           }}>
             Vídeo do Projeto
           </h2>
-          <VideoEmbed src={p.video} title={`${p.title} — vídeo`} accent={p.accent}/>
+          <VideoEmbed src={p.video} title={`${p.title} — vídeo`} accent={accent}/>
         </section>
       )}
 
@@ -186,7 +189,7 @@ const CasePage = ({ project: p, onBack, setHovLink, isMobile }) => {
           }}
         >
           <div style={{ display: "flex", gap: 16, alignItems: "flex-start", marginBottom: 20 }}>
-            <div className="step-dot" style={{ background: p.accent || "var(--ac)" }} />
+            <div className="step-dot" style={{ background: accent || "var(--ac)" }} />
             <h3 style={{
               fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 20,
               color: "var(--fg)", letterSpacing: "-.02em", lineHeight: 1.3,
@@ -230,7 +233,7 @@ const CasePage = ({ project: p, onBack, setHovLink, isMobile }) => {
       {p.impact && (
         <section style={{ ...W, marginBottom: isMobile ? 40 : 64 }}>
           <div style={{
-            background: "#0C0C0C", border: "1px solid var(--bd)", borderRadius: 16, padding: isMobile ? 24 : 40,
+            background: "var(--surface)", border: "1px solid var(--bd)", borderRadius: 16, padding: isMobile ? 24 : 40,
           }}>
             <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--dim)", letterSpacing: ".12em", textTransform: "uppercase", marginBottom: 12 }}>
               Impacto
@@ -260,7 +263,7 @@ const CasePage = ({ project: p, onBack, setHovLink, isMobile }) => {
                   padding: "16px 0", borderBottom: "1px solid var(--bd)",
                 }}
               >
-                <span style={{ color: p.accent || "var(--ac)", fontFamily: "var(--font-mono)", fontSize: 13, flexShrink: 0, marginTop: 1 }}>
+                <span style={{ color: accent || "var(--ac)", fontFamily: "var(--font-mono)", fontSize: 13, flexShrink: 0, marginTop: 1 }}>
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <span style={{ fontFamily: "var(--font-mono)", fontSize: 14, color: "var(--dim)", lineHeight: 1.6 }}>

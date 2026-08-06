@@ -31,7 +31,7 @@ const CookieBanner = ({ onAccept, onDecline, onPrivacyOpen }) => {
         aria-hidden="true"
         style={{
           position: "fixed", inset: 0,
-          background: "rgba(7,7,7,.4)",
+          background: "rgba(0,0,0,.4)",
           backdropFilter: "blur(2px)",
           zIndex: 10000, pointerEvents: "none",
         }}
@@ -47,10 +47,10 @@ const CookieBanner = ({ onAccept, onDecline, onPrivacyOpen }) => {
           left: "50%", transform: "translateX(-50%)",
           zIndex: 10001,
           width: "min(680px, calc(100vw - 32px))",
-          background: "#0F0F0F",
-          border: "1px solid rgba(237,233,227,.12)",
+          background: "var(--surface-2)",
+          border: "1px solid rgba(var(--fg-rgb),.12)",
           borderRadius: 20, padding: "28px 32px",
-          boxShadow: "0 24px 64px rgba(0,0,0,.6), 0 0 0 1px rgba(200,255,0,.06)",
+          boxShadow: "0 24px 64px rgba(0,0,0,.6), 0 0 0 1px rgba(var(--ac-rgb),.06)",
           animation: "cookieFadeUp .4s cubic-bezier(.16,1,.3,1) forwards",
           cursor: "auto",
         }}
@@ -61,8 +61,8 @@ const CookieBanner = ({ onAccept, onDecline, onPrivacyOpen }) => {
             aria-hidden="true"
             style={{
               width: 36, height: 36, borderRadius: 10, flexShrink: 0,
-              background: "rgba(200,255,0,.08)",
-              border: "1px solid rgba(200,255,0,.2)",
+              background: "rgba(var(--ac-rgb),.08)",
+              border: "1px solid rgba(var(--ac-rgb),.2)",
               display: "flex", alignItems: "center", justifyContent: "center",
               fontSize: 16,
             }}
@@ -92,7 +92,7 @@ const CookieBanner = ({ onAccept, onDecline, onPrivacyOpen }) => {
         {/* Corpo */}
         <p style={{
           fontFamily: "var(--font-mono)", fontSize: 13,
-          color: "rgba(237,233,227,.7)", lineHeight: 1.75, marginBottom: 20,
+          color: "rgba(var(--fg-rgb),.7)", lineHeight: 1.75, marginBottom: 20,
         }}>
           Este site utiliza{" "}
           <strong style={{ color: "var(--fg)" }}>Hotjar</strong>,{" "}
@@ -122,7 +122,7 @@ const CookieBanner = ({ onAccept, onDecline, onPrivacyOpen }) => {
               key={tool.name}
               style={{
                 display: "flex", alignItems: "center", gap: 8,
-                background: "rgba(237,233,227,.04)",
+                background: "rgba(var(--fg-rgb),.04)",
                 border: "1px solid var(--bd)",
                 borderRadius: 100, padding: "6px 12px",
               }}
@@ -134,7 +134,7 @@ const CookieBanner = ({ onAccept, onDecline, onPrivacyOpen }) => {
               <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--fg)" }}>
                 {tool.name}
               </span>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "rgba(237,233,227,.4)" }}>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "rgba(var(--fg-rgb),.4)" }}>
                 · {tool.desc}
               </span>
             </div>
@@ -149,7 +149,7 @@ const CookieBanner = ({ onAccept, onDecline, onPrivacyOpen }) => {
             className="hj-cookie-accept"
             data-gtm="cookie-accept"
             style={{
-              background: "var(--ac)", color: "#070707",
+              background: "var(--ac-solid)", color: "var(--ac-ink)",
               border: "none", borderRadius: 100,
               padding: "12px 24px",
               fontFamily: "var(--font-mono)", fontSize: 12,
@@ -170,7 +170,7 @@ const CookieBanner = ({ onAccept, onDecline, onPrivacyOpen }) => {
             data-gtm="cookie-decline"
             style={{
               background: "transparent", color: "var(--fg)",
-              border: "1px solid rgba(237,233,227,.18)",
+              border: "1px solid rgba(var(--fg-rgb),.18)",
               borderRadius: 100, padding: "11px 24px",
               fontFamily: "var(--font-mono)", fontSize: 12,
               letterSpacing: ".06em", cursor: "pointer",
@@ -178,11 +178,11 @@ const CookieBanner = ({ onAccept, onDecline, onPrivacyOpen }) => {
               flexShrink: 0,
             }}
             onMouseEnter={e => {
-              e.currentTarget.style.borderColor = "rgba(237,233,227,.4)";
-              e.currentTarget.style.background  = "rgba(237,233,227,.04)";
+              e.currentTarget.style.borderColor = "rgba(var(--fg-rgb),.4)";
+              e.currentTarget.style.background  = "rgba(var(--fg-rgb),.04)";
             }}
             onMouseLeave={e => {
-              e.currentTarget.style.borderColor = "rgba(237,233,227,.18)";
+              e.currentTarget.style.borderColor = "rgba(var(--fg-rgb),.18)";
               e.currentTarget.style.background  = "transparent";
             }}
           >
@@ -191,7 +191,7 @@ const CookieBanner = ({ onAccept, onDecline, onPrivacyOpen }) => {
 
           <span style={{
             fontFamily: "var(--font-mono)", fontSize: 11,
-            color: "rgba(237,233,227,.3)", lineHeight: 1.5,
+            color: "rgba(var(--fg-rgb),.3)", lineHeight: 1.5,
             flex: 1, minWidth: 160,
           }}>
             Ao recusar, nenhum dado de navegação será coletado.

@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { Pill } from "./UI";
+import { accessibleAccent } from "../utils/color";
 
 /**
  * ProjectCard
  * Renders a single project card in the projects grid.
  * size="large" → full width; size="small" → half width (in grid).
  */
-const ProjectCard = ({ p, isMobile, onClick }) => {
+const ProjectCard = ({ p, isMobile, onClick, theme }) => {
   const [hov, setHov] = useState(false);
+  const isLight = theme === "light";
+  const accent = accessibleAccent(p.accent, isLight);
 
   return (
     <div
@@ -23,7 +26,7 @@ const ProjectCard = ({ p, isMobile, onClick }) => {
       data-project-id={p.id}
       style={{
         gridColumn: p.size === "large" && !isMobile ? "span 2" : "span 1",
-        background: "#0C0C0C",
+        background: "var(--surface)",
         border: `1px solid ${hov ? "var(--bdh)" : "var(--bd)"}`,
         borderRadius: 20,
         overflow: "hidden",
@@ -45,11 +48,14 @@ const ProjectCard = ({ p, isMobile, onClick }) => {
             transform: hov ? "scale(1.04)" : "scale(1)",
           }}
         />
-        {/* Gradient overlay */}
-        <div style={{
-          position: "absolute", inset: 0,
-          background: `linear-gradient(to bottom, transparent 40%, ${p.bg || "#070707"} 100%)`,
-        }} />
+        {/* Gradient overlay — só no tema escuro (vinheta pro fundo escuro do
+            card); no tema claro um degradê pra branco "esfumaça" a foto */}
+        {!isLight && (
+          <div style={{
+            position: "absolute", inset: 0,
+            background: `linear-gradient(to bottom, transparent 40%, ${p.bg || "var(--bg)"} 100%)`,
+          }} />
+        )}
         {/* Year badge */}
         <div style={{
           position: "absolute", top: 16, right: 16,
@@ -63,7 +69,7 @@ const ProjectCard = ({ p, isMobile, onClick }) => {
       {/* Content */}
       <div style={{ padding: isMobile ? "20px" : "28px 32px 32px" }}>
         <div style={{ marginBottom: 12 }}>
-          <Pill color={p.accent}>{p.tag}</Pill>
+          <Pill color={accent}>{p.tag}</Pill>
         </div>
         <h3 style={{
           fontFamily: "var(--font-display)", fontWeight: 700,
@@ -86,7 +92,7 @@ const ProjectCard = ({ p, isMobile, onClick }) => {
             data-gtm="case-open"
             style={{
               fontFamily: "var(--font-mono)", fontSize: 12,
-              color: hov ? p.accent || "var(--ac)" : "var(--dim)",
+              color: hov ? accent || "var(--ac)" : "var(--dim)",
               letterSpacing: ".06em", transition: "color .3s",
               display: "flex", alignItems: "center", gap: 6,
             }}
@@ -115,7 +121,7 @@ const ProjectCard = ({ p, isMobile, onClick }) => {
       {/* Accent line at bottom on hover */}
       <div style={{
         position: "absolute", bottom: 0, left: 0, right: 0,
-        height: 2, background: p.accent || "var(--ac)",
+        height: 2, background: accent || "var(--ac)",
         transform: hov ? "scaleX(1)" : "scaleX(0)",
         transition: "transform .4s ease",
         transformOrigin: "left",
