@@ -86,7 +86,7 @@ export const PROJECTS = [
       "Sistema de gestão financeira pessoal desenhado e construído em parceria com IA — do design system extraído do próprio código ao login por Face ID e PWA instalável.",
     accent: "#4361EE",
     bg: "#0A0E1F",
-    size: "large",
+    size: "small",
     heroImg:
       "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1400&q=85&auto=format",
     thumbImg:
@@ -169,7 +169,7 @@ export const PROJECTS = [
       "Dashboard para gerenciar alunos utilizando reconhecimento facial. Interface complexa de dados com foco em usabilidade para gestores da rede estadual.",
     accent: "#C8FF00",
     bg: "#0D1A0D",
-    size: "large",
+    size: "small",
     heroImg:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1400&q=85&auto=format",
     thumbImg:
@@ -369,7 +369,7 @@ export const PROJECTS = [
       "Sistema de gestão com dashboards analíticos, cadastro de NIPs e guia de estilo corporativo adotado em produtos internos.",
     accent: "#FF6B35",
     bg: "#1A0E08",
-    size: "large",
+    size: "small",
     heroImg:
       "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1400&q=85&auto=format",
     thumbImg:
@@ -631,7 +631,7 @@ export const PROJECTS = [
       "10+ identidades visuais criadas do zero com manual de marca, aplicações e social media para marcas em diferentes segmentos.",
     accent: "#F472B6",
     bg: "#1A0A12",
-    size: "large",
+    size: "small",
     heroImg:
       "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1400&q=85&auto=format",
     thumbImg:
