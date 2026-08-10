@@ -7,11 +7,11 @@ const SCRIPT_SRC = "https://vlibras.gov.br/app/vlibras-plugin.js";
  * Carrega o script uma única vez (guarda contra o double-effect do
  * StrictMode em dev) e inicializa o ícone flutuante de acesso.
  *
- * position: "BR" (bottom-right, padrão) — testamos "BL" (esquerda) pra
- * fugir do widget de feedback do Hotjar, mas a animação de expandir e o
- * player do avatar assumem espaço à esquerda e ficam cortados nesse lado.
- * Mantido à direita; o CSS (global.css) empurra bem pro canto pra não
- * encostar no Hotjar, que fica mais alto na tela.
+ * Sem parâmetro de posição: testamos "BL" e "BR" e nenhum bateu com o
+ * que a documentação sugere (o widget se posiciona sozinho, vertical-
+ * mente centrado à direita, ignorando esse parâmetro) — e travar a
+ * posição via CSS quebrou a animação de abrir o player do avatar.
+ * Deixa 100% no comportamento padrão do widget.
  */
 export default function VLibras() {
   const initialized = useRef(false);
@@ -21,7 +21,7 @@ export default function VLibras() {
     initialized.current = true;
 
     const initWidget = () => {
-      if (window.VLibras) new window.VLibras.Widget("https://vlibras.gov.br/app", { position: "BR" });
+      if (window.VLibras) new window.VLibras.Widget("https://vlibras.gov.br/app");
     };
 
     const existing = document.querySelector(`script[src="${SCRIPT_SRC}"]`);
