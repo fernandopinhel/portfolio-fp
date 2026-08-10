@@ -77,11 +77,13 @@ portfolio-fp/
 ├── src/
 │   ├── components/
 │   │   ├── UI.jsx              # Biblioteca interna: Pill, BtnPrimary, BtnOutline,
-│   │   │                       #   GithubIcon, GridBg, Glow, VideoEmbed, ContactForm
+│   │   │                       #   GithubIcon, GridBg, Glow, ThemeToggle, VideoEmbed,
+│   │   │                       #   ContactForm
 │   │   ├── Nav.jsx             # Navbar fixa + MobileMenu (dialog com focus trap)
 │   │   ├── ProjectCard.jsx     # Card de projeto com hover, teclado e ARIA
 │   │   ├── CookieBanner.jsx    # Banner LGPD com aceite/recusa de cookies
-│   │   └── ErrorBoundary.jsx   # Captura erros de render; exibe tela amigável
+│   │   ├── ErrorBoundary.jsx   # Captura erros de render; exibe tela amigável
+│   │   └── VLibras.jsx         # Widget oficial de Libras (vlibras.gov.br)
 │   │
 │   ├── pages/
 │   │   ├── PortfolioPage.jsx   # Página principal: Hero, Sobre, Skills, Cases,
@@ -93,18 +95,24 @@ portfolio-fp/
 │   ├── hooks/
 │   │   ├── useCookieConsent.js # Gerencia consentimento LGPD; inicializa GTM/Hotjar
 │   │   │                       #   dinamicamente apenas após aceite
-│   │   └── useMediaQuery.js    # Detecção de breakpoints (mobile/tablet)
+│   │   ├── useMediaQuery.js    # Detecção de breakpoints (mobile/tablet)
+│   │   └── useTheme.js         # Tema claro/escuro: data-theme no <html>, persistido
+│   │                           #   em localStorage, com fallback pro sistema
+│   │
+│   ├── utils/
+│   │   └── color.js            # accessibleAccent(): escurece a cor de destaque de
+│   │                           #   cada case (HSL) até contraste AA no tema claro
 │   │
 │   ├── data/
 │   │   └── index.js            # Fonte única de dados: NAV_LINKS, SKILLS, TRAJECTORY,
 │   │                           #   ARTICLES, PROJECTS (9 cases completos)
 │   │
 │   ├── styles/
-│   │   └── global.css          # Tokens de design, reset, animações, responsivo,
-│   │                           #   focus-visible, prefers-reduced-motion
+│   │   └── global.css          # Tokens de design (dark + light), reset, animações,
+│   │                           #   responsivo, focus-visible, prefers-reduced-motion
 │   │
 │   ├── App.jsx                 # Root: estado global, roteamento por History API,
-│   │                           #   cursor customizado, cookie banner, footer
+│   │                           #   tema, cursor customizado, cookie banner, footer
 │   └── main.jsx                # Entry point React DOM
 │
 ├── index.html                  # HTML base: SEO, Open Graph, JSON-LD, GTM Consent
@@ -233,30 +241,41 @@ GA4, Hotjar e GTM só são inicializados após consentimento explícito. O `data
 
 ### Design tokens (CSS Custom Properties)
 
+Cores base ficam em canais RGB (`--fg-rgb`, `--bg-rgb`, `--ac-rgb`) para que qualquer `rgba(var(--x-rgb), alfa)` no código recalcule sozinho ao trocar de tema — só o bloco `:root` (escuro) e `:root[data-theme="light"]` precisam ser mantidos.
+
 ```css
---ac:          #C8FF00              /* accent — lima/neon */
---fg:          #EDE9E3              /* foreground — creme claro */
---bg:          #070707              /* background — preto */
---dim:         rgba(237,233,227,.88)/* texto secundário */
---dimmer:      rgba(237,233,227,.16)/* elementos puramente decorativos */
---bd:          rgba(237,233,227,.07)/* bordas */
---bdh:         rgba(237,233,227,.18)/* bordas em hover */
---font-mono:   'DM Mono', monospace
---font-display:'Syne', sans-serif
---max-w:       1160px
+--ac:            #C8FF00              /* accent — texto/borda; escurecido no tema claro p/ contraste AA */
+--ac-solid:      #C8FF00              /* accent sólido — fundo de botões (não muda entre temas) */
+--ac-ink:        #070707              /* texto sobre --ac-solid (não muda entre temas) */
+--fg:            #EDE9E3              /* foreground — creme claro (dark) / quase preto (light) */
+--bg:            #070707              /* background — preto (dark) / quase branco (light) */
+--dim/--dimmer:  rgba(var(--fg-rgb), .88 / .16)  /* derivados do foreground */
+--bd/--bdh:      rgba(var(--fg-rgb), .07 / .18)  /* bordas / bordas em hover */
+--surface:       #0C0C0C              /* cards (dark) / branco (light) */
+--surface-2:     #0F0F0F              /* inputs, banners (dark) / cinza claro (light) */
+--danger:        #FF5050              /* erro — mais escuro no tema claro p/ contraste */
+--font-mono:     'DM Mono', monospace
+--font-display:  'Syne', sans-serif
+--max-w:         1160px
 ```
+
+### Tema claro/escuro
+
+O toggle (`ThemeToggle`, no Nav) alterna `data-theme` no `<html>` via `useTheme.js`, persistido em `localStorage` (`fp-theme`) — claro é o padrão para quem ainda não escolheu. Cada case tem sua própria cor de destaque (`p.accent`); como cores vivas (ex. o lima `#C8FF00`) ficam quase invisíveis como texto sobre fundo claro, `src/utils/color.js` escurece cada uma via busca binária em HSL até atingir contraste **4.5:1 (WCAG AA)** contra branco — calculado por cor, não fixo. Botões preenchidos usam `--ac-solid`/`--ac-ink`, que não mudam entre temas (o par lima vivo + texto escuro já tem contraste alto em qualquer fundo).
 
 ---
 
 ## Funcionalidades
 
-- **9 cases documentados** com hero, overview, metodologia, KPIs, vídeo, seções com imagens e resultados
+- **9 cases documentados** com hero, overview, metodologia, KPIs, vídeo, seções com imagens e resultados, exibidos lado a lado em grid de 2 colunas
 - **Case study com múltiplos CTAs**: Figma, sistema ao vivo e repositório GitHub, exibidos condicionalmente por projeto (`figmaLink`, `externalLink`, `githubLink`)
+- **Modo claro/escuro** com contraste AA calculado por cor (ver [Tema claro/escuro](#tema-claroescuro)), persistido por usuário
+- **VLibras** — widget oficial do governo para tradução em Libras, disponível em todas as páginas
 - **Foto de perfil no hero**, ao lado do nome, com borda no tom de destaque do design system
 - **Cursor customizado** animado (desktop apenas)
 - **Marquee de skills** com animação contínua
-- **Formulário de contato** com validação client-side, estados idle/sending/success/error, LGPD opt-in obrigatório
-- **Modo mobile** com menu overlay como `role="dialog"` com focus trap completo
+- **Formulário de contato** com validação client-side, estados idle/sending/success/error, campos obrigatórios anunciados a leitores de tela (`aria-invalid`/`aria-describedby`), LGPD opt-in obrigatório
+- **Modo mobile** com menu overlay como `role="dialog"` com focus trap completo; nas páginas de case, o botão "Voltar aos projetos" substitui o hambúrguer (não há seções pra navegar)
 - **Error Boundary** React que previne tela em branco em produção
 
 ---
@@ -267,17 +286,22 @@ O projeto atende **WCAG 2.1 nível AA**. Principais implementações:
 
 | Critério | Implementação |
 |----------|--------------|
-| 1.1.1 Conteúdo não-textual | `alt` em todas as imagens; `aria-hidden` em elementos decorativos (`//`, dots, marquee) |
-| 1.4.3 Contraste | Textos em `--dim` (~13:1 contra `#070707`); labels de formulário e footer revisados |
+| 1.1.1 Conteúdo não-textual | `alt` em todas as imagens; `aria-hidden` em elementos decorativos (`//`, dots, marquee, cursor customizado) |
+| 1.3.1 Info e relações | Landmarks `<header>`, `<nav>`, `<main>`, `<footer>`; hierarquia de headings sem saltos (h1 → h2 → h3) em cada view |
+| 1.4.3 Contraste | Textos em `--dim` (~13:1 contra o fundo); cor de destaque de cada case escurecida via HSL até 4.5:1 no tema claro (`accessibleAccent`, ver [Tema claro/escuro](#tema-claroescuro)) |
 | 2.1.1 Teclado | `Enter` e `Space` ativam ProjectCard; todos os elementos interativos são acessíveis por teclado |
-| 2.1.2 Sem armadilha de teclado | MobileMenu tem focus trap que mantém Tab/Shift+Tab dentro do diálogo; `Escape` fecha |
+| 2.1.2 Sem armadilha de teclado | MobileMenu tem focus trap que mantém Tab/Shift+Tab dentro do diálogo; `Escape` fecha. CookieBanner é intencionalmente `aria-modal="false"` (não bloqueia o conteúdo atrás) — não recebe trap de propósito |
 | 2.2.2 Pausar, parar, ocultar | `@media (prefers-reduced-motion: reduce)` desativa marquee e todas as animações |
 | 2.4.1 Ignorar blocos | Link "Ir para o conteúdo" visível ao receber foco por teclado (skip navigation) |
 | 2.4.3 Ordem de foco | Foco move para `#page-content` ao trocar de view (case, privacidade) |
 | 2.4.7 Foco visível | `outline: 2px solid var(--ac)` em `a`, `button` e `[role="button"]` via `:focus-visible` |
 | 3.2.2 Ao receber entrada | MobileMenu move foco automaticamente para o botão fechar ao abrir |
+| 3.3.2 Rótulos ou instruções | Campos obrigatórios do formulário marcados com `required`/`aria-required` e indicador visual |
+| 3.3.1 Identificação de erro | `aria-invalid` por campo + `aria-describedby` ligando ao `role="alert"` com a mensagem |
 | 4.1.2 Nome, função, valor | `aria-expanded`, `aria-controls`, `aria-modal`, `role="dialog"` no menu mobile |
 | 4.1.3 Mensagens de status | Sucesso do formulário com `role="status"` + `aria-live="polite"`; erro com `role="alert"` |
+
+**Libras:** widget oficial [VLibras](https://www.vlibras.gov.br/) (governo brasileiro) disponível em todas as páginas — tradução automática de texto para Língua Brasileira de Sinais.
 
 ---
 
