@@ -13,11 +13,13 @@ import { PROJECTS } from "./data";
 import { useMediaQuery } from "./hooks/useMediaQuery";
 import { useCookieConsent } from "./hooks/useCookieConsent";
 import { useTheme } from "./hooks/useTheme";
+import { useA11ySettings } from "./hooks/useA11ySettings";
 import { GridBg, Glow } from "./components/UI";
 import { Nav, MobileMenu } from "./components/Nav";
 import CookieBanner from "./components/CookieBanner";
 import ErrorBoundary from "./components/ErrorBoundary";
 import VLibras from "./components/VLibras";
+import { ReadingGuide } from "./components/AccessibilityMenu";
 import PortfolioPage from "./pages/PortfolioPage";
 import CasePage from "./pages/CasePage";
 import PrivacyPage from "./pages/PrivacyPage";
@@ -40,15 +42,24 @@ export default function App() {
   /* ── Tema claro/escuro ───────────────────────────────────────────── */
   const { theme, toggleTheme } = useTheme();
 
+  /* ── Menu de acessibilidade (fonte, contraste, guia de leitura...) ── */
+  const a11y = useA11ySettings();
+
   const isMobile = useMediaQuery("(max-width: 768px)");
   const isTablet = useMediaQuery("(max-width: 1024px)");
+
+  // O cursor customizado usa a posição real do mouse (clientX/Y) em pixels
+  // "de tela"; com zoom (escala de fonte) ativo em #fp-portfolio, esses
+  // valores ficam desalinhados da posição visual real dentro do zoom —
+  // então volta pro cursor nativo do navegador enquanto o zoom estiver ativo.
+  const customCursorActive = !isMobile && a11y.settings.fontScale === 0;
 
   /* ── Custom cursor ──────────────────────────────────────────────── */
   useEffect(() => {
     const onMove = (e) => setCursor({ x: e.clientX, y: e.clientY });
-    if (!isMobile) window.addEventListener("mousemove", onMove);
+    if (customCursorActive) window.addEventListener("mousemove", onMove);
     return () => window.removeEventListener("mousemove", onMove);
-  }, [isMobile]);
+  }, [customCursorActive]);
 
   /* ── Scroll state for nav ───────────────────────────────────────── */
   useEffect(() => {
@@ -181,7 +192,7 @@ useEffect(() => {
         background: "var(--bg)",
         color: "var(--fg)",
         overflowX: "hidden",
-        cursor: isMobile ? "auto" : "none",
+        cursor: customCursorActive ? "none" : "auto",
         transition: "background-color .25s ease, color .25s ease",
       }}
     >
@@ -201,8 +212,8 @@ useEffect(() => {
         Ir para o conteúdo
       </a>
 
-      {/* Custom cursor (desktop only) */}
-      {!isMobile && (
+      {/* Custom cursor (desktop only, desligado com zoom ativo) */}
+      {customCursorActive && (
         <>
           <div aria-hidden="true" className="cur cur-dot" style={{ left: cursor.x, top: cursor.y }} />
           <div aria-hidden="true" className={`cur cur-ring ${hovLink ? "ex" : ""}`} style={{ left: cursor.x, top: cursor.y }} />
@@ -215,6 +226,9 @@ useEffect(() => {
 
       {/* Libras — widget oficial vlibras.gov.br */}
       <VLibras />
+
+      {/* Guia de leitura (menu de acessibilidade) */}
+      {a11y.settings.readingGuide && <ReadingGuide />}
 
       {/* ── Cookie Banner (LGPD) — visível até o usuário decidir ───── */}
       {showCookieBanner && (
@@ -248,6 +262,7 @@ useEffect(() => {
           onCaseBack={onCaseBack}
           theme={theme}
           toggleTheme={toggleTheme}
+          a11y={a11y}
         />
       </header>
 
@@ -262,6 +277,7 @@ useEffect(() => {
             setHovLink={setHovLink}
             isMobile={isMobile}
             theme={theme}
+            highContrast={a11y.settings.highContrast}
           />
         ) : (
           <PortfolioPage
@@ -274,6 +290,7 @@ useEffect(() => {
             isTablet={isTablet}
             onPrivacyOpen={handlePrivacyOpen}
             theme={theme}
+            highContrast={a11y.settings.highContrast}
           />
         )}
       </ErrorBoundary>

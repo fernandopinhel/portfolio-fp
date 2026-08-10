@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { NAV_LINKS } from "../data";
 import { BtnPrimary, BtnOutline, GithubIcon, ThemeToggle } from "./UI";
+import AccessibilityMenu from "./AccessibilityMenu";
 
 /* ── Mobile Menu ─────────────────────────────────────────────────── */
 export const MobileMenu = ({ open, onClose, activeNav, scrollTo, theme, toggleTheme }) => {
@@ -105,7 +106,7 @@ export const MobileMenu = ({ open, onClose, activeNav, scrollTo, theme, toggleTh
 export const Nav = ({
   scrolled, activeNav, scrollTo, setHovLink,
   isMobile, menuOpen, setMenuOpen, onCaseBack,
-  theme, toggleTheme,
+  theme, toggleTheme, a11y,
 }) => (
   <nav
     role="navigation"
@@ -239,6 +240,7 @@ export const Nav = ({
           )
         )}
         <ThemeToggle theme={theme} onToggle={toggleTheme} size={36} />
+        {a11y && <AccessibilityMenu settings={a11y.settings} patch={a11y.patch} reset={a11y.reset} />}
       </div>
     </div>
   </nav>

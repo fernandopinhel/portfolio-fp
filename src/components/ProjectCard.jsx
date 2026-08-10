@@ -7,9 +7,11 @@ import { accessibleAccent } from "../utils/color";
  * Renders a single project card in the projects grid.
  * size="large" → full width; size="small" → half width (in grid).
  */
-const ProjectCard = ({ p, isMobile, onClick, theme }) => {
+const ProjectCard = ({ p, isMobile, onClick, theme, highContrast }) => {
   const [hov, setHov] = useState(false);
-  const isLight = theme === "light";
+  // Alto contraste força fundo preto independente do tema (ver global.css),
+  // então tratamos como "não claro" pro cálculo de cor e pro degradê da imagem.
+  const isLight = theme === "light" && !highContrast;
   const accent = accessibleAccent(p.accent, isLight);
 
   return (

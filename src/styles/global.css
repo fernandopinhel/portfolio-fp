@@ -4,7 +4,7 @@
    e recordings. Não interferem no visual.
 ═══════════════════════════════════════════════════════════════════ */
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;600;700;800&family=Lexend:wght@400;500;600;700;800&display=swap');
 
 /* ── Reset ──────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -81,9 +81,69 @@ img { display: block; max-width: 100%; }
   --danger-rgb: 239,0,0;
 }
 
+/* ── Menu de acessibilidade (nativo) ───────────────────────────────
+   Atributos aplicados em #fp-portfolio (não em <html>), pra não afetar
+   UI injetada por terceiros fora da árvore React (ex: VLibras). */
+
+/* Tamanho da fonte — zoom escala tudo (texto, espaçamento, imagens)
+   sem exigir reescrever o site inteiro em rem. Suportado por Chrome,
+   Edge, Safari e Firefox 126+. */
+#fp-portfolio[data-font-scale="down"] { zoom: .88; }
+#fp-portfolio[data-font-scale="up"]   { zoom: 1.15; }
+#fp-portfolio[data-font-scale="up2"]  { zoom: 1.3; }
+
+/* Alto contraste — preto/branco absolutos, sem atenuação — independente
+   do tema claro/escuro selecionado. O componente que usa a cor de cada
+   case (accessibleAccent) recebe isso via prop e recalcula pro fundo
+   preto, então o contraste continua correto mesmo vindo do tema claro. */
+#fp-portfolio[data-contrast="high"] {
+  --bg: #000000; --bg-rgb: 0,0,0;
+  --fg: #FFFFFF; --fg-rgb: 255,255,255;
+  --surface: #000000; --surface-2: #0A0A0A;
+  --dim:    rgba(var(--fg-rgb), .92);
+  --dimmer: rgba(var(--fg-rgb), .7);
+  --bd:     rgba(var(--fg-rgb), .5);
+  --bdh:    rgba(var(--fg-rgb), .85);
+}
+
+/* Fonte para leitura facilitada — Lexend, testada pra melhorar
+   fluência de leitura (projeto de pesquisa apoiado pelo Google Fonts) */
+#fp-portfolio[data-dyslexia="true"] {
+  --font-mono: 'Lexend', sans-serif;
+  --font-display: 'Lexend', sans-serif;
+}
+
+/* Sublinhar links — !important necessário pra vencer o
+   textDecoration:"none" inline usado nos componentes de link */
+#fp-portfolio[data-underline-links="true"] a {
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+}
+
+/* Reduzir animações — mesmo efeito do @media prefers-reduced-motion,
+   como alternância manual (nem todo SO expõe a preferência do sistema) */
+#fp-portfolio[data-reduce-motion="true"] *,
+#fp-portfolio[data-reduce-motion="true"] *::before,
+#fp-portfolio[data-reduce-motion="true"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+#fp-portfolio[data-reduce-motion="true"] .mq { animation: none; overflow-x: auto; }
+#fp-portfolio[data-reduce-motion="true"] .fu,
+#fp-portfolio[data-reduce-motion="true"] .sl { opacity: 1; transform: none; }
+
 /* ── Custom Cursor ──────────────────────────────────────────────── */
+/* Só some o cursor nativo quando a escala de fonte está em 100% — com
+   zoom ativo (menu de acessibilidade) o cursor customizado é desligado
+   em App.jsx (ficaria desalinhado dentro do zoom), então o nativo
+   precisa voltar a aparecer. */
 @media (hover: hover) and (pointer: fine) {
-  html, a, button { cursor: none !important; }
+  #fp-portfolio:not([data-font-scale]),
+  #fp-portfolio:not([data-font-scale]) a,
+  #fp-portfolio:not([data-font-scale]) button {
+    cursor: none !important;
+  }
 }
 .cur { position:fixed;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%); }
 .cur-dot { width:8px;height:8px;background:var(--ac);transition:width .15s,height .15s; }
