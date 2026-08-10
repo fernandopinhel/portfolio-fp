@@ -148,19 +148,10 @@ img { display: block; max-width: 100%; }
 .cur { position:fixed;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%); }
 .cur-dot { width:8px;height:8px;background:var(--ac);transition:width .15s,height .15s; }
 
-/* ── VLibras — canto inferior direito, colado na quina ──────────────
-   position:"BL" (esquerda) cortava a animação de expandir e o player
-   do avatar, que assumem espaço à direita. Voltou pro lado direito
-   (comportamento nativo correto) e empurrado bem pro canto (0, sem
-   a margem padrão de 10px do widget) pra não encostar no widget de
-   feedback do Hotjar, que fica mais alto na tela. */
-#fp-portfolio [vw] {
-  right: 0 !important;
-  bottom: 0 !important;
-  left: auto !important;
-  top: auto !important;
-  margin: 0 !important;
-}
+/* VLibras: posição fica só a cargo do position:"BR" passado em JS
+   (VLibras.jsx) — um !important travando left/right/top/bottom aqui
+   quebrava a animação de abrir o player do avatar, que precisa
+   recalcular a própria posição/altura ao expandir. */
 .cur-ring { width:36px;height:36px;border:1px solid rgba(var(--ac-rgb),.35);transition:all .22s ease; }
 .cur-ring.ex { width:54px;height:54px;border-color:var(--ac); }
 
