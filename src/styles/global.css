@@ -148,13 +148,14 @@ img { display: block; max-width: 100%; }
 .cur { position:fixed;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%); }
 .cur-dot { width:8px;height:8px;background:var(--ac);transition:width .15s,height .15s; }
 
-/* VLibras: só empurra um pouco mais pra baixo (top/transform), sem
-   tocar em right/bottom/left/margin — travar todos os lados de uma vez
-   quebrava a animação de abrir o player do avatar (precisa recalcular
-   a própria posição/altura ao expandir). Padrão do widget é
-   top:50% + translateY(calc(-50% - 10px)) — só o "50%" muda aqui. */
+/* VLibras: só ajusta a posição vertical (top/transform), sem tocar em
+   right/bottom/left/margin — travar todos os lados de uma vez quebrava
+   a animação de abrir o player do avatar (precisa recalcular a própria
+   posição/altura ao expandir). Padrão do widget é top:50% +
+   translateY(calc(-50% - 10px)) — só o "50%" muda aqui. Valor abaixo
+   de 50% = mais acima na tela, acima do ícone de pesquisa do Hotjar. */
 #fp-portfolio [vw] {
-  top: 68% !important;
+  top: 32% !important;
   transform: translateY(calc(-50% - 10px)) !important;
 }
 .cur-ring { width:36px;height:36px;border:1px solid rgba(var(--ac-rgb),.35);transition:all .22s ease; }
