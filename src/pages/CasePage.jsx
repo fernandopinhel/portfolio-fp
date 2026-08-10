@@ -9,11 +9,13 @@ import { accessibleAccent } from "../utils/color";
  * Reverse Tabnapping (OWASP vulnerability). BtnPrimary and BtnOutline
  * already enforce this; direct <a> tags here also carry the attribute.
  */
-const CasePage = ({ project: p, onBack, setHovLink, isMobile, theme }) => {
+const CasePage = ({ project: p, onBack, setHovLink, isMobile, theme, highContrast }) => {
   if (!p) return null;
 
-  // Cor de destaque do case, escurecida no tema claro pra manter contraste AA
-  const accent = accessibleAccent(p.accent, theme === "light");
+  // Cor de destaque do case, escurecida no tema claro pra manter contraste AA.
+  // Alto contraste força fundo preto independente do tema (ver global.css),
+  // então o cálculo deve tratar isso como "não claro" pra não escurecer à toa.
+  const accent = accessibleAccent(p.accent, theme === "light" && !highContrast);
   const W = { maxWidth: "var(--max-w)", margin: "0 auto", padding: isMobile ? "0 20px" : "0 48px" };
 
   return (

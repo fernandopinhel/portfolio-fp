@@ -46,7 +46,7 @@ const SectionTitle = ({ children, sub }) => {
    PORTFOLIO PAGE — all home sections
 ═══════════════════════════════════════════════════════════════════ */
 const PortfolioPage = ({
-  setCurrentCase, scrollTo, setHovLink, isMobile, isTablet, onPrivacyOpen, theme,
+  setCurrentCase, scrollTo, setHovLink, isMobile, isTablet, onPrivacyOpen, theme, highContrast,
 }) => {
   const W = { maxWidth: "var(--max-w)", margin: "0 auto", padding: isMobile ? "0 20px" : "0 48px" };
   const sectionRefs = useRef({});
@@ -227,6 +227,7 @@ const PortfolioPage = ({
               isMobile={isMobile}
               onClick={setCurrentCase}
               theme={theme}
+              highContrast={highContrast}
             />
           ))}
         </div>

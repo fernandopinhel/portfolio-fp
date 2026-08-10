@@ -1,0 +1,56 @@
+# ═══════════════════════════════════════════════════════════════════
+# .htaccess — Fernando Pinhel Portfolio
+# ═══════════════════════════════════════════════════════════════════
+
+<IfModule mod_headers.c>
+  # Segurança Básica
+  Header unset X-Powered-By
+  Header always unset X-Powered-By
+  ServerSignature Off
+  Header set X-XSS-Protection "1; mode=block"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+
+  # Content Security Policy (CSP) - Versão Corrigida
+  # VLibras: tanto o script principal quanto os arquivos que o player do
+  # avatar carrega ao abrir (playerweb.json, .unityweb, .wasm, fontes) são
+  # redirecionados (302) do vlibras.gov.br pro cdn.jsdelivr.net — por isso
+  # jsdelivr precisa estar liberado em connect-src/font-src/style-src/img-src/
+  # media-src, não só em script-src. dicionario2/traducao2/www.vlibras.gov.br
+  # (via *.vlibras.gov.br) seguem sendo usados pra dicionário de sinais e
+  # tradução em si (esses continuam direto no domínio, sem redirect).
+  # O player Unity também cria um Web Worker a partir de um blob: (pra
+  # descompressão em background) — sem worker-src declarado, o navegador
+  # cai no fallback do script-src, que não libera blob:, travando o load.
+  Header set Content-Security-Policy "default-src 'self'; connect-src 'self' blob: https://formcarry.com https://*.hotjar.com https://*.hotjar.io wss://*.hotjar.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://region1.google-analytics.com https://vlibras.gov.br https://*.vlibras.gov.br https://cdn.jsdelivr.net; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://*.hotjar.com https://static.hotjar.com https://*.google-analytics.com https://www.googletagmanager.com https://ssl.google-analytics.com https://vlibras.gov.br https://*.vlibras.gov.br https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' data: blob: https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: blob: https://*.hotjar.com https://*.google-analytics.com https://www.googletagmanager.com https://ssl.gstatic.com https://images.unsplash.com https://plus.unsplash.com https://vlibras.gov.br https://*.vlibras.gov.br https://cdn.jsdelivr.net; media-src 'self' https://vlibras.gov.br https://*.vlibras.gov.br https://cdn.jsdelivr.net; worker-src 'self' blob:; frame-src 'self' https://www.googletagmanager.com https://www.youtube.com https://www.figma.com https://vlibras.gov.br https://*.vlibras.gov.br;"
+</IfModule>
+
+# Redirecionar HTTP → HTTPS
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# SPA fallback (React Router)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
+
+# Cache de assets
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png  "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType text/css   "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+</IfModule>

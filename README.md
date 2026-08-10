@@ -72,7 +72,10 @@ portfolio-fp/
 │   │   └── generali/
 │   ├── robots.txt              # Indexação + referência ao sitemap
 │   ├── sitemap.xml             # URLs canônicas para crawlers
-│   └── favicon.svg
+│   ├── favicon.svg
+│   └── .htaccess                # Apache: HTTPS redirect, SPA fallback, CSP, cache —
+│                               #   fica em public/ (não na raiz) para que o Vite
+│                               #   copie pro dist/ em todo build automaticamente
 │
 ├── src/
 │   ├── components/
@@ -83,7 +86,9 @@ portfolio-fp/
 │   │   ├── ProjectCard.jsx     # Card de projeto com hover, teclado e ARIA
 │   │   ├── CookieBanner.jsx    # Banner LGPD com aceite/recusa de cookies
 │   │   ├── ErrorBoundary.jsx   # Captura erros de render; exibe tela amigável
-│   │   └── VLibras.jsx         # Widget oficial de Libras (vlibras.gov.br)
+│   │   ├── VLibras.jsx         # Widget oficial de Libras (vlibras.gov.br)
+│   │   └── AccessibilityMenu.jsx # Menu nativo: fonte, contraste, dislexia,
+│   │                           #   guia de leitura, sublinhar links, animações
 │   │
 │   ├── pages/
 │   │   ├── PortfolioPage.jsx   # Página principal: Hero, Sobre, Skills, Cases,
@@ -96,8 +101,10 @@ portfolio-fp/
 │   │   ├── useCookieConsent.js # Gerencia consentimento LGPD; inicializa GTM/Hotjar
 │   │   │                       #   dinamicamente apenas após aceite
 │   │   ├── useMediaQuery.js    # Detecção de breakpoints (mobile/tablet)
-│   │   └── useTheme.js         # Tema claro/escuro: data-theme no <html>, persistido
-│   │                           #   em localStorage, com fallback pro sistema
+│   │   ├── useTheme.js         # Tema claro/escuro: data-theme no <html>, persistido
+│   │   │                       #   em localStorage, com fallback pro sistema
+│   │   └── useA11ySettings.js  # Estado do menu de acessibilidade (data-* em
+│   │                           #   #fp-portfolio), persistido em localStorage
 │   │
 │   ├── utils/
 │   │   └── color.js            # accessibleAccent(): escurece a cor de destaque de
@@ -120,7 +127,6 @@ portfolio-fp/
 ├── vite.config.js              # Aliases de path, proxy /api → localhost:3001,
 │                               #   code splitting (vendor chunk)
 ├── jsconfig.json               # Paths aliases + suporte JSX
-├── .htaccess                   # Apache: HTTPS redirect, SPA fallback, CSP, cache
 └── .env.local                  # Variáveis de ambiente do frontend (não versionado)
 ```
 
@@ -270,6 +276,7 @@ O toggle (`ThemeToggle`, no Nav) alterna `data-theme` no `<html>` via `useTheme.
 - **9 cases documentados** com hero, overview, metodologia, KPIs, vídeo, seções com imagens e resultados, exibidos lado a lado em grid de 2 colunas
 - **Case study com múltiplos CTAs**: Figma, sistema ao vivo e repositório GitHub, exibidos condicionalmente por projeto (`figmaLink`, `externalLink`, `githubLink`)
 - **Modo claro/escuro** com contraste AA calculado por cor (ver [Tema claro/escuro](#tema-claroescuro)), persistido por usuário
+- **Menu de acessibilidade nativo** (sem widget de terceiro): tamanho de fonte, alto contraste, fonte para leitura facilitada, guia de leitura, sublinhar links, reduzir animações — persistido por usuário
 - **VLibras** — widget oficial do governo para tradução em Libras, disponível em todas as páginas
 - **Foto de perfil no hero**, ao lado do nome, com borda no tom de destaque do design system
 - **Cursor customizado** animado (desktop apenas)
@@ -298,10 +305,14 @@ O projeto atende **WCAG 2.1 nível AA**. Principais implementações:
 | 3.2.2 Ao receber entrada | MobileMenu move foco automaticamente para o botão fechar ao abrir |
 | 3.3.2 Rótulos ou instruções | Campos obrigatórios do formulário marcados com `required`/`aria-required` e indicador visual |
 | 3.3.1 Identificação de erro | `aria-invalid` por campo + `aria-describedby` ligando ao `role="alert"` com a mensagem |
+| 1.4.4 Redimensionar texto | Menu de acessibilidade escala a interface até 130% via `zoom` (sem cortar conteúdo) |
+| 1.4.8 Apresentação visual | Alto contraste, fonte para leitura facilitada (Lexend) e guia de leitura, todos opcionais e persistidos |
 | 4.1.2 Nome, função, valor | `aria-expanded`, `aria-controls`, `aria-modal`, `role="dialog"` no menu mobile |
 | 4.1.3 Mensagens de status | Sucesso do formulário com `role="status"` + `aria-live="polite"`; erro com `role="alert"` |
 
 **Libras:** widget oficial [VLibras](https://www.vlibras.gov.br/) (governo brasileiro) disponível em todas as páginas — tradução automática de texto para Língua Brasileira de Sinais.
+
+**Menu de acessibilidade (`AccessibilityMenu.jsx`):** construído nativamente, sem widget de terceiro — evita o problema conhecido dos "overlays de acessibilidade" de terceiros (várias entidades de acessibilidade, incluindo a WebAIM, assinam o [Overlay Fact Sheet](https://overlayfactsheet.com/) alertando que eles podem conflitar com leitores de tela reais e dar falsa sensação de conformidade). Tamanho de fonte usa `zoom` no `#fp-portfolio` (não em `<html>`, pra não distorcer UI injetada por terceiros como o VLibras); o cursor customizado se desliga automaticamente enquanto o zoom está ativo, pra não desalinhar da posição real do mouse; e o alto contraste recalcula a cor de cada case corretamente mesmo combinado com o tema claro.
 
 ---
 

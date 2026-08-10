@@ -6,6 +6,12 @@ const SCRIPT_SRC = "https://vlibras.gov.br/app/vlibras-plugin.js";
  * VLibras — widget oficial do governo brasileiro (tradutor de Libras).
  * Carrega o script uma única vez (guarda contra o double-effect do
  * StrictMode em dev) e inicializa o ícone flutuante de acesso.
+ *
+ * Sem parâmetro de posição: testamos "BL" e "BR" e nenhum bateu com o
+ * que a documentação sugere (o widget se posiciona sozinho, vertical-
+ * mente centrado à direita, ignorando esse parâmetro) — e travar a
+ * posição via CSS quebrou a animação de abrir o player do avatar.
+ * Deixa 100% no comportamento padrão do widget.
  */
 export default function VLibras() {
   const initialized = useRef(false);
