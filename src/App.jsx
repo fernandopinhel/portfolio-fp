@@ -17,6 +17,7 @@ import { GridBg, Glow } from "./components/UI";
 import { Nav, MobileMenu } from "./components/Nav";
 import CookieBanner from "./components/CookieBanner";
 import ErrorBoundary from "./components/ErrorBoundary";
+import VLibras from "./components/VLibras";
 import PortfolioPage from "./pages/PortfolioPage";
 import CasePage from "./pages/CasePage";
 import PrivacyPage from "./pages/PrivacyPage";
@@ -203,14 +204,17 @@ useEffect(() => {
       {/* Custom cursor (desktop only) */}
       {!isMobile && (
         <>
-          <div className="cur cur-dot" style={{ left: cursor.x, top: cursor.y }} />
-          <div className={`cur cur-ring ${hovLink ? "ex" : ""}`} style={{ left: cursor.x, top: cursor.y }} />
+          <div aria-hidden="true" className="cur cur-dot" style={{ left: cursor.x, top: cursor.y }} />
+          <div aria-hidden="true" className={`cur cur-ring ${hovLink ? "ex" : ""}`} style={{ left: cursor.x, top: cursor.y }} />
         </>
       )}
 
       {/* Background decorations */}
       <GridBg />
       <Glow />
+
+      {/* Libras — widget oficial vlibras.gov.br */}
+      <VLibras />
 
       {/* ── Cookie Banner (LGPD) — visível até o usuário decidir ───── */}
       {showCookieBanner && (
@@ -232,18 +236,20 @@ useEffect(() => {
       />
 
       {/* Top navigation */}
-      <Nav
-        scrolled={scrolled}
-        activeNav={activeNav}
-        scrollTo={scrollTo}
-        setHovLink={setHovLink}
-        isMobile={isMobile}
-        menuOpen={menuOpen}
-        setMenuOpen={setMenuOpen}
-        onCaseBack={onCaseBack}
-        theme={theme}
-        toggleTheme={toggleTheme}
-      />
+      <header>
+        <Nav
+          scrolled={scrolled}
+          activeNav={activeNav}
+          scrollTo={scrollTo}
+          setHovLink={setHovLink}
+          isMobile={isMobile}
+          menuOpen={menuOpen}
+          setMenuOpen={setMenuOpen}
+          onCaseBack={onCaseBack}
+          theme={theme}
+          toggleTheme={toggleTheme}
+        />
+      </header>
 
       {/* Main content: privacy | case | portfolio */}
       <ErrorBoundary>

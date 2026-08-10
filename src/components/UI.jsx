@@ -317,7 +317,7 @@ export const ContactForm = ({ onPrivacyOpen }) => {
 
       {/* Nome */}
       <div>
-        <label htmlFor="contact-name" style={labelStyle}>Nome</label>
+        <label htmlFor="contact-name" style={labelStyle}>Nome <span aria-hidden="true" style={{ color: "var(--danger)" }}>*</span></label>
         <input
           id="contact-name"
           name="name"
@@ -327,6 +327,10 @@ export const ContactForm = ({ onPrivacyOpen }) => {
           value={fields.name}
           onChange={set("name")}
           disabled={status === "sending"}
+          required
+          aria-required="true"
+          aria-invalid={status === "error" && !fields.name.trim()}
+          aria-describedby={status === "error" ? "contact-form-error" : undefined}
           style={inputStyle}
           onFocus={focusOn}
           onBlur={focusOff}
@@ -335,7 +339,7 @@ export const ContactForm = ({ onPrivacyOpen }) => {
 
       {/* E-mail */}
       <div>
-        <label htmlFor="contact-email" style={labelStyle}>E-mail</label>
+        <label htmlFor="contact-email" style={labelStyle}>E-mail <span aria-hidden="true" style={{ color: "var(--danger)" }}>*</span></label>
         <input
           id="contact-email"
           name="email"
@@ -345,6 +349,10 @@ export const ContactForm = ({ onPrivacyOpen }) => {
           value={fields.email}
           onChange={set("email")}
           disabled={status === "sending"}
+          required
+          aria-required="true"
+          aria-invalid={status === "error" && !fields.email.trim()}
+          aria-describedby={status === "error" ? "contact-form-error" : undefined}
           style={inputStyle}
           onFocus={focusOn}
           onBlur={focusOff}
@@ -353,7 +361,7 @@ export const ContactForm = ({ onPrivacyOpen }) => {
 
       {/* Mensagem */}
       <div>
-        <label htmlFor="contact-message" style={labelStyle}>Mensagem</label>
+        <label htmlFor="contact-message" style={labelStyle}>Mensagem <span aria-hidden="true" style={{ color: "var(--danger)" }}>*</span></label>
         <textarea
           id="contact-message"
           name="message"
@@ -362,6 +370,10 @@ export const ContactForm = ({ onPrivacyOpen }) => {
           value={fields.message}
           onChange={set("message")}
           disabled={status === "sending"}
+          required
+          aria-required="true"
+          aria-invalid={status === "error" && !fields.message.trim()}
+          aria-describedby={status === "error" ? "contact-form-error" : undefined}
           style={{ ...inputStyle, resize: "vertical", minHeight: 120 }}
           onFocus={focusOn}
           onBlur={focusOff}
@@ -380,7 +392,10 @@ export const ContactForm = ({ onPrivacyOpen }) => {
           checked={lgpd}
           onChange={e => { setLgpd(e.target.checked); setErrorMsg(""); setStatus("idle"); }}
           disabled={status === "sending"}
+          required
           aria-required="true"
+          aria-invalid={status === "error" && !lgpd}
+          aria-describedby={status === "error" ? "contact-form-error" : undefined}
           style={{ marginTop: 2, accentColor: "var(--ac)", flexShrink: 0 }}
         />
         <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--dim)", lineHeight: 1.7 }}>
@@ -406,6 +421,7 @@ export const ContactForm = ({ onPrivacyOpen }) => {
       {/* Erro inline */}
       {status === "error" && (
         <div
+          id="contact-form-error"
           role="alert"
           style={{
             background: "rgba(var(--danger-rgb),.08)",
