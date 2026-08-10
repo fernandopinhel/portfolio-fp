@@ -14,8 +14,11 @@
   Header set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
 
   # Content Security Policy (CSP) - Versão Corrigida
-  # VLibras (vlibras.gov.br): script + tradução (connect) + ícones/avatar (img) + player (media/frame)
-  Header set Content-Security-Policy "default-src 'self'; connect-src 'self' https://formcarry.com https://*.hotjar.com https://*.hotjar.io wss://*.hotjar.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://region1.google-analytics.com https://vlibras.gov.br; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.hotjar.com https://static.hotjar.com https://*.google-analytics.com https://www.googletagmanager.com https://ssl.google-analytics.com https://vlibras.gov.br; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.hotjar.com https://*.google-analytics.com https://www.googletagmanager.com https://ssl.gstatic.com https://images.unsplash.com https://plus.unsplash.com https://vlibras.gov.br; media-src 'self' https://vlibras.gov.br; frame-src 'self' https://www.googletagmanager.com https://www.youtube.com https://www.figma.com https://vlibras.gov.br;"
+  # VLibras: vlibras.gov.br/app/vlibras-plugin.js faz 302 pro cdn.jsdelivr.net
+  # (é lá que o script de verdade mora); o widget em si chama
+  # dicionario2/traducao2/www.vlibras.gov.br (via *.vlibras.gov.br) pra
+  # dicionário de sinais, tradução e assets do avatar.
+  Header set Content-Security-Policy "default-src 'self'; connect-src 'self' https://formcarry.com https://*.hotjar.com https://*.hotjar.io wss://*.hotjar.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://region1.google-analytics.com https://vlibras.gov.br https://*.vlibras.gov.br; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.hotjar.com https://static.hotjar.com https://*.google-analytics.com https://www.googletagmanager.com https://ssl.google-analytics.com https://vlibras.gov.br https://*.vlibras.gov.br https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://*.hotjar.com https://*.google-analytics.com https://www.googletagmanager.com https://ssl.gstatic.com https://images.unsplash.com https://plus.unsplash.com https://vlibras.gov.br https://*.vlibras.gov.br; media-src 'self' https://vlibras.gov.br https://*.vlibras.gov.br; frame-src 'self' https://www.googletagmanager.com https://www.youtube.com https://www.figma.com https://vlibras.gov.br https://*.vlibras.gov.br;"
 </IfModule>
 
 # Redirecionar HTTP → HTTPS
