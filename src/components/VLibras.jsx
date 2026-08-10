@@ -6,6 +6,9 @@ const SCRIPT_SRC = "https://vlibras.gov.br/app/vlibras-plugin.js";
  * VLibras — widget oficial do governo brasileiro (tradutor de Libras).
  * Carrega o script uma única vez (guarda contra o double-effect do
  * StrictMode em dev) e inicializa o ícone flutuante de acesso.
+ *
+ * position: "BL" (bottom-left) — o padrão do widget é "BR" (bottom-right),
+ * que sobrepõe o widget de pesquisa/feedback do Hotjar, ancorado à direita.
  */
 export default function VLibras() {
   const initialized = useRef(false);
@@ -15,7 +18,7 @@ export default function VLibras() {
     initialized.current = true;
 
     const initWidget = () => {
-      if (window.VLibras) new window.VLibras.Widget("https://vlibras.gov.br/app");
+      if (window.VLibras) new window.VLibras.Widget("https://vlibras.gov.br/app", { position: "BL" });
     };
 
     const existing = document.querySelector(`script[src="${SCRIPT_SRC}"]`);
