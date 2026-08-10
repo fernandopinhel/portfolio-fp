@@ -147,6 +147,18 @@ img { display: block; max-width: 100%; }
 }
 .cur { position:fixed;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%); }
 .cur-dot { width:8px;height:8px;background:var(--ac);transition:width .15s,height .15s; }
+
+/* ── VLibras — força canto inferior esquerdo ────────────────────────
+   Reforço via CSS (!important) por cima do position:"BL" já passado
+   pro widget em JS — o widget ainda define left/bottom via inline
+   style, então isso é defesa extra caso o script mude de comportamento
+   ou não aplique a tempo. */
+#fp-portfolio [vw] {
+  left: 10px !important;
+  bottom: 10px !important;
+  right: auto !important;
+  top: auto !important;
+}
 .cur-ring { width:36px;height:36px;border:1px solid rgba(var(--ac-rgb),.35);transition:all .22s ease; }
 .cur-ring.ex { width:54px;height:54px;border-color:var(--ac); }
 
