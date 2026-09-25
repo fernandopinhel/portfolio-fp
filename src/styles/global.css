@@ -104,6 +104,8 @@ img { display: block; max-width: 100%; }
   --dimmer: rgba(var(--fg-rgb), .7);
   --bd:     rgba(var(--fg-rgb), .5);
   --bdh:    rgba(var(--fg-rgb), .85);
+  --overlay:        rgba(var(--bg-rgb), .92);
+  --overlay-strong: rgba(var(--bg-rgb), .97);
 }
 
 /* Fonte para leitura facilitada — Lexend, testada pra melhorar
