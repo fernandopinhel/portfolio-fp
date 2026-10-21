@@ -58,11 +58,19 @@ const ProjectCard = ({ p, isMobile, onClick, theme, highContrast }) => {
             background: `linear-gradient(to bottom, transparent 40%, ${p.bg || "var(--bg)"} 100%)`,
           }} />
         )}
-        {/* Year badge */}
+        {/* Year badge — fundo sólido translúcido, independente do que está
+            por trás na foto (texto puro sem fundo ficava ilegível em
+            thumbnails claras ou de baixo contraste) */}
         <div style={{
-          position: "absolute", top: 16, right: 16,
-          fontFamily: "var(--font-mono)", fontSize: 10,
-          color: "var(--dim)", letterSpacing: ".1em",
+          position: "absolute", top: 14, right: 14,
+          fontFamily: "var(--font-mono)", fontSize: 11, fontWeight: 500,
+          color: "#fff", letterSpacing: ".06em", lineHeight: 1,
+          background: "rgba(0,0,0,.55)",
+          backdropFilter: "blur(6px)",
+          WebkitBackdropFilter: "blur(6px)",
+          border: "1px solid rgba(255,255,255,.18)",
+          padding: "6px 11px",
+          borderRadius: 100,
         }}>
           {p.year}
         </div>
