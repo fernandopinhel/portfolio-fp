@@ -786,78 +786,90 @@ export const PROJECTS = [
     tag: "Designer Engineer · Saúde Suplementar",
     title: "Gestão OPME",
     description:
-      "Back-office para gestão de OPME (órteses, próteses e materiais especiais): catálogo por código TUSS, fornecedores, tabelas de preço e relatório de economia em negociação, com um único padrão reaplicado em 9 módulos.",
-    accent: "#F5A524",
-    bg: "#1A1206",
+      "Negociação e compra de OPME (órteses, próteses e materiais especiais) para uma operadora de saúde — solicitação em 5 etapas, negociação com histórico de propostas, aprovação por alçada e mapa de economia. Protótipo de 2020 revisitado em 2026.",
+    accent: "#0B6D77",
+    bg: "#071D20",
     size: "small",
     heroImg:
       "https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=1400&q=85&auto=format",
     thumbImg:
       "https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=800&q=80&auto=format",
     figmaLink: null,
-    year: "2026",
+    externalLink: "https://fernandopinhel.github.io/OPME/",
+    githubLink: "https://github.com/fernandopinhel/OPME",
+    year: "2020 · Revisitado em 2026",
     role: "Product Designer · Front-end Developer",
-    client: "Seguradora de saúde — marca fictícia no case (Vitalis Saúde) para preservar o cliente original",
+    client: "Operadora de saúde — marca fictícia no case (Valora Saúde) para preservar o cliente original",
     challenge:
-      "Comprar itens OPME envolve múltiplos hospitais, fornecedores e tabelas de preço diferentes, com cada negociação fechada caso a caso — sem um sistema central que desse visibilidade real da economia obtida em cada negociação nem controle de quem pode acessar cada módulo. O desafio era desenhar e construir esse sistema do zero: um back-office que desse conta de todo o ciclo, do cadastro de hospital e fornecedor até o relatório de precificação.",
+      "OPME é uma das contas mais caras de uma operadora de saúde — uma prótese de quadril ou um marca-passo custam dezenas de milhares de reais, e o mesmo item pode ter preços bem diferentes de um hospital para outro. Antes do sistema, a compra dependia de planilhas, e-mails e telefonemas: o hospital pedia material sem valor de referência, a operadora não tinha as tabelas negociadas com cada hospital e fornecedor num lugar só, propostas e contrapropostas se perdiam em conversas sem registro, e a aprovação de valores altos não tinha uma alçada clara.",
     impact:
-      "Centraliza em um único sistema o que antes dependia de controlar hospital, fornecedor, catálogo de itens e tabela de preço em fontes separadas — com um relatório que torna a economia de cada negociação um número visível, não uma estimativa. O controle de acesso por usuário, grupo e tela prepara o sistema para abrir módulos específicos a diferentes perfis, da área de compras à auditoria.",
+      "O pedido do hospital vira uma solicitação de compra com todo o caminho registrado: itens já comparados a valor de tabela e referência de mercado, negociação proposta a proposta, aprovação por alçada e um mapa consolidado que fecha cada solicitação com a economia em reais e em porcentagem — um número, não uma sensação. Os cadastros de base (hospitais, fornecedores, itens, fabricantes, usuários e permissões) ficam no mesmo sistema, no mesmo padrão de tela.",
     overview:
-      "Back-office para gestão de OPME (órteses, próteses e materiais especiais) de uma seguradora de saúde: cadastro e consulta de hospitais/clínicas conveniadas, fornecedores e marcas/fabricantes homologados, catálogo de itens por código TUSS, tabelas de valores por hospital e por fornecedor, fluxo de solicitação de compra com acompanhamento de situação (pendente, em negociação, aprovada) e relatório geral de precificação comparando valor de tabela com valor negociado. Controle de acesso por usuário, grupo de acesso e tela. Construído em React 19, React Router e Tailwind CSS 4.",
-    methodology: "Um Padrão, Nove Módulos",
+      "Sistema interno para a equipe de OPME de uma operadora de saúde: painel com indicadores do dia, solicitação de compra em 5 etapas (dados, procedimentos e itens, negociação, aprovação e mapa consolidado), tabelas de valores de hospitais e fornecedores com suspensão em lote, relatório geral de precificação e 9 cadastros guiados por esquema (hospitais, fornecedores, itens, marcas/fabricantes, unidades de medida e de negócio, usuários, grupos de acesso e telas do sistema). HTML, CSS e JavaScript puros, sem framework, auditado com axe-core para WCAG 2.2 AA e publicado no GitHub Pages.",
+    methodology: "Protótipo Revisitado em Par com IA (Claude)",
     methodologyDesc:
-      "Em vez de desenhar cada módulo como uma tela isolada, parti de um padrão único — Consulta (filtros + tabela) → Cadastro (formulário) → Detalhes (somente leitura) — e construí um kit de componentes próprio (Card, DataTable, FormField, FormSelect, StatusBadge, PageTitle, FormActions) para reaplicá-lo em 9 entidades diferentes: hospitais, fornecedores, itens, marcas/fabricantes, unidades de negócio, unidades de medida, solicitações de compra, usuários e grupos de acesso. O roadmap ficou explícito na própria navegação: a Fase 1, entregue, cobre cadastros e o relatório de precificação; Dashboard, Processos e Mensagens aparecem marcados como Fase 2, mapeados mas não construídos.",
+      "A versão original, de 2020, tinha cerca de 27 telas em Bootstrap e jQuery — a maioria só visual, com dados fixos e a marca do cliente. Na revisão de 2026, com o Claude como par de engenharia, defini um padrão único de interação (etapas com progresso visível, negociação como histórico de propostas em vez de um campo de valor, exclusão sempre protegida) e um esquema de dados por cadastro, de onde o formulário e a tabela de consulta de cada entidade nascem — criar um cadastro novo passou a ser acrescentar um esquema, não desenhar uma tela do zero. O resultado: fluxos que funcionam de ponta a ponta, com dados fictícios gerados de forma determinística, em vez de telas estáticas.",
     problem:
-      "Como dar a uma seguradora de saúde um sistema único para cadastrar hospitais, fornecedores e itens OPME, acompanhar solicitações de compra e enxergar a economia de cada negociação — sem multiplicar o esforço de design e desenvolvimento a cada novo módulo?",
+      "Como dar a uma operadora de saúde um sistema único para negociar e aprovar a compra de OPME — do pedido do hospital ao mapa de economia — sem perder rastreabilidade de quem decidiu o quê, nem multiplicar o esforço de design a cada novo cadastro?",
     sections: [
       {
-        title: "Um Hub Para Hospital, Fornecedor e Preço",
+        title: "Um Painel Que Já Abre Mostrando o Que Importa",
         content:
-          "A home reúne os módulos em cards com ícone, nome e descrição curta — hospitais/clínicas conveniadas, solicitação de compra, fornecedores, catálogo de itens, marcas/fabricantes homologados, unidades de negócio e de medida, e o relatório de precificação. O menu lateral espelha a mesma estrutura, dividida em Painel (operação do dia a dia) e Configurações (cadastros de apoio e controle de acesso), para quem passa o dia inteiro no sistema nunca perder a localização.",
+          "A home não é uma lista de módulos — é um painel que resume o dia: solicitações em andamento e quantas são urgentes, itens aguardando aprovação, economia negociada no período e valores de tabela perto de vencer. Logo abaixo, duas listas priorizadas: o que precisa da atenção da pessoa agora e o que vai vencer nos próximos 30 dias. Quem abre o sistema de manhã sabe por onde começar sem precisar caçar informação pelo menu.",
         imgs: [
-          "/images/cases/gestao-opme/img-menu.png",
+          "/images/cases/gestao-opme/img-inicio.jpg",
         ],
       },
       {
-        title: "Da Solicitação à Negociação",
+        title: "Negociação Como Histórico, Não Como Campo de Valor",
         content:
-          "Cada solicitação de compra mostra hospital, segurado, senha e prioridade na consulta, com a situação sempre visível num badge (pendente, em negociação, aprovada). Ao abrir uma solicitação, o detalhe lista os itens pedidos com código TUSS, fabricante, valor unitário e subtotal, e fecha com o valor total calculado — dando ao time de compras o contexto completo antes de negociar com o fornecedor.",
+          "O pedido do hospital vira uma solicitação de compra em 5 etapas, com indicador de progresso sempre visível. Cada item já chega com o valor tabelado e com o menor valor entre fornecedores como referência — quem negocia não parte do zero. A negociação fica registrada proposta a proposta: contraproposta da operadora, nova proposta do hospital, aceite de cada lado, sempre com data e responsável. Itens com valor já tabelado podem ser aceitos de uma vez, sobrando trabalho manual só para o que realmente precisa de conversa.",
         imgs: [
-          "/images/cases/gestao-opme/img-solicitacao-consulta.png",
-          "/images/cases/gestao-opme/img-solicitacao-detalhes.png",
+          "/images/cases/gestao-opme/img-negociacao.jpg",
+          "/images/cases/gestao-opme/img-negociacao-dialogo.jpg",
         ],
       },
       {
-        title: "Economia Visível a Cada Negociação",
+        title: "Aprovação por Alçada, Economia à Vista",
         content:
-          "O relatório geral de precificação compara, item a item e hospital a hospital, o valor de tabela com o valor efetivamente negociado — e soma tudo em quatro números no topo: itens negociados, valor de tabela, valor negociado e economia, em reais e em porcentagem. É o módulo que transforma o resultado de cada negociação de uma sensação em um número.",
+          "A aprovação é por item — dá para aprovar parte da solicitação e reprovar o resto, sempre com motivo obrigatório. Valores acima de R$ 30 mil pedem uma segunda assinatura: o sistema avisa da alçada da diretoria e só libera a aprovação depois do aval registrado. No fim, o mapa consolidado fecha a solicitação com o valor pedido pelo hospital, o valor acordado e a economia — em reais e em porcentagem —, pronto para exportar em CSV ou imprimir.",
         imgs: [
-          "/images/cases/gestao-opme/img-relatorio.png",
+          "/images/cases/gestao-opme/img-aprovacao.jpg",
+          "/images/cases/gestao-opme/img-mapa-consolidado.jpg",
         ],
       },
       {
-        title: "Controle de Acesso Por Usuário, Grupo e Tela",
+        title: "Um Padrão Para Tabelas e Nove Cadastros",
         content:
-          "Além dos cadastros de usuário e grupo de acesso, o módulo Telas registra cada tela do sistema como uma entidade própria — a base para decidir, por grupo, quem enxerga o quê. É a mesma lógica de Consulta/Cadastro/Detalhes dos demais módulos aplicada ao próprio sistema de permissões, sem um mecanismo paralelo só para isso.",
+          "As tabelas de valores de cada hospital ou fornecedor mostram a situação de cada item — vigente, suspenso, em negociação ou vencido —, com filtros, suspensão em lote e registro de nova proposta sem sair da tela. Os 9 cadastros de base seguem o mesmo padrão de Consulta e Cadastro, descritos por esquema num único arquivo de dados: seções, campos, máscaras e regras de duplicidade. Criar um cadastro novo é acrescentar um esquema, não construir uma tela do zero.",
         imgs: [
-          "/images/cases/gestao-opme/img-itens-cadastro.png",
+          "/images/cases/gestao-opme/img-tabela-de-valores.jpg",
+        ],
+        compact: true,
+      },
+      {
+        title: "Acessível do Desktop ao Celular",
+        content:
+          "Revisei a acessibilidade para a WCAG 2.2 AA e verifiquei com axe-core todas as telas e estados — erros, diálogos, menu aberto — no desktop e no celular, sem violações. Mudar de etapa leva o foco ao título da etapa e atualiza o título da aba; o menu no celular funciona como gaveta modal, com o conteúdo de trás inerte e o foco devolvido a quem abriu ao fechar.",
+        imgs: [
+          "/images/cases/gestao-opme/img-mobile-inicio.jpg",
         ],
         compact: true,
       },
     ],
     kpis: [
-      { v: "12", l: "Módulos de gestão integrados" },
-      { v: "9", l: "Entidades no padrão Consulta → Cadastro → Detalhes" },
-      { v: "TUSS", l: "Catálogo de itens por código oficial de saúde" },
-      { v: "3", l: "Camadas de acesso: usuário, grupo e tela" },
+      { v: "0", l: "Dependências de runtime" },
+      { v: "5", l: "Etapas da solicitação, até o mapa consolidado" },
+      { v: "9", l: "Cadastros guiados por esquema" },
+      { v: "AA", l: "WCAG 2.2, verificado com axe-core" },
     ],
     results: [
-      "12 módulos de gestão (hospitais, fornecedores, itens, marcas, solicitação de compra, tabelas de valores e mais) num único sistema",
-      "Catálogo de itens OPME por código TUSS, com marca/fabricante, unidade de medida e valor de referência",
-      "Relatório de precificação que compara valor de tabela e valor negociado por item, com economia calculada automaticamente",
-      "Controle de acesso por usuário, grupo de acesso e tela, pronto para permissões granulares por módulo",
-      "Kit de componentes próprio em React + Tailwind (Card, DataTable, FormField, FormSelect, StatusBadge) reaplicado em 9 entidades",
-      "Roadmap em fases explícito na navegação: Fase 1 entregue, Dashboard/Processos/Mensagens mapeados para a Fase 2",
+      "Solicitação de compra em 5 etapas: dados, procedimentos e itens, negociação, aprovação e mapa consolidado",
+      "Negociação registrada proposta a proposta, com contraproposta da operadora e aceite de cada lado",
+      "Aprovação por item, com alçada da diretoria acima de R$ 30 mil e motivo obrigatório para reprovar",
+      "Tabelas de valores de hospitais e fornecedores com suspensão em lote, reativação e histórico de propostas",
+      "9 cadastros guiados por esquema, com validação, bloqueio de duplicidade e exclusão protegida",
+      "Acessibilidade WCAG 2.2 AA verificada com axe-core em todas as telas e estados, sem violações",
     ],
   },
 ];
