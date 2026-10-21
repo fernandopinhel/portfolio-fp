@@ -707,9 +707,9 @@ export const PROJECTS = [
     bg: "#081B2E",
     size: "small",
     heroImg:
-      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=1400&q=85&auto=format",
+      "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=1400&q=85&auto=format",
     thumbImg:
-      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&q=80&auto=format",
+      "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=800&q=80&auto=format",
     figmaLink: null,
     externalLink: "https://fernandopinhel.github.io/prototipo-auto-vistoria/",
     githubLink: "https://github.com/fernandopinhel/prototipo-auto-vistoria",
@@ -870,6 +870,107 @@ export const PROJECTS = [
       "Tabelas de valores de hospitais e fornecedores com suspensão em lote, reativação e histórico de propostas",
       "9 cadastros guiados por esquema, com validação, bloqueio de duplicidade e exclusão protegida",
       "Acessibilidade WCAG 2.2 AA verificada com axe-core em todas as telas e estados, sem violações",
+    ],
+  },
+
+  // ── 12 — CASE NOVO: Sinistro Auto (GSRE) ─────────────────────────────────
+  {
+    id: "sinistro-auto",
+    tag: "Designer Engineer · Seguros · Sinistros",
+    title: "Sinistro Auto",
+    description:
+      "Central de sinistros de automóvel para uma seguradora — do aviso ao pagamento, com distribuição automática, jornada em 6 paradas e liberação em quatro olhos. Protótipo de 2020–2021 revisitado em 2026.",
+    accent: "#2D50BD",
+    bg: "#0C1333",
+    size: "small",
+    heroImg:
+      "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=1400&q=85&auto=format",
+    thumbImg:
+      "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&q=80&auto=format",
+    figmaLink: null,
+    externalLink: "https://fernandopinhel.github.io/Sinistro-Auto/",
+    githubLink: "https://github.com/fernandopinhel/Sinistro-Auto",
+    year: "2020–2021 · Revisitado em 2026",
+    role: "Product Designer · Front-end Developer",
+    client: "Seguradora — marca fictícia no case (Travessia Seguros) para preservar o cliente original",
+    challenge:
+      "Quando alguém bate o carro, liga pra seguradora querendo saber três coisas: se está coberto, quando o carro volta e quanto vai pagar. Do outro lado, um time de analistas trata centenas de processos ao mesmo tempo, cada um numa etapa diferente — e no sistema antigo esse trabalho era espalhado: cada pessoa escolhia na mão qual processo abrir (os casos difíceis ficavam pra depois), não havia prazo visível por etapa, orçamento e indenização ficavam em telas soltas sem o saldo da cobertura à vista, e quem pedia um pagamento muitas vezes era quem liberava.",
+    impact:
+      "O time de sinistros passa a trabalhar sobre uma fila justa, não escolhida — a distribuição automática entrega o próximo processo pela ordem que a supervisão define, e processos distribuídos e esquecidos voltam pra fila sozinhos, com justificativa. O pagamento passa sempre por uma segunda pessoa com alçada pro valor, e o ressarcimento do terceiro culpado começa sozinho ao liberar o pagamento — duas regras que fecham brechas reais de um fluxo manual.",
+    overview:
+      "Central de sinistros de automóvel para uma seguradora, do aviso ao pagamento: caixa de entrada com fila e distribuição automática, consulta de sinistros, processo com 7 abas (resumo, pareceres, orçamentos, indenizações, documentos, cartas, histórico), aviso de sinistro com abertura automática de processo por cobertura, liberação de pagamentos em quatro olhos, ressarcimentos, indicadores de tempo por etapa e 9 cadastros guiados por esquema. HTML, CSS e JavaScript puros, sem framework, auditado com axe-core para WCAG 2.2 AA e publicado no GitHub Pages.",
+    methodology: "Protótipo Revisitado em Par com IA (Claude)",
+    methodologyDesc:
+      "A versão original, entre 2020 e 2021, tinha cerca de 67 páginas em Bootstrap e jQuery, quase todas só visuais, com dados fixos e a marca do cliente. Na revisão de 2026, com o Claude como par de engenharia, troquei o menu lateral por uma barra de operações no topo (o analista passa o dia dentro do processo, e a ficha larga importa mais que a navegação), desenhei a jornada do sinistro como uma estrada com 6 paradas, e levei pra dentro da interface regras de negócio reais que o sistema antigo só tinha em treinamento — como a regra dos 75% no orçamento e a exigência de quatro olhos no pagamento.",
+    problem:
+      "Como organizar o trabalho de um time de analistas de sinistros — do aviso ao pagamento — de um jeito que a fila seja justa, o prazo de cada etapa fique visível antes de virar reclamação, e nenhuma pessoa sozinha consiga pedir e liberar o mesmo pagamento?",
+    sections: [
+      {
+        title: "Um Painel Que Já Mostra Por Onde Começar",
+        content:
+          "A home resume o turno do analista: quantos processos estão na caixa, quantos esperam na fila do grupo, quanto há em pagamentos pra liberar e quantos prazos já estouraram. Um botão — Pegar o próximo processo — leva direto ao primeiro da fila, sem precisar escolher. Embaixo, duas listas priorizadas: o que está na caixa, na ordem que a distribuição sugere, e os prazos estourados, pra atraso nunca ser surpresa.",
+        imgs: [
+          "/images/cases/gsre/img-inicio.jpg",
+        ],
+      },
+      {
+        title: "A Jornada do Sinistro Como Uma Estrada",
+        content:
+          "Cada processo mostra seis paradas — aviso, documentos, orçamento, reparo, pagamento, encerrado — como uma estrada, com a data de cada uma. Ao lado, uma coluna fixa com situação, prazo, responsável e o saldo da cobertura: o analista vê, num segundo, onde o processo está, o que falta e quanto ainda pode prometer, sem trocar de tela. As abas (pareceres, orçamentos, indenizações, documentos, cartas, histórico) mudam o conteúdo ao lado sem perder esse contexto.",
+        imgs: [
+          "/images/cases/gsre/img-processo.jpg",
+        ],
+      },
+      {
+        title: "A Regra dos 75% e os Quatro Olhos no Pagamento",
+        content:
+          "Quando o orçamento do reparo passa de 75% do valor do veículo, o caminho vira indenização integral — o formulário avisa enquanto o valor é digitado, e a autorização fica bloqueada acima do limite, abaixo da franquia ou sem saldo na cobertura. No pagamento, quem pede não libera: a liberação exige alçada pro valor e nunca aceita o próprio pedido de quem está liberando, com a tela explicando, linha a linha, por que um pagamento não pode ser selecionado.",
+        imgs: [
+          "/images/cases/gsre/img-orcamento-autorizar.jpg",
+          "/images/cases/gsre/img-pagamentos.jpg",
+        ],
+      },
+      {
+        title: "Pegar o Próximo Processo, Não Escolher",
+        content:
+          "Quando cada analista escolhe o que atender, os casos difíceis envelhecem na fila. A distribuição automática entrega o primeiro da ordem — definida pela supervisão, não por quem está com pressa — e mostra por que cada processo está naquela posição (novidade, vistoria prioritária, tempo parado). Um processo distribuído e esquecido volta sozinho pra fila depois do prazo da caixa, pedindo justificativa.",
+        imgs: [
+          "/images/cases/gsre/img-caixa.jpg",
+        ],
+        compact: true,
+      },
+      {
+        title: "Indicadores Que a Gestão Enxerga",
+        content:
+          "O módulo de indicadores soma o tempo médio de cada etapa — do envio de documentos à liberação do pagamento — como tabela com barra, não como gráfico isolado: o número vale tanto pra quem enxerga quanto pra quem usa leitor de tela, e exporta em CSV. É a tela que transforma 'a fila está lenta' numa etapa específica pra investigar.",
+        imgs: [
+          "/images/cases/gsre/img-indicadores.jpg",
+        ],
+        compact: true,
+      },
+      {
+        title: "Revisitando o Case em 2026",
+        content:
+          "Reescrevi tudo em HTML, CSS e JavaScript puros — zero dependências de runtime —, removendo Bootstrap, jQuery, CKEditor, plugins de galeria e calendário, e cerca de 85 MB de arquivos da versão original. Revisei a acessibilidade pra WCAG 2.2 AA, verificada com axe-core em todas as telas e estados, desktop e celular: a jornada do sinistro vira lista vertical no celular, o menu abre como gaveta modal com o conteúdo de trás inerte, e a ordem da fila se reorganiza por botões de subir e descer, sem depender de arrastar.",
+        imgs: [
+          "/images/cases/gsre/img-mobile-processo.jpg",
+        ],
+        compact: true,
+      },
+    ],
+    kpis: [
+      { v: "13", l: "Páginas, do aviso ao pagamento" },
+      { v: "6", l: "Paradas na jornada do sinistro" },
+      { v: "0", l: "Dependências de runtime" },
+      { v: "AA", l: "WCAG 2.2, verificado com axe-core" },
+    ],
+    results: [
+      "Jornada do sinistro com 6 paradas (aviso, documentos, orçamento, reparo, pagamento, encerrado) sempre visível na ficha do processo",
+      "Distribuição automática entrega o próximo processo pela ordem da fila — ninguém escolhe os casos fáceis",
+      "Regra dos 75%: acima do limite a autorização de reparo é bloqueada e o caminho vira indenização integral",
+      "Pagamento sempre em quatro olhos — quem pede não libera, e quem libera precisa de alçada para o valor",
+      "Ressarcimento do terceiro culpado aberto automaticamente ao liberar o pagamento",
+      "9 cadastros guiados por esquema, zero dependências de runtime e acessibilidade WCAG 2.2 AA verificada com axe-core",
     ],
   },
 ];
