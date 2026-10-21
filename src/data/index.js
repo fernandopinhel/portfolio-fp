@@ -707,9 +707,9 @@ export const PROJECTS = [
     bg: "#081B2E",
     size: "small",
     heroImg:
-      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=1400&q=85&auto=format",
+      "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=1400&q=85&auto=format",
     thumbImg:
-      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&q=80&auto=format",
+      "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=800&q=80&auto=format",
     figmaLink: null,
     externalLink: "https://fernandopinhel.github.io/prototipo-auto-vistoria/",
     githubLink: "https://github.com/fernandopinhel/prototipo-auto-vistoria",
