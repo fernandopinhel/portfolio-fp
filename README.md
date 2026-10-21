@@ -65,7 +65,10 @@ portfolio-fp/
 │   │   │   ├── painel-aditivo/
 │   │   │   ├── generali/
 │   │   │   ├── sites/
-│   │   │   └── branding/
+│   │   │   ├── branding/
+│   │   │   ├── auto-vistoria/   # screenshots reais do protótipo (GitHub Pages)
+│   │   │   ├── gestao-opme/     # screenshots reais do protótipo (GitHub Pages)
+│   │   │   └── gsre/            # screenshots reais do protótipo (GitHub Pages)
 │   │   └── profile/            # Foto de perfil exibida no hero
 │   ├── videos/                 # Vídeos MP4 dos cases
 │   │   ├── bradesco/
@@ -273,7 +276,7 @@ O toggle (`ThemeToggle`, no Nav) alterna `data-theme` no `<html>` via `useTheme.
 
 ## Funcionalidades
 
-- **9 cases documentados** com hero, overview, metodologia, KPIs, vídeo, seções com imagens e resultados, exibidos lado a lado em grid de 2 colunas
+- **12 cases documentados** com hero, overview, metodologia, KPIs, vídeo, seções com imagens e resultados, exibidos lado a lado em grid de 2 colunas — 3 deles (Auto Vistoria, Gestão OPME, Sinistro Auto) são protótipos reais publicados no GitHub Pages, com marca fictícia e dados de exemplo para preservar o cliente original
 - **Case study com múltiplos CTAs**: Figma, sistema ao vivo e repositório GitHub, exibidos condicionalmente por projeto (`figmaLink`, `externalLink`, `githubLink`)
 - **Modo claro/escuro** com contraste AA calculado por cor (ver [Tema claro/escuro](#tema-claroescuro)), persistido por usuário
 - **Menu de acessibilidade nativo** (sem widget de terceiro): tamanho de fonte, alto contraste, fonte para leitura facilitada, guia de leitura, sublinhar links, reduzir animações — persistido por usuário
