@@ -695,4 +695,88 @@ export const PROJECTS = [
       "Transição para UX/UI fundamentada na visão sistêmica do branding",
     ],
   },
+
+  // ── 10 — CASE NOVO: Auto Vistoria ────────────────────────────────────────
+  {
+    id: "auto-vistoria",
+    tag: "Designer Engineer · Seguros",
+    title: "Auto Vistoria",
+    description:
+      "Autovistoria de seguro de automóvel e residência pelo celular — protótipo de 2020 revisitado em 2026 com fluxos completos, zero dependências e WCAG 2.2 AA.",
+    accent: "#1667C4",
+    bg: "#081B2E",
+    size: "small",
+    heroImg:
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=1400&q=85&auto=format",
+    thumbImg:
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&q=80&auto=format",
+    figmaLink: null,
+    externalLink: "https://fernandopinhel.github.io/prototipo-auto-vistoria/",
+    githubLink: "https://github.com/fernandopinhel/prototipo-auto-vistoria",
+    year: "2020 · Revisitado em 2026",
+    role: "Product Designer · Front-end",
+    client: "Seguradora — marca fictícia no case (Lar&Via Seguros) para preservar o cliente original",
+    challenge:
+      "O modelo tradicional de vistoria de seguro — presencial, agendada, com deslocamento até um posto ou espera por um vistoriador — custa tempo pro segurado e dinheiro pra seguradora, numa etapa que atrasa a emissão da apólice. O desafio era desenhar e prototipar uma autovistoria que o próprio segurado faz pelo celular, sem perder a confiança que um processo de seguro exige nem deixar o formulário longo e cansativo.",
+    impact:
+      "O protótipo validou a jornada de autovistoria com usuários e stakeholders antes do desenvolvimento do produto real, reduzindo o risco de retrabalho na fase de construção. Em 2026, revisitei o case publicamente como prova de rigor técnico: fluxos funcionais de ponta a ponta, zero dependências de runtime, CSP restritiva e WCAG 2.2 AA auditada com axe-core — sem violações.",
+    overview:
+      "Protótipo de autovistoria de seguro — automóvel e residência — feito pra rodar inteiramente no navegador, sem back-end: login por CPF, home com o status de cada vistoria, e os dois fluxos completos (dados pessoais, dados do bem e fotos) com validação, máscaras, upload com pré-visualização, rascunho automático em sessionStorage, confirmação em <dialog> nativo e protocolo de envio. HTML, CSS e JavaScript puros, sem framework, auditado com axe-core para WCAG 2.2 AA e publicado no GitHub Pages.",
+    methodology: "Protótipo Revisitado em Par com IA (Claude)",
+    methodologyDesc:
+      "Voltei a um protótipo de 2020 com o olhar de hoje: primeiro mapeei o que já funcionava na jornada original, depois priorizei o que mudaria num projeto novo — fluxos de verdade em vez de telas estáticas, acessibilidade desde o início e zero dependências desnecessárias. O Claude atuou como par de engenharia em cada decisão técnica: da arquitetura que lê a estrutura do HTML pra validar cada campo por atributos (em vez de reescrever JavaScript a cada campo novo), até a auditoria de acessibilidade tela a tela com axe-core e a escrita da Content Security Policy sem estilos nem scripts inline.",
+    problem:
+      "Como transformar uma vistoria presencial de seguro em uma autovistoria pelo celular que o segurado faz sozinho, sem perder a confiança, a clareza nem a acessibilidade que um processo de seguro exige?",
+    sections: [
+      {
+        title: "Uma Vistoria Presencial Vira Autovistoria",
+        content:
+          "Pra contratar ou renovar um seguro de carro ou de casa, a seguradora precisa confirmar o estado do bem — tradicionalmente numa vistoria presencial: agendar horário, esperar o vistoriador ou levar o carro até um posto, pra só depois a análise começar. Desenhei e construí o protótipo de uma autovistoria: o próprio segurado faz a vistoria pelo celular, no horário que quiser, respondendo alguns dados e tirando as fotos pedidas — validando a jornada e a interface com usuários e stakeholders antes do desenvolvimento do produto real.",
+        imgs: [
+          "/images/cases/auto-vistoria/img-home.jpg",
+        ],
+      },
+      {
+        title: "Um Fluxo Só Para Dois Produtos",
+        content:
+          "Vistoria de automóvel e vistoria residencial seguem o mesmo esqueleto — dados pessoais, dados do bem, fotos — divididas em etapas curtas com um indicador de progresso que permite voltar a qualquer etapa já visitada. Quem aprende um fluxo já sabe usar o outro, e a equipe mantém um único padrão em vez de dois produtos desenhados em paralelo. Cada pedido de foto mostra uma imagem de referência do enquadramento esperado, reduzindo fotos inúteis e retrabalho na análise.",
+        imgs: [
+          "/images/cases/auto-vistoria/img-login.jpg",
+          "/images/cases/auto-vistoria/img-vistoria-automovel.jpg",
+        ],
+      },
+      {
+        title: "Erros Que Ajudam, Progresso Que Não Se Perde",
+        content:
+          "Construí validação por etapa com mensagem em cada campo e um resumo de erros navegável por link, além de máscaras para CPF, telefone, CEP, placa, chassi e quilometragem — e regras específicas como dígito verificador de CPF, placa no padrão Mercosul ou antigo e chassi de 17 caracteres. O upload de fotos e documentos ganhou pré-visualização local, barra de progresso e validação de tipo e tamanho; se a pessoa sai no meio da vistoria, o rascunho fica salvo e o fluxo continua de onde parou ao voltar.",
+        imgs: [
+          "/images/cases/auto-vistoria/img-vistoria-fotos.jpg",
+        ],
+        compact: true,
+      },
+      {
+        title: "Revisitando o Case em 2026, Com Rigor de Produção",
+        content:
+          "O protótipo nasceu em 2020, numa empresa onde trabalhei; recriei o case usando uma marca fictícia — Lar&Via Seguros — pra preservar a empresa e o cliente originais, sem alterar a jornada real. Na revisão de 2026, com o Claude como par de engenharia, tirei jQuery, Bootstrap, Popper e o datetimepicker do projeto (zero dependências de runtime), reescrevi o CSS como design system próprio, liguei a Content Security Policy sem 'unsafe-inline' e auditei todas as telas e estados com axe-core até zerar violações de WCAG 2.2 AA.",
+        imgs: [
+          "/images/cases/auto-vistoria/img-mobile-residencial.jpg",
+        ],
+        compact: true,
+      },
+    ],
+    kpis: [
+      { v: "0", l: "Dependências de runtime" },
+      { v: "9", l: "Regras de validação" },
+      { v: "8", l: "Fotos guiadas por vistoria" },
+      { v: "AA", l: "WCAG 2.2, auditado com axe-core" },
+    ],
+    results: [
+      "Dois fluxos completos (automóvel e residência) com validação por etapa, máscaras e resumo de erros navegável",
+      "Upload de fotos e documentos com pré-visualização local, progresso e rascunho automático em sessionStorage",
+      "Acessibilidade WCAG 2.2 AA auditada com axe-core em todas as telas e estados, sem violações",
+      "Zero dependências de runtime — jQuery, Bootstrap, Popper e datetimepicker removidos do projeto",
+      "Content Security Policy sem 'unsafe-inline' e nenhum dado enviado a servidor — tudo roda no navegador",
+      "CI com HTMLHint e deploy automático no GitHub Pages",
+    ],
+  },
 ];
