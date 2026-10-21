@@ -779,4 +779,85 @@ export const PROJECTS = [
       "CI com HTMLHint e deploy automático no GitHub Pages",
     ],
   },
+
+  // ── 11 — CASE NOVO: Gestão OPME ──────────────────────────────────────────
+  {
+    id: "gestao-opme",
+    tag: "Designer Engineer · Saúde Suplementar",
+    title: "Gestão OPME",
+    description:
+      "Back-office para gestão de OPME (órteses, próteses e materiais especiais): catálogo por código TUSS, fornecedores, tabelas de preço e relatório de economia em negociação, com um único padrão reaplicado em 9 módulos.",
+    accent: "#F5A524",
+    bg: "#1A1206",
+    size: "small",
+    heroImg:
+      "https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=1400&q=85&auto=format",
+    thumbImg:
+      "https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=800&q=80&auto=format",
+    figmaLink: null,
+    year: "2026",
+    role: "Product Designer · Front-end Developer",
+    client: "Seguradora de saúde — marca fictícia no case (Vitalis Saúde) para preservar o cliente original",
+    challenge:
+      "Comprar itens OPME envolve múltiplos hospitais, fornecedores e tabelas de preço diferentes, com cada negociação fechada caso a caso — sem um sistema central que desse visibilidade real da economia obtida em cada negociação nem controle de quem pode acessar cada módulo. O desafio era desenhar e construir esse sistema do zero: um back-office que desse conta de todo o ciclo, do cadastro de hospital e fornecedor até o relatório de precificação.",
+    impact:
+      "Centraliza em um único sistema o que antes dependia de controlar hospital, fornecedor, catálogo de itens e tabela de preço em fontes separadas — com um relatório que torna a economia de cada negociação um número visível, não uma estimativa. O controle de acesso por usuário, grupo e tela prepara o sistema para abrir módulos específicos a diferentes perfis, da área de compras à auditoria.",
+    overview:
+      "Back-office para gestão de OPME (órteses, próteses e materiais especiais) de uma seguradora de saúde: cadastro e consulta de hospitais/clínicas conveniadas, fornecedores e marcas/fabricantes homologados, catálogo de itens por código TUSS, tabelas de valores por hospital e por fornecedor, fluxo de solicitação de compra com acompanhamento de situação (pendente, em negociação, aprovada) e relatório geral de precificação comparando valor de tabela com valor negociado. Controle de acesso por usuário, grupo de acesso e tela. Construído em React 19, React Router e Tailwind CSS 4.",
+    methodology: "Um Padrão, Nove Módulos",
+    methodologyDesc:
+      "Em vez de desenhar cada módulo como uma tela isolada, parti de um padrão único — Consulta (filtros + tabela) → Cadastro (formulário) → Detalhes (somente leitura) — e construí um kit de componentes próprio (Card, DataTable, FormField, FormSelect, StatusBadge, PageTitle, FormActions) para reaplicá-lo em 9 entidades diferentes: hospitais, fornecedores, itens, marcas/fabricantes, unidades de negócio, unidades de medida, solicitações de compra, usuários e grupos de acesso. O roadmap ficou explícito na própria navegação: a Fase 1, entregue, cobre cadastros e o relatório de precificação; Dashboard, Processos e Mensagens aparecem marcados como Fase 2, mapeados mas não construídos.",
+    problem:
+      "Como dar a uma seguradora de saúde um sistema único para cadastrar hospitais, fornecedores e itens OPME, acompanhar solicitações de compra e enxergar a economia de cada negociação — sem multiplicar o esforço de design e desenvolvimento a cada novo módulo?",
+    sections: [
+      {
+        title: "Um Hub Para Hospital, Fornecedor e Preço",
+        content:
+          "A home reúne os módulos em cards com ícone, nome e descrição curta — hospitais/clínicas conveniadas, solicitação de compra, fornecedores, catálogo de itens, marcas/fabricantes homologados, unidades de negócio e de medida, e o relatório de precificação. O menu lateral espelha a mesma estrutura, dividida em Painel (operação do dia a dia) e Configurações (cadastros de apoio e controle de acesso), para quem passa o dia inteiro no sistema nunca perder a localização.",
+        imgs: [
+          "/images/cases/gestao-opme/img-menu.png",
+        ],
+      },
+      {
+        title: "Da Solicitação à Negociação",
+        content:
+          "Cada solicitação de compra mostra hospital, segurado, senha e prioridade na consulta, com a situação sempre visível num badge (pendente, em negociação, aprovada). Ao abrir uma solicitação, o detalhe lista os itens pedidos com código TUSS, fabricante, valor unitário e subtotal, e fecha com o valor total calculado — dando ao time de compras o contexto completo antes de negociar com o fornecedor.",
+        imgs: [
+          "/images/cases/gestao-opme/img-solicitacao-consulta.png",
+          "/images/cases/gestao-opme/img-solicitacao-detalhes.png",
+        ],
+      },
+      {
+        title: "Economia Visível a Cada Negociação",
+        content:
+          "O relatório geral de precificação compara, item a item e hospital a hospital, o valor de tabela com o valor efetivamente negociado — e soma tudo em quatro números no topo: itens negociados, valor de tabela, valor negociado e economia, em reais e em porcentagem. É o módulo que transforma o resultado de cada negociação de uma sensação em um número.",
+        imgs: [
+          "/images/cases/gestao-opme/img-relatorio.png",
+        ],
+      },
+      {
+        title: "Controle de Acesso Por Usuário, Grupo e Tela",
+        content:
+          "Além dos cadastros de usuário e grupo de acesso, o módulo Telas registra cada tela do sistema como uma entidade própria — a base para decidir, por grupo, quem enxerga o quê. É a mesma lógica de Consulta/Cadastro/Detalhes dos demais módulos aplicada ao próprio sistema de permissões, sem um mecanismo paralelo só para isso.",
+        imgs: [
+          "/images/cases/gestao-opme/img-itens-cadastro.png",
+        ],
+        compact: true,
+      },
+    ],
+    kpis: [
+      { v: "12", l: "Módulos de gestão integrados" },
+      { v: "9", l: "Entidades no padrão Consulta → Cadastro → Detalhes" },
+      { v: "TUSS", l: "Catálogo de itens por código oficial de saúde" },
+      { v: "3", l: "Camadas de acesso: usuário, grupo e tela" },
+    ],
+    results: [
+      "12 módulos de gestão (hospitais, fornecedores, itens, marcas, solicitação de compra, tabelas de valores e mais) num único sistema",
+      "Catálogo de itens OPME por código TUSS, com marca/fabricante, unidade de medida e valor de referência",
+      "Relatório de precificação que compara valor de tabela e valor negociado por item, com economia calculada automaticamente",
+      "Controle de acesso por usuário, grupo de acesso e tela, pronto para permissões granulares por módulo",
+      "Kit de componentes próprio em React + Tailwind (Card, DataTable, FormField, FormSelect, StatusBadge) reaplicado em 9 entidades",
+      "Roadmap em fases explícito na navegação: Fase 1 entregue, Dashboard/Processos/Mensagens mapeados para a Fase 2",
+    ],
+  },
 ];
