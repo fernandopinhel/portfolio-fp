@@ -779,4 +779,97 @@ export const PROJECTS = [
       "CI com HTMLHint e deploy automático no GitHub Pages",
     ],
   },
+
+  // ── 11 — CASE NOVO: Gestão OPME ──────────────────────────────────────────
+  {
+    id: "gestao-opme",
+    tag: "Designer Engineer · Saúde Suplementar",
+    title: "Gestão OPME",
+    description:
+      "Negociação e compra de OPME (órteses, próteses e materiais especiais) para uma operadora de saúde — solicitação em 5 etapas, negociação com histórico de propostas, aprovação por alçada e mapa de economia. Protótipo de 2020 revisitado em 2026.",
+    accent: "#0B6D77",
+    bg: "#071D20",
+    size: "small",
+    heroImg:
+      "https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=1400&q=85&auto=format",
+    thumbImg:
+      "https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=800&q=80&auto=format",
+    figmaLink: null,
+    externalLink: "https://fernandopinhel.github.io/OPME/",
+    githubLink: "https://github.com/fernandopinhel/OPME",
+    year: "2020 · Revisitado em 2026",
+    role: "Product Designer · Front-end Developer",
+    client: "Operadora de saúde — marca fictícia no case (Valora Saúde) para preservar o cliente original",
+    challenge:
+      "OPME é uma das contas mais caras de uma operadora de saúde — uma prótese de quadril ou um marca-passo custam dezenas de milhares de reais, e o mesmo item pode ter preços bem diferentes de um hospital para outro. Antes do sistema, a compra dependia de planilhas, e-mails e telefonemas: o hospital pedia material sem valor de referência, a operadora não tinha as tabelas negociadas com cada hospital e fornecedor num lugar só, propostas e contrapropostas se perdiam em conversas sem registro, e a aprovação de valores altos não tinha uma alçada clara.",
+    impact:
+      "O pedido do hospital vira uma solicitação de compra com todo o caminho registrado: itens já comparados a valor de tabela e referência de mercado, negociação proposta a proposta, aprovação por alçada e um mapa consolidado que fecha cada solicitação com a economia em reais e em porcentagem — um número, não uma sensação. Os cadastros de base (hospitais, fornecedores, itens, fabricantes, usuários e permissões) ficam no mesmo sistema, no mesmo padrão de tela.",
+    overview:
+      "Sistema interno para a equipe de OPME de uma operadora de saúde: painel com indicadores do dia, solicitação de compra em 5 etapas (dados, procedimentos e itens, negociação, aprovação e mapa consolidado), tabelas de valores de hospitais e fornecedores com suspensão em lote, relatório geral de precificação e 9 cadastros guiados por esquema (hospitais, fornecedores, itens, marcas/fabricantes, unidades de medida e de negócio, usuários, grupos de acesso e telas do sistema). HTML, CSS e JavaScript puros, sem framework, auditado com axe-core para WCAG 2.2 AA e publicado no GitHub Pages.",
+    methodology: "Protótipo Revisitado em Par com IA (Claude)",
+    methodologyDesc:
+      "A versão original, de 2020, tinha cerca de 27 telas em Bootstrap e jQuery — a maioria só visual, com dados fixos e a marca do cliente. Na revisão de 2026, com o Claude como par de engenharia, defini um padrão único de interação (etapas com progresso visível, negociação como histórico de propostas em vez de um campo de valor, exclusão sempre protegida) e um esquema de dados por cadastro, de onde o formulário e a tabela de consulta de cada entidade nascem — criar um cadastro novo passou a ser acrescentar um esquema, não desenhar uma tela do zero. O resultado: fluxos que funcionam de ponta a ponta, com dados fictícios gerados de forma determinística, em vez de telas estáticas.",
+    problem:
+      "Como dar a uma operadora de saúde um sistema único para negociar e aprovar a compra de OPME — do pedido do hospital ao mapa de economia — sem perder rastreabilidade de quem decidiu o quê, nem multiplicar o esforço de design a cada novo cadastro?",
+    sections: [
+      {
+        title: "Um Painel Que Já Abre Mostrando o Que Importa",
+        content:
+          "A home não é uma lista de módulos — é um painel que resume o dia: solicitações em andamento e quantas são urgentes, itens aguardando aprovação, economia negociada no período e valores de tabela perto de vencer. Logo abaixo, duas listas priorizadas: o que precisa da atenção da pessoa agora e o que vai vencer nos próximos 30 dias. Quem abre o sistema de manhã sabe por onde começar sem precisar caçar informação pelo menu.",
+        imgs: [
+          "/images/cases/gestao-opme/img-inicio.jpg",
+        ],
+      },
+      {
+        title: "Negociação Como Histórico, Não Como Campo de Valor",
+        content:
+          "O pedido do hospital vira uma solicitação de compra em 5 etapas, com indicador de progresso sempre visível. Cada item já chega com o valor tabelado e com o menor valor entre fornecedores como referência — quem negocia não parte do zero. A negociação fica registrada proposta a proposta: contraproposta da operadora, nova proposta do hospital, aceite de cada lado, sempre com data e responsável. Itens com valor já tabelado podem ser aceitos de uma vez, sobrando trabalho manual só para o que realmente precisa de conversa.",
+        imgs: [
+          "/images/cases/gestao-opme/img-negociacao.jpg",
+          "/images/cases/gestao-opme/img-negociacao-dialogo.jpg",
+        ],
+      },
+      {
+        title: "Aprovação por Alçada, Economia à Vista",
+        content:
+          "A aprovação é por item — dá para aprovar parte da solicitação e reprovar o resto, sempre com motivo obrigatório. Valores acima de R$ 30 mil pedem uma segunda assinatura: o sistema avisa da alçada da diretoria e só libera a aprovação depois do aval registrado. No fim, o mapa consolidado fecha a solicitação com o valor pedido pelo hospital, o valor acordado e a economia — em reais e em porcentagem —, pronto para exportar em CSV ou imprimir.",
+        imgs: [
+          "/images/cases/gestao-opme/img-aprovacao.jpg",
+          "/images/cases/gestao-opme/img-mapa-consolidado.jpg",
+        ],
+      },
+      {
+        title: "Um Padrão Para Tabelas e Nove Cadastros",
+        content:
+          "As tabelas de valores de cada hospital ou fornecedor mostram a situação de cada item — vigente, suspenso, em negociação ou vencido —, com filtros, suspensão em lote e registro de nova proposta sem sair da tela. Os 9 cadastros de base seguem o mesmo padrão de Consulta e Cadastro, descritos por esquema num único arquivo de dados: seções, campos, máscaras e regras de duplicidade. Criar um cadastro novo é acrescentar um esquema, não construir uma tela do zero.",
+        imgs: [
+          "/images/cases/gestao-opme/img-tabela-de-valores.jpg",
+        ],
+        compact: true,
+      },
+      {
+        title: "Acessível do Desktop ao Celular",
+        content:
+          "Revisei a acessibilidade para a WCAG 2.2 AA e verifiquei com axe-core todas as telas e estados — erros, diálogos, menu aberto — no desktop e no celular, sem violações. Mudar de etapa leva o foco ao título da etapa e atualiza o título da aba; o menu no celular funciona como gaveta modal, com o conteúdo de trás inerte e o foco devolvido a quem abriu ao fechar.",
+        imgs: [
+          "/images/cases/gestao-opme/img-mobile-inicio.jpg",
+        ],
+        compact: true,
+      },
+    ],
+    kpis: [
+      { v: "0", l: "Dependências de runtime" },
+      { v: "5", l: "Etapas da solicitação, até o mapa consolidado" },
+      { v: "9", l: "Cadastros guiados por esquema" },
+      { v: "AA", l: "WCAG 2.2, verificado com axe-core" },
+    ],
+    results: [
+      "Solicitação de compra em 5 etapas: dados, procedimentos e itens, negociação, aprovação e mapa consolidado",
+      "Negociação registrada proposta a proposta, com contraproposta da operadora e aceite de cada lado",
+      "Aprovação por item, com alçada da diretoria acima de R$ 30 mil e motivo obrigatório para reprovar",
+      "Tabelas de valores de hospitais e fornecedores com suspensão em lote, reativação e histórico de propostas",
+      "9 cadastros guiados por esquema, com validação, bloqueio de duplicidade e exclusão protegida",
+      "Acessibilidade WCAG 2.2 AA verificada com axe-core em todas as telas e estados, sem violações",
+    ],
+  },
 ];
