@@ -362,66 +362,94 @@ export const PROJECTS = [
 
   // ── 5 ─────────────────────────────────────────────────────────────────────
   {
-    id: "bradesco-saude-ans",
-    tag: "UX/UI · Saúde",
-    title: "Bradesco Saúde × ANS",
+    id: "triagem-nip",
+    tag: "Designer Engineer · Regulatório · Saúde",
+    title: "Triagem NIP",
     description:
-      "Sistema de gestão com dashboards analíticos, cadastro de NIPs e guia de estilo corporativo adotado em produtos internos.",
-    accent: "#FF6B35",
-    bg: "#1A0E08",
+      "Triagem das NIPs da ANS para uma operadora de saúde — mesa de triagem com fila por prazo, sugestão de área com motivo e resposta à agência. Protótipo de 2020 revisitado em 2026.",
+    accent: "#0A6A9E",
+    bg: "#071C2B",
     size: "small",
     heroImg:
-      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1400&q=85&auto=format",
+      "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1400&q=85&auto=format",
     thumbImg:
-      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80&auto=format",
+      "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800&q=80&auto=format",
     figmaLink: null,
-    year: "2020",
+    externalLink: "https://fernandopinhel.github.io/ans/",
+    githubLink: "https://github.com/fernandopinhel/ans",
+    year: "2020 · Revisitado em 2026",
     role: "Product Designer · Front-end Developer",
-    client: "Bradesco Saúde & ANS",
+    client: "Operadora de saúde — marca fictícia no case (Acolhe Saúde) para preservar o cliente original",
     challenge:
-      "Analistas da Bradesco Saúde e da ANS precisavam consultar e cadastrar NIPs com agilidade e precisão — qualquer erro poderia impactar diretamente a vida de beneficiários.",
-    impact: "Guia de estilo adotado em outros produtos internos da empresa.",
+      "Quando um beneficiário não consegue resolver um problema com a operadora, ele pode reclamar na ANS — a reclamação vira uma NIP (Notificação de Intermediação Preliminar), com prazo curto pra resposta: 5 dias úteis quando é assistencial, 10 quando não é. Perder o prazo pode virar multa. Antes do sistema, a equipe baixava as notificações do portal da agência e copiava os dados à mão, decidia sozinha qual área deveria cuidar de cada caso lendo relato por relato, avisava por e-mail sem texto padrão nem registro, e não tinha visão clara de quais NIPs estavam perto de vencer.",
+    impact:
+      "A equipe passa a triar sobre uma fila ordenada pelo prazo mais curto, não pela ordem de chegada — o risco fica visível antes de virar reclamação. A sugestão de área vem com o motivo escrito, em vez de uma caixa-preta, e o aviso por e-mail sai com prévia e modelo certo pra cada área. O prazo em dias úteis está sempre à vista, do relógio no topo até a régua de cada ficha.",
     overview:
-      "Plataforma de gestão de NIPs (Notificações de Interdições Preliminares) para Bradesco Saúde em parceria com a ANS. Inclui dashboards estatísticos, módulo de cadastro e consulta, e guia de estilo corporativo.",
-    methodology: "Processo híbrido: Design + Front-end Development",
+      "Sistema interno de triagem das NIPs da ANS para uma operadora de saúde: painel com o relógio da ANS e indicadores do período, mesa de triagem com fila e ficha lado a lado, classificação por tema em 3 níveis com sugestão de área, encaminhamento por e-mail com prévia, registro da resposta à agência, envio automático ao CRM todo dia às 6h e 6 regras de triagem guiadas por esquema. HTML, CSS e JavaScript puros, sem framework, auditado com axe-core para WCAG 2.2 AA e publicado no GitHub Pages.",
+    methodology: "Protótipo Revisitado em Par com IA (Claude)",
     methodologyDesc:
-      "Período em que designers atuavam como front-end developers. Além do design, implementei toda a interface em HTML, CSS/SASS e JavaScript — antes das ferramentas modernas de prototipagem.",
+      "A versão original, de 2020, tinha cerca de 40 telas em Bootstrap e jQuery, todas só visuais, com dados fixos e a marca do cliente. Na revisão de 2026, com o Claude como par de engenharia, as 40 telas viraram 9 sem perder função — consultar, cadastrar, editar e ver detalhes passaram a ser a mesma tela — e desenhei um layout só deste case: um trilho claro e estreito no lugar do menu lateral ou da barra de operações dos outros cases, com os elementos visuais vindo do próprio domínio — o carimbo do protocolo, a régua de dias úteis, o relógio dos prazos e o marca-texto nas palavras do relato.",
     problem:
-      "Analistas precisavam de um sistema eficiente para consultar e cadastrar NIPs, garantindo conformidade regulatória e visão estratégica dos dados de saúde.",
-    // video: "SEU_YOUTUBE_ID_AQUI",
-    video: "/videos/bradesco/ans/navegacao-ans.mp4",
+      "Como dar a uma equipe de relacionamento com a ANS um jeito de triar, encaminhar e responder reclamações dentro do prazo, sem decidir a área de cada caso no escuro nem perder de vista o que está perto de vencer?",
     sections: [
       {
-        title: "Contexto: O Designer que Também Codava",
+        title: "Um Painel Com o Relógio da ANS",
         content:
-          "2020 marcou uma virada no mercado. Nesse projeto, fui responsável pelo design e pela implementação front-end completa. Cada componente desenhado era construído do zero em HTML/SASS, garantindo fidelidade pixel-perfect entre o mockup e o produto final.",
+          "A home resume o dia pelo prazo: quantas NIPs estão em atraso, quantas vencem hoje, quantas vencem nos próximos dias. Os números do período mostram quantas chegaram com problema, quantas foram respondidas no prazo e o tempo médio de resposta em dias úteis — tudo filtrável, com gráficos por situação, categoria, tema e área que também funcionam como tabela pra quem usa leitor de tela.",
         imgs: [
-          "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=900&q=80&auto=format",
+          "/images/cases/triagem-nip/img-inicio.jpg",
         ],
       },
       {
-        title: "Público de Alto Critério",
+        title: "A Mesa de Triagem",
         content:
-          "Analistas de saúde com perfil altamente técnico, de 30-55 anos, com alto nível acadêmico em regulação. Realizamos entrevistas com analistas para mapear o fluxo real de trabalho e os pontos de frustração do sistema legado.",
+          "Fila e ficha lado a lado: a fila fica ordenada pelo prazo mais curto, com busca por protocolo, nome ou CPF e filtros por situação. Ao abrir uma NIP, o relato à ANS vem com as palavras-chave que geraram a sugestão já destacadas — quem tria confere o motivo em vez de confiar numa caixa-preta — e o protocolo de 20 dígitos aparece carimbado em blocos de 5, mais fácil de ler e de conferir em voz alta.",
         imgs: [
-          "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=900&q=80&auto=format",
+          "/images/cases/triagem-nip/img-triagem.jpg",
         ],
       },
       {
-        title: "Guia de Estilo & Implementação",
+        title: "Sugestão de Área, Com o Motivo Escrito",
         content:
-          "Criei um guia de estilo para este projeto com tokens de cor, tipografia e 60+ componentes documentados para ambientes de alta densidade de dados. O Guia foi adotado em mais produtos internos. A implementação front-end utilizou CSS/SASS modular com BEM.",
+          "O tema da ANS é escolhido em cascata, até 3 níveis, e cada nível só mostra o que existe dentro do anterior. A partir do tema e das palavras do relato, o sistema sugere a área responsável — 'porque cuida do tema X e o texto cita Y' — e, quando duas regras apontam áreas diferentes, as duas aparecem lado a lado pra pessoa decidir. Antes de encaminhar, uma prévia mostra o e-mail já com os dados da NIP no lugar das variáveis.",
         imgs: [
-          "/images/cases/ans/img-prototipo.png",
+          "/images/cases/triagem-nip/img-triagem-sugestoes.jpg",
+          "/images/cases/triagem-nip/img-email-area.jpg",
         ],
+      },
+      {
+        title: "Resposta à ANS e Envio ao CRM",
+        content:
+          "Registrar a resposta pede como a NIP foi resolvida, quando a operadora falou com o beneficiário e o texto enviado à agência — marcado sozinho como dentro ou fora do prazo. O envio automático ao CRM roda todo dia útil às 6h; quando uma NIP não sobe porque a área não tem código cadastrado, a tela explica o motivo e oferece o conserto ali mesmo, sem precisar abrir outra tela.",
+        imgs: [
+          "/images/cases/triagem-nip/img-resposta.jpg",
+          "/images/cases/triagem-nip/img-relatorios.jpg",
+        ],
+        compact: true,
+      },
+      {
+        title: "Revisitando o Case em 2026",
+        content:
+          "Reescrevi tudo em HTML, CSS e JavaScript puros — zero dependências de runtime —, removendo Bootstrap, jQuery, plugins e cerca de 22 MB de arquivos da versão original. Revisei a acessibilidade pra WCAG 2.2 AA, verificada com axe-core em todas as telas e estados: o prazo nunca depende só de cor (a régua sempre vem com o texto), os destaques do relato usam `<mark>` e aparecem no alto contraste do Windows, e no celular o trilho vira uma gaveta modal.",
+        imgs: [
+          "/images/cases/triagem-nip/img-mobile-ficha.jpg",
+        ],
+        compact: true,
       },
     ],
+    kpis: [
+      { v: "40 → 9", l: "Telas da versão original, sem perder função" },
+      { v: "0", l: "Dependências de runtime" },
+      { v: "6", l: "Regras de triagem guiadas por esquema" },
+      { v: "AA", l: "WCAG 2.2, verificado com axe-core" },
+    ],
     results: [
-      "Guia de estilo com 60+ componentes adotado em 7 produtos",
-      "Redução no tempo médio de tarefa dos analistas",
-      "Sistema de NIPs 100% conforme regulamentações da ANS",
-      "Dashboards analíticos com 3 camadas de hierarquia de acesso",
-      "Implementação front-end completa em HTML, CSS/SASS e JS",
+      "Fila de triagem ordenada pelo prazo mais curto, com o relógio da ANS sempre visível",
+      "Sugestão de área pelo tema e por palavras-chave do relato, com o motivo escrito",
+      "Encaminhamento por e-mail com prévia e modelo certo pra cada área",
+      "Resposta à ANS registrada e marcada automaticamente como dentro ou fora do prazo",
+      "Envio automático ao CRM todo dia útil às 6h, com o conserto ao lado de cada falha",
+      "As 40 telas originais viraram 9, com acessibilidade WCAG 2.2 AA verificada com axe-core",
     ],
   },
 

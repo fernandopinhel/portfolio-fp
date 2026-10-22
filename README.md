@@ -61,14 +61,14 @@ portfolio-fp/
 │   │   │   ├── dashboard/
 │   │   │   ├── paparazzo-rrn/
 │   │   │   ├── aqui-emprestimo/
-│   │   │   ├── ans/
 │   │   │   ├── painel-aditivo/
 │   │   │   ├── generali/
 │   │   │   ├── sites/
 │   │   │   ├── branding/
 │   │   │   ├── auto-vistoria/   # screenshots reais do protótipo (GitHub Pages)
 │   │   │   ├── gestao-opme/     # screenshots reais do protótipo (GitHub Pages)
-│   │   │   └── gsre/            # screenshots reais do protótipo (GitHub Pages)
+│   │   │   ├── gsre/            # screenshots reais do protótipo (GitHub Pages)
+│   │   │   └── triagem-nip/     # screenshots reais do protótipo (GitHub Pages)
 │   │   └── profile/            # Foto de perfil exibida no hero
 │   ├── videos/                 # Vídeos MP4 dos cases
 │   │   ├── bradesco/
