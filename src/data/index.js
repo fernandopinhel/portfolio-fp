@@ -1001,4 +1001,197 @@ export const PROJECTS = [
       "9 cadastros guiados por esquema, zero dependências de runtime e acessibilidade WCAG 2.2 AA verificada com axe-core",
     ],
   },
+
+  // ── 13 — CASE NOVO: Contratação de Previdência ───────────────────────────
+  {
+    id: "amparo-previdencia",
+    tag: "Designer Engineer · Previdência Privada",
+    title: "Contratação de Previdência",
+    description:
+      "Contratação de previdência privada em 4 etapas, dentro de um app parceiro de delivery — explicação a um toque para cada termo técnico e fundos comparáveis por perfil de risco. Protótipo de 2020 revisitado em 2026.",
+    accent: "#D3192A",
+    bg: "#1A0508",
+    size: "small",
+    heroImg:
+      "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1400&q=85&auto=format",
+    thumbImg:
+      "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&q=80&auto=format",
+    figmaLink: null,
+    externalLink: "https://fernandopinhel.github.io/amparo-previdencia/",
+    githubLink: "https://github.com/fernandopinhel/amparo-previdencia",
+    year: "2020 · Revisitado em 2026",
+    role: "Product Designer · Front-end Developer",
+    client: "Seguradora e app parceiro — marcas fictícias no case (Amparo Previdência e Rango) para preservar os clientes originais",
+    challenge:
+      "Uma seguradora queria vender previdência privada dentro do app de um parceiro de delivery, para um público que nunca tinha contratado um plano. O caminho que existia era o sistema interno de contratação, feito para corretores: uma tela longa, cheia de selects, com termos técnicos (PGBL, VGBL, regime tributário) sem explicação, e uma tabela de fundos difícil de comparar — quem chegava pelo app descobria só no fim que o valor digitado era menor que o mínimo do fundo.",
+    impact:
+      "A contratação virou 4 etapas curtas com a cara do app parceiro: cada escolha técnica ganhou uma explicação a um toque, os fundos passaram a se comparar por perfil de risco, e o valor é validado contra o mínimo do fundo enquanto a pessoa digita — não no fim. Um resumo da compra acompanha o pagamento, com atalhos para alterar qualquer escolha anterior.",
+    overview:
+      "Contratação de previdência privada em 4 etapas (plano, valores e fundo, dados, pagamento) dentro de um app parceiro de delivery: blocos de escolha no lugar de selects, explicação a um toque para cada termo técnico, tabela de 11 fundos filtrável por perfil de risco, validação de valores contra o mínimo de cada fundo, resumo da compra ao vivo e confirmação com protocolo. HTML, CSS e JavaScript puros, auditado com axe-core para WCAG 2.2 AA e publicado no GitHub Pages.",
+    methodology: "Protótipo Revisitado em Par com IA (Claude)",
+    methodologyDesc:
+      "Diferente dos outros cases, aqui o objetivo não era substituir a identidade visual — era modernizar o acabamento sem perder o que dava personalidade ao protótipo de 2020: a faixa vermelha no topo, as etapas em círculos numerados, os cartões com rótulo flutuante, a tabela de fundos com borda no hover. Com o Claude como par de engenharia, mapeei elemento por elemento o que ficava e o que mudava — e corrigi o que o protótipo original tinha de errado escondido atrás do visual: o valor da contribuição usava a máscara de CPF, a seção de contato se chamava 'Endereço residencial', e todos os fundos tinham o mesmo nome.",
+    problem:
+      "Como modernizar a contratação de um produto financeiro complexo para quem nunca comprou um — dentro de um app que não é o da seguradora — sem perder a identidade visual que já existia nem esconder os termos técnicos que a pessoa precisa entender antes de decidir?",
+    sections: [
+      {
+        title: "Uma Etapa Por Vez, Com a Cara do App Parceiro",
+        content:
+          "A faixa vermelha no topo mistura a marca do app de delivery parceiro com a da seguradora — é ali, dentro do app que a pessoa já usa todo dia, que a previdência é oferecida. Mantive o desenho das etapas em círculos numerados do protótipo de 2020, mas cada uma ganhou um rótulo, e a linha entre elas agora fica vermelha conforme avança, não só quando termina.",
+        imgs: [
+          "/images/cases/amparo-previdencia/img-sucesso.jpg",
+        ],
+      },
+      {
+        title: "Uma Pergunta Técnica, Uma Explicação a Um Toque",
+        content:
+          "PGBL ou VGBL, regime progressivo ou regressivo: são escolhas que decidem quanto imposto a pessoa paga anos depois, e ninguém deveria adivinhar. Cada escolha técnica ficou em blocos — não em selects — com uma frase direta do que significa, e um link 'Qual é a diferença?' abre a explicação completa num diálogo curto, sem tirar a pessoa da etapa.",
+        imgs: [
+          "/images/cases/amparo-previdencia/img-etapa-plano-preenchida.jpg",
+        ],
+      },
+      {
+        title: "Fundos Que Se Comparam Pelo Risco, Não Pelo Nome",
+        content:
+          "A tabela de 11 fundos ganhou um filtro por perfil — conservador, moderado, arrojado —, a forma como as pessoas realmente pensam em risco. A linha escolhida fica em destaque mesmo ao rolar, e o diálogo de detalhes mostra taxa de administração, taxa de performance, renda variável e os valores mínimos antes de confirmar.",
+        imgs: [
+          "/images/cases/amparo-previdencia/img-fundos.jpg",
+          "/images/cases/amparo-previdencia/img-detalhes-fundo.jpg",
+        ],
+      },
+      {
+        title: "O Valor Contra o Mínimo, Antes do Fim",
+        content:
+          "Se o fundo escolhido pede R$ 500 por mês e a pessoa digitou R$ 300, o aviso aparece no campo do valor — com o mínimo escrito —, não só numa mensagem genérica ao tentar avançar. Trocar de fundo revalida o valor na hora. No pagamento, um resumo ao vivo acompanha fundo, valores, plano e o total da primeira cobrança, com atalhos para alterar qualquer etapa anterior sem perder o que já foi preenchido.",
+        imgs: [
+          "/images/cases/amparo-previdencia/img-pagamento.jpg",
+        ],
+        compact: true,
+      },
+      {
+        title: "Revisitando o Case em 2026",
+        content:
+          "Reescrevi tudo em HTML, CSS e JavaScript puros — zero dependências de runtime —, removendo Bootstrap, jQuery, Popper, jQuery Mask e um datetimepicker com 46 arquivos de idioma. A fonte continua sendo a mesma DM Sans do original, agora carregada do Google Fonts. Revisei a acessibilidade para WCAG 2.2 AA, verificada com axe-core: os fundos viram cartões no celular, mantendo o rádio nativo por trás de cada um.",
+        imgs: [
+          "/images/cases/amparo-previdencia/img-mobile-fundos.jpg",
+        ],
+        compact: true,
+      },
+    ],
+    kpis: [
+      { v: "4", l: "Etapas, do plano ao pagamento" },
+      { v: "11", l: "Fundos comparáveis por perfil de risco" },
+      { v: "0", l: "Dependências de runtime" },
+      { v: "AA", l: "WCAG 2.2, verificado com axe-core" },
+    ],
+    results: [
+      "Contratação em 4 etapas com identidade visual preservada do protótipo original de 2020",
+      "Explicação a um toque para cada escolha técnica (PGBL/VGBL, regime tributário)",
+      "11 fundos filtráveis por perfil de risco, com valores validados contra o mínimo de cada um",
+      "Resumo da compra ao vivo, com atalhos para alterar qualquer etapa anterior",
+      "Correção de conteúdo escondido atrás do visual: máscara errada, seção duplicada, fundos com nome repetido",
+      "Acessibilidade WCAG 2.2 AA verificada com axe-core em todas as etapas e estados, sem violações",
+    ],
+  },
+
+  // ── 14 — CASE NOVO: Suíte Orla ───────────────────────────────────────────
+  {
+    id: "suite-orla",
+    tag: "Design Systems · Saúde Suplementar",
+    title: "Suíte Orla",
+    description:
+      "Três sistemas de gestão de rede de uma operadora de saúde — negociar, formalizar e medir aditivos — construídos sobre um design system compartilhado. Protótipos de 2020–2021 revisitados em 2026.",
+    accent: "#2C5282",
+    bg: "#0C1824",
+    size: "large",
+    heroImg:
+      "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=1400&q=85&auto=format",
+    thumbImg:
+      "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=800&q=80&auto=format",
+    figmaLink: null,
+    externalLink: "https://fernandopinhel.github.io/redeMais/",
+    githubLink: "https://github.com/fernandopinhel/redeMais",
+    year: "2020–2021 · Revisitado em 2026",
+    role: "Product Designer · Design Systems · Front-end Developer",
+    client: "Operadora de saúde — marca fictícia no case (Orla Saúde) para preservar o cliente original",
+    challenge:
+      "Uma operadora de saúde mantém contratos com centenas de hospitais e clínicas, e cada mudança de preço ou serviço vira um aditivo contratual. Esse caminho passava por três sistemas que tinham crescido separados, todos com a mesma cara de Bootstrap, e por muitas planilhas: a equipe negociava pacotes de procedimentos e calculava a economia numa planilha de premissas, o acordo virava uma ficha que passava por distribuição, emissão, assinatura e implantação sem que ninguém soubesse ao certo onde cada ficha estava parada, e no fim a gestão comparava a economia dos aditivos com a meta do trimestre, também em planilha.",
+    impact:
+      "Três produtos — negociar, formalizar, medir — passam a compartilhar um único design system, mas com identidade e layout próprios para o trabalho de cada um: mesa de negociação com lista e ficha lado a lado, quadro por fase com relógio de prazo, placar do trimestre com ritmo esperado. O acesso de demonstração vale para a suíte inteira, e o alternador de produtos no topo leva de um sistema a outro sem novo login.",
+    overview:
+      "Suíte de três sistemas para a equipe de rede de uma operadora de saúde: Orla Mesa (negociação de pacotes com memória de cálculo da economia), Orla Esteira (esteira de fichas de aditivo em quadro por fase, da distribuição à implantação) e Orla Placar (acompanhamento da economia contra a meta de cada trimestre). Os três compartilham o Orla DS, um design system próprio com tokens, componentes, CRUD guiado por esquema e página de documentação viva. HTML, CSS e JavaScript puros, sem framework, auditado com axe-core para WCAG 2.2 AA e publicado no GitHub Pages.",
+    methodology: "Design System Compartilhado, Revisitado em Par com IA (Claude)",
+    methodologyDesc:
+      "Os três protótipos originais usavam a mesma base visual — o que ajudava na manutenção, mas fazia os produtos parecerem iguais e escondia o que cada um tinha de diferente. Com o Claude como par de engenharia, separei o que é comum (tokens, componentes, comportamento) do que é específico de cada produto: cada tema vira 15 linhas de CSS redefinindo a escala de cor, a cor de apoio e os tons do login, e o resto do design system cuida do resto. O símbolo da marca (uma onda) se repete nos três, e cada produto ganha o seu desenho em cima dela — dois círculos que se cruzam na Mesa, setas em sequência na Esteira, barras subindo no Placar.",
+    problem:
+      "Como dar a três sistemas que nasceram separados uma linguagem visual em comum, sem apagar o que cada um tem de específico para o trabalho que apoia — negociar, formalizar ou medir?",
+    sections: [
+      {
+        title: "Três Produtos, Uma Vitrine Só",
+        content:
+          "A suíte abre numa página que apresenta os três produtos na ordem do trabalho real — negociar, formalizar, medir — cada um com seu símbolo, sua cor e um resumo do que faz. O acesso de demonstração vale para os três, e um alternador no topo de cada produto leva aos outros dois sem pedir login de novo.",
+        imgs: [
+          "/images/cases/suite-orla/img-suite.jpg",
+        ],
+      },
+      {
+        title: "Orla Mesa: a Economia Calculada, Não Prometida",
+        content:
+          "A mesa de negociação mostra lista e ficha lado a lado — quem negocia passa por dezenas de prestadores por dia, e trocar de negociação sem perder a lista de vista corta cliques. O funil de economia (potencial, negociada, implantada) recalcula enquanto o valor é digitado, e a antiga planilha de premissas virou uma memória de cálculo de 11 passos: senhas, custo médio, inflação, alçada — ninguém precisa confiar num número sem saber de onde ele veio.",
+        imgs: [
+          "/images/cases/suite-orla/img-mesa.jpg",
+          "/images/cases/suite-orla/img-mesa-memoria.jpg",
+        ],
+      },
+      {
+        title: "Orla Esteira: o Prazo Como Protagonista",
+        content:
+          "O sistema original mostrava 17 status numa tabela de contagens. Na Esteira, eles cabem em 4 fases num quadro, e cada cartão tem um relógio: no prazo, vence hoje ou amanhã, atrasada — as mais perto de estourar aparecem primeiro em cada coluna. Uma ficha devolvida guarda o motivo e volta para a mesma etapa quando a correção chega, em vez de se perder na esteira.",
+        imgs: [
+          "/images/cases/suite-orla/img-esteira.jpg",
+        ],
+      },
+      {
+        title: "Orla Placar: Ritmo, Não Só Total",
+        content:
+          "O placar do trimestre não mostra só o quanto já foi economizado contra a meta — a barra tem uma marca do ritmo esperado para o dia de hoje, então 30% da meta no início do trimestre aparece como bom sinal, não como atraso. Um trimestre pode ser congelado: a versão congelada não muda mais, e a comparação mostra exatamente o que mudou desde então.",
+        imgs: [
+          "/images/cases/suite-orla/img-placar.jpg",
+        ],
+        compact: true,
+      },
+      {
+        title: "Orla DS: Um Tema em 15 Linhas",
+        content:
+          "O design system compartilhado fica documentado numa página viva, com os tokens de cor de cada produto lado a lado — a mesma escala de --accent-50 a --accent-900, a cor de apoio e os tons do login, só trocados por produto. Os 15 cadastros de apoio da suíte inteira usam um CRUD guiado por esquema: descrever um cadastro novo em poucas linhas basta para ele ganhar consulta, formulário e validação.",
+        imgs: [
+          "/images/cases/suite-orla/img-design-system.jpg",
+        ],
+        compact: true,
+      },
+      {
+        title: "Revisitando o Case em 2026",
+        content:
+          "Reescrevi os três protótipos em HTML, CSS e JavaScript puros — zero dependências de runtime —, removendo Bootstrap, jQuery, plugins, Font Awesome e cerca de 120 MB de arquivos das três versões originais. Revisei a acessibilidade para WCAG 2.2 AA, verificada com axe-core nas telas, nos estados de erro, nos diálogos e no celular dos três produtos, sem violações.",
+        imgs: [
+          "/images/cases/suite-orla/img-mobile-mesa.jpg",
+        ],
+        compact: true,
+      },
+    ],
+    kpis: [
+      { v: "3", l: "Produtos sobre um design system compartilhado" },
+      { v: "15", l: "Cadastros de apoio guiados por esquema" },
+      { v: "0", l: "Dependências de runtime" },
+      { v: "AA", l: "WCAG 2.2, verificado com axe-core" },
+    ],
+    results: [
+      "Três produtos — negociar, formalizar, medir — com identidade e layout próprios sobre um único design system",
+      "Mesa de negociação com economia calculada ao vivo e memória de cálculo de 11 passos",
+      "Esteira de aditivos em quadro por fase, com relógio de prazo em cada ficha",
+      "Placar do trimestre com ritmo esperado e congelamento de versão para comparação confiável",
+      "Orla DS com tokens, componentes, CRUD guiado por esquema e página de documentação viva",
+      "Acessibilidade WCAG 2.2 AA verificada com axe-core nos três produtos, desktop e celular, sem violações",
+    ],
+  },
 ];
