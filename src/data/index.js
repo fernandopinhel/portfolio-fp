@@ -362,7 +362,107 @@ export const PROJECTS = [
     ],
   },
 
-  // ── 4 — Gestão OPME ──────────────────────────────────────────────────────
+  // ── 4 — CICM · Central de Comissões ──────────────────────────────────────
+  {
+    id: "cicm",
+    tag: "Designer Engineer · Seguros · Operações",
+    title: "CICM · Central de Comissões",
+    description:
+      "Conferência, correção e reenvio de comissões de corretagem para um grupo segurador — erro em linguagem clara, previsão antes de reenviar e paleta de comandos. Protótipo de 2019 revisitado em 2026.",
+    accent: "#4338CA",
+    bg: "#0F0E24",
+    size: "small",
+    heroImg:
+      "/images/cases/cicm/img-painel.jpg",
+    thumbImg:
+      "/images/cases/cicm/img-painel.jpg",
+    figmaLink: null,
+    externalLink: "https://fernandopinhel.github.io/CICM/",
+    githubLink: "https://github.com/fernandopinhel/CICM",
+    year: "2019 · Revisitado em 2026",
+    role: "Product Designer · Front-end Developer",
+    client: "Grupo segurador — marca fictícia no case (Prumo Seguros) para preservar o cliente original",
+    challenge:
+      "Num grupo segurador, cada companhia manda todo dia um arquivo de remessa com as comissões dos corretores, e a central valida cada movimento antes de integrar. A versão de 2019 tinha as telas certas, mas cada uma era um formulário solto: o erro aparecia como código técnico (o nome do campo e da tabela do banco) sem dizer o que fazer, não havia como corrigir o dado no próprio sistema, reenviar exigia digitar o GUID de 17 caracteres de cada caso, e nada mostrava quanto dinheiro estava retido nem o que pedia atenção primeiro.",
+    impact:
+      "As telas soltas viraram uma jornada numerada — remessas, movimentos, erros, reenviar, reenviados —, com cada erro explicado em linguagem clara e um \"como resolver\" que diz o próximo passo. O reenvio ganhou previsão (\"deve integrar\" ou \"deve voltar rejeitado\") antes da pessoa confirmar, e a correção acontece no próprio caso, com o limite do ramo e a comissão recalculada na hora.",
+    overview:
+      "Console de operação para a equipe que confere, corrige e reenvia comissões de corretagem de um grupo segurador: painel com indicadores e o que precisa de atenção, remessas, consulta de movimentos, caso de comissão com correção e histórico, erros com seleção em lote, reenvio com previsão e conferência, protocolos com progresso ao vivo e relatório de rejeições. Tema claro e escuro, densidade compacta e paleta de comandos (Ctrl+K). HTML, CSS e JavaScript puros, auditado com axe-core para WCAG 2.2 AA e publicado no GitHub Pages.",
+    methodology: "Protótipo Revisitado em Par com IA (Claude)",
+    methodologyDesc:
+      "A versão original tinha 7 telas estáticas com Bootstrap 4 e jQuery, e um menu com módulos que eram só marcadores sem tela nenhuma atrás. Com o Claude como par de engenharia, desenhei uma identidade de console de operação — tinta índigo na navegação, sinal âmbar só no que pede atenção, IBM Plex Mono em GUIDs e números para conferir caractere a caractere — e, diferente dos outros cases, escrevi testes de fluxo e de acessibilidade com Playwright que rodam no CI a cada mudança, em vez de deixar a verificação só para a auditoria manual.",
+    problem:
+      "Como transformar seis telas soltas de validação de comissão numa jornada só, em que um erro técnico de banco de dados vira uma instrução clara do que fazer, e reenviar em lote não é mais um salto no escuro?",
+    sections: [
+      {
+        title: "Um Painel Que Prioriza Pelo Dinheiro Parado",
+        content:
+          "O painel abre com o que pede atenção primeiro: remessas com arquivo rejeitado, reenvios sem sucesso, movimentos rejeitados há mais de 3 dias. Comissão retida aparece como indicador em reais — um erro em 30 movimentos de vida em grupo pesa mais do que um em 2 de automóvel, e o painel prioriza assim, não pela ordem de chegada.",
+        imgs: [
+          "/images/cases/cicm/img-painel.jpg",
+        ],
+      },
+      {
+        title: "Erros em Linguagem Clara, Com Como Resolver",
+        content:
+          "Cada erro tem um tipo de solução — corrigir aqui, basta reenviar, corrigir na companhia ou descartar — e o texto diz o próximo passo, não o nome da tabela do banco. A lista de erros permite seleção em lote para reenviar várias comissões de uma vez, sem digitar GUID um por um.",
+        imgs: [
+          "/images/cases/cicm/img-erros.jpg",
+        ],
+      },
+      {
+        title: "Corrigir no Próprio Caso",
+        content:
+          "Um erro como \"comissão acima do limite\" vira um campo com o limite do ramo ao lado e a comissão nova recalculada em reais enquanto a pessoa digita. O dado errado e o corrigido ficam os dois no histórico do caso, junto com a etapa atual — recebido, validação, correção, integração.",
+        imgs: [
+          "/images/cases/cicm/img-caso-correcao.jpg",
+        ],
+      },
+      {
+        title: "Prever Antes de Reenviar",
+        content:
+          "Reenviar é uma ação em lote que mexe com pagamento, então antes de confirmar a pessoa vê quantos casos devem integrar, quantos devem voltar rejeitados e por quê. A conferência evita reenvios inúteis e mostra o resultado esperado antes do clique final.",
+        imgs: [
+          "/images/cases/cicm/img-reenvio-conferencia.jpg",
+        ],
+        compact: true,
+      },
+      {
+        title: "Paleta de Comandos Para Quem Vive de GUID",
+        content:
+          "Ctrl+K abre uma busca que entende GUID, apólice, remessa e protocolo — quem trabalha com esses dados o dia todo chega direto ao caso, sem passar por um formulário de consulta.",
+        imgs: [
+          "/images/cases/cicm/img-paleta.jpg",
+        ],
+        compact: true,
+      },
+      {
+        title: "Revisitando o Case em 2026, Com Testes no CI",
+        content:
+          "Reescrevi tudo em HTML, CSS e JavaScript puros — zero dependências de runtime —, removendo Bootstrap, jQuery, Popper e o datetimepicker com 46 arquivos de idioma. A acessibilidade foi verificada com axe-core em 64 combinações de tela, estado, tema e tamanho, e os testes de fluxo e de acessibilidade ficaram versionados em `tests/`, rodando no CI a cada push.",
+        imgs: [
+          "/images/cases/cicm/img-mobile-painel.jpg",
+        ],
+        compact: true,
+      },
+    ],
+    kpis: [
+      { v: "7 → 9", l: "Telas, agora como jornada numerada" },
+      { v: "64", l: "Combinações auditadas com axe-core" },
+      { v: "0", l: "Dependências de runtime" },
+      { v: "AA", l: "WCAG 2.2, verificado com axe-core" },
+    ],
+    results: [
+      "Jornada numerada do movimento ao pagamento, com erro em linguagem clara e como resolver",
+      "Correção no próprio caso, com o limite do ramo e a comissão recalculada na hora",
+      "Previsão do reenvio (deve integrar ou deve voltar rejeitado) antes de confirmar",
+      "Protocolo com progresso ao vivo e aviso ao terminar, em qualquer tela",
+      "Paleta de comandos (Ctrl+K) para quem trabalha com GUID, apólice e remessa o dia todo",
+      "Testes de fluxo e de acessibilidade (Playwright + axe) rodando no CI a cada mudança",
+    ],
+  },
+
+  // ── 5 — Gestão OPME ──────────────────────────────────────────────────────
   {
     id: "gestao-opme",
     tag: "Designer Engineer · Saúde Suplementar",
@@ -455,7 +555,7 @@ export const PROJECTS = [
     ],
   },
 
-  // ── 5 — Contratação de Previdência ───────────────────────────────────────
+  // ── 6 — Contratação de Previdência ───────────────────────────────────────
   {
     id: "amparo-previdencia",
     tag: "Designer Engineer · Previdência Privada",
@@ -547,7 +647,98 @@ export const PROJECTS = [
     ],
   },
 
-  // ── 6 — Rumo Auto ────────────────────────────────────────────────────────
+  // ── 7 — Travessia ─────────────────────────────────────────────────────────
+  {
+    id: "travessia",
+    tag: "Designer Engineer · Imigração · Serviços",
+    title: "Travessia",
+    description:
+      "Site e área do cliente de uma assessoria de imigração do Brasil para Portugal — simulador de caminho, agendamento e acompanhamento de documentos. Site de 2023 revisitado em 2026.",
+    accent: "#2643B8",
+    bg: "#0C0F22",
+    size: "small",
+    heroImg:
+      "/images/cases/travessia/img-inicio.jpg",
+    thumbImg:
+      "/images/cases/travessia/img-inicio.jpg",
+    figmaLink: null,
+    externalLink: "https://fernandopinhel.github.io/Travessia/",
+    githubLink: "https://github.com/fernandopinhel/Travessia",
+    year: "2023 · Revisitado em 2026",
+    role: "Product Designer · Front-end Developer",
+    client: "Assessoria de imigração — marca fictícia no case (Travessia) para preservar o cliente original",
+    challenge:
+      "Mudar de país é uma das decisões mais caras e ansiosas da vida de uma família, e quem procura uma assessoria pra ir do Brasil pra Portugal chega sempre com as mesmas dúvidas: qual é o meu caminho, quais documentos eu preciso, em que pé está o meu processo, isso é confiável? A versão original do site era só uma página de apresentação — topo com chamada, texto institucional, contadores — com um espaço reservado onde estava escrito literalmente 'CHAT AQUI'. Bonita, mas não respondia a nenhuma dessas perguntas.",
+    impact:
+      "A página de apresentação virou um serviço que funciona: a pessoa descobre o próprio caminho em poucos minutos sem cadastro, vê a lista de documentos explicada, agenda a primeira conversa escolhendo formato e horário, e acompanha o processo numa área do cliente com as cinco etapas e o envio de documentos. O 'CHAT AQUI' vazio virou a assistente Lia, que sempre oferece um próximo passo real.",
+    overview:
+      "Site e área do cliente de uma assessoria de imigração do Brasil para Portugal: início com cartão de embarque e caminhos filtráveis por tema, simulador de 6 perguntas que recomenda um caminho com os motivos, agendamento em 3 etapas com fuso certo pro formato, entrada por e-mail e protocolo, e área do cliente com jornada em 5 etapas, envio de documentos com status e motivo de ajuste, e conversa com a consultora. HTML, CSS e JavaScript puros, auditado com axe-core para WCAG 2.2 AA e publicado no GitHub Pages.",
+    methodology: "Protótipo Revisitado em Par com IA (Claude)",
+    methodologyDesc:
+      "Diferente dos outros cases — que têm cara de sistema interno —, aqui o desafio era desenhar uma identidade própria para um serviço que alguém contrata uma vez na vida. Com o Claude como par de engenharia, escolhi uma serifada editorial (Fraunces) no lugar de uma sans de interface, desenhei um azulejo português como textura e transformei o cartão de embarque num elemento-assinatura que aparece do início ao comprovante do agendamento — a metáfora da viagem conta a história antes mesmo da primeira frase.",
+    problem:
+      "Como transformar uma página de apresentação institucional — bonita, mas sem nenhuma função — num serviço que ajuda alguém a descobrir o próprio caminho de imigração, agendar uma conversa e acompanhar o processo, sem prometer prazo nem parecer jurídico que o site não pode dar?",
+    sections: [
+      {
+        title: "O Cartão de Embarque Como Assinatura",
+        content:
+          "A home abre com um cartão de embarque desenhado — origem, destino, o 'portão' como etapa atual — que reaparece como comprovante no fim do agendamento. É a metáfora que atravessa o site inteiro: origem, destino e a etapa em que a pessoa está agora.",
+        imgs: [
+          "/images/cases/travessia/img-inicio.jpg",
+        ],
+      },
+      {
+        title: "Um Simulador Que Pergunta Sobre a Vida, Não Sobre Nomes de Visto",
+        content:
+          "Ninguém sabe o nome do próprio visto antes de pesquisar. O simulador pergunta sobre a vida da pessoa — motivo, família, renda — e traduz isso num caminho recomendado, com os motivos de cada resposta e a lista de documentos necessários. Um aviso deixa claro: é orientação, não parecer jurídico.",
+        imgs: [
+          "/images/cases/travessia/img-simulador-resultado.jpg",
+        ],
+      },
+      {
+        title: "Agendar Sem Fricção, Com o Fuso Certo",
+        content:
+          "O agendamento pede formato e horário primeiro, dados pessoais depois, com um resumo sempre visível ao lado. A agenda muda de fuso conforme o formato — Lisboa ou Brasília —, e um convite `.ics` fecha o fluxo junto com a entrada automática na área do cliente.",
+        imgs: [
+          "/images/cases/travessia/img-agendar.jpg",
+        ],
+      },
+      {
+        title: "A Jornada Como Timeline, Documentos Como Protagonistas",
+        content:
+          "A área do cliente mostra as cinco etapas do processo como uma linha do tempo, com a etapa atual em destaque. É nos documentos que um processo de imigração trava de verdade — cada um tem status (falta enviar, em análise, aprovado, ajustar), e um documento recusado vem com o motivo e como corrigir, em vez de só 'reenviar'.",
+        imgs: [
+          "/images/cases/travessia/img-portal.jpg",
+          "/images/cases/travessia/img-portal-documentos.jpg",
+        ],
+      },
+      {
+        title: "Revisitando o Case em 2026",
+        content:
+          "Reescrevi tudo em HTML, CSS e JavaScript puros — zero dependências de runtime —, removendo Bootstrap, jQuery, AOS, Animate.css, Font Awesome, Google Maps (com a chave de API que estava exposta no HTML original) e as imagens PNG que pesavam cerca de 6 MB. Revisei a acessibilidade pra WCAG 2.2 AA, verificada com axe-core em todas as telas e estados, incluindo o chat da Lia aberto.",
+        imgs: [
+          "/images/cases/travessia/img-mobile-inicio.jpg",
+        ],
+        compact: true,
+      },
+    ],
+    kpis: [
+      { v: "5", l: "Páginas funcionais, do início à área do cliente" },
+      { v: "6", l: "Caminhos de imigração comparáveis" },
+      { v: "0", l: "Dependências de runtime" },
+      { v: "AA", l: "WCAG 2.2, verificado com axe-core" },
+    ],
+    results: [
+      "Simulador de 6 perguntas que recomenda um caminho com o motivo de cada resposta",
+      "Agendamento em 3 etapas com fuso horário certo pro formato (Lisboa ou Brasília)",
+      "Área do cliente com jornada em 5 etapas e documentos com status e motivo de ajuste",
+      "Assistente Lia por palavras-chave no lugar do antigo 'CHAT AQUI' vazio",
+      "Identidade própria (serifada Fraunces, azulejo português, cartão de embarque), diferente dos outros cases",
+      "Acessibilidade WCAG 2.2 AA verificada com axe-core em todas as telas e estados, sem violações",
+    ],
+  },
+
+  // ── 8 — Rumo Auto ────────────────────────────────────────────────────────
   {
     id: "rumo-auto",
     tag: "Designer Engineer · Seguros",
@@ -638,7 +829,7 @@ export const PROJECTS = [
     ],
   },
 
-  // ── 7 — Auto Vistoria ────────────────────────────────────────────────────
+  // ── 9 — Auto Vistoria ────────────────────────────────────────────────────
   {
     id: "auto-vistoria",
     tag: "Designer Engineer · Seguros",
@@ -722,7 +913,7 @@ export const PROJECTS = [
     ],
   },
 
-  // ── 8 — Triagem NIP ──────────────────────────────────────────────────────
+  // ── 10 — Triagem NIP ──────────────────────────────────────────────────────
   {
     id: "triagem-nip",
     tag: "Designer Engineer · Regulatório · Saúde",
@@ -815,7 +1006,7 @@ export const PROJECTS = [
     ],
   },
 
-  // ── 9 — Dashboard Gestão de Alunos ───────────────────────────────────────
+  // ── 11 — Dashboard Gestão de Alunos ───────────────────────────────────────
   {
     id: "dashboard-gestao-alunos",
     tag: "UX/UI · Gestão Pública",
@@ -883,7 +1074,7 @@ export const PROJECTS = [
     ],
   },
 
-  // ── 10 — Paparazzo Rubro-Negro ───────────────────────────────────────────
+  // ── 12 — Paparazzo Rubro-Negro ───────────────────────────────────────────
   {
     id: "paparazzo-rubro-negro",
     tag: "Product Design · Mobile",
@@ -948,7 +1139,7 @@ export const PROJECTS = [
     ],
   },
 
-  // ── 11 — Branding & Social Media ─────────────────────────────────────────
+  // ── 13 — Branding & Social Media ─────────────────────────────────────────
   {
     id: "branding",
     tag: "Branding · Gráfico",

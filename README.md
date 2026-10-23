@@ -67,7 +67,9 @@ portfolio-fp/
 │   │   │   ├── triagem-nip/         # screenshots reais do protótipo (GitHub Pages)
 │   │   │   ├── amparo-previdencia/  # screenshots reais do protótipo (GitHub Pages)
 │   │   │   ├── suite-orla/          # screenshots reais do protótipo (GitHub Pages)
-│   │   │   └── rumo-auto/           # screenshots reais do protótipo (GitHub Pages)
+│   │   │   ├── rumo-auto/           # screenshots reais do protótipo (GitHub Pages)
+│   │   │   ├── cicm/                # screenshots reais do protótipo (GitHub Pages)
+│   │   │   └── travessia/           # screenshots reais do protótipo (GitHub Pages)
 │   │   └── profile/            # Foto de perfil exibida no hero
 │   ├── videos/                 # Vídeos MP4 dos cases
 │   │   ├── bradesco/
@@ -275,7 +277,7 @@ O toggle (`ThemeToggle`, no Nav) alterna `data-theme` no `<html>` via `useTheme.
 
 ## Funcionalidades
 
-- **11 cases documentados** com hero, overview, metodologia, KPIs, vídeo, seções com imagens e resultados, exibidos lado a lado em grid de 2 colunas — 6 deles (Auto Vistoria, Gestão OPME, Sinistro Auto, Triagem NIP, Contratação de Previdência, Rumo Auto) são protótipos reais publicados no GitHub Pages, com marca fictícia e dados de exemplo para preservar o cliente original, e um (Suíte Orla) reúne três protótipos sobre um design system compartilhado
+- **13 cases documentados** com hero, overview, metodologia, KPIs, vídeo, seções com imagens e resultados, exibidos lado a lado em grid de 2 colunas — 8 deles (Auto Vistoria, Gestão OPME, Sinistro Auto, Triagem NIP, Contratação de Previdência, Rumo Auto, CICM, Travessia) são protótipos reais publicados no GitHub Pages, com marca fictícia e dados de exemplo para preservar o cliente original, e um (Suíte Orla) reúne três protótipos sobre um design system compartilhado
 - **Case study com múltiplos CTAs**: Figma, sistema ao vivo e repositório GitHub, exibidos condicionalmente por projeto (`figmaLink`, `externalLink`, `githubLink`)
 - **Modo claro/escuro** com contraste AA calculado por cor (ver [Tema claro/escuro](#tema-claroescuro)), persistido por usuário
 - **Menu de acessibilidade nativo** (sem widget de terceiro): tamanho de fonte, alto contraste, fonte para leitura facilitada, guia de leitura, sublinhar links, reduzir animações — persistido por usuário
