@@ -453,72 +453,6 @@ export const PROJECTS = [
     ],
   },
 
-  // ── 6 — CASE NOVO: Painel de Aditivos ────────────────────────────────────
-  {
-    id: "painel-aditivos",
-    tag: "UX/UI · Saúde · B2B",
-    title: "Painel de Aditivos — Bradesco Saúde",
-    description:
-      "SGTA – sistema interno de gestão de aditivos contratuais da Bradesco Saúde. Fluxos complexos simplificados para analistas de contratos.",
-    accent: "#FF6B35",
-    bg: "#180F06",
-    size: "small",
-    heroImg:
-      "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1400&q=85&auto=format",
-    thumbImg:
-      "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&q=80&auto=format",
-    figmaLink: null,
-    year: "2020",
-    role: "Product Designer · Front-end Developer",
-    client: "Bradesco Saúde",
-    challenge:
-      "Analistas de contratos gerenciavam aditivos em planilhas e e-mails — processo sujeito a erros críticos, sem rastreabilidade e com alto risco regulatório.",
-    impact:
-      "Sistema implantado com rastreabilidade completa de aditivos e redução de retrabalho para a equipe de contratos.",
-    overview:
-      "SGTA (Sistema de Gestão de Termos e Aditivos) para Bradesco Saúde. Plataforma interna que centraliza a criação, edição, aprovação e histórico de aditivos contratuais de planos de saúde corporativos.",
-    methodology: "Processo híbrido: Design + Front-end Development",
-    methodologyDesc:
-      "Levantamento de requisitos junto ao time jurídico e de contratos, mapeamento dos fluxos existentes em planilhas, wireframes e implementação front-end integrada ao back-end Java.",
-    problem:
-      "Como digitalizar e auditar o ciclo de vida completo de aditivos contratuais, eliminando processos manuais e garantindo conformidade regulatória?",
-    // video: "SEU_YOUTUBE_ID_AQUI",
-    video: "/videos/bradesco/sgta/navegacao-sgta.mp4",
-    sections: [
-      {
-        title: "Diagnóstico: Caos Documental",
-        content:
-          "O time de contratos trabalhava com múltiplas versões de planilhas compartilhadas por e-mail. Sem versionamento, sem aprovações rastreáveis e sem visão consolidada dos aditivos ativos.",
-        imgs: [
-          "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=900&q=80&auto=format",
-        ],
-      },
-      {
-        title: "Mapeamento de Fluxo & Wireframes",
-        content:
-          "Mapeei 7 perfis de acesso com permissões distintas: analista, supervisor, jurídico, financeiro, diretoria e auditoria. O fluxo de aprovação passou a ter 4 etapas digitais com notificação automática — substituindo 12 e-mails manuais por ciclo.",
-        imgs: [
-          "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=900&q=80&auto=format",
-        ],
-      },
-      {
-        title: "Interface & Implementação",
-        content:
-          "O sistema foi desenvolvido com o mesmo guia de estilo do projeto ANS, garantindo consistência visual entre os sistemas internos. Implementação front-end em HTML/CSS/SASS com componentes reutilizáveis documentados.",
-        imgs: [
-          "/images/cases/painel-aditivo/img-prototipo.png",
-        ],
-      },
-    ],
-    results: [
-      "7 perfis de acesso com permissões granulares por módulo",
-      "Fluxo de aprovação digital em 4 etapas — fim dos e-mails manuais",
-      "Histórico completo de versões e auditoria por aditivo",
-      "Consistência visual com o Guia de Estilo interno da Bradesco",
-      "Implementação front-end integrada ao back-end Java",
-    ],
-  },
-
   // ── 7 ─────────────────────────────────────────────────────────────────────
   {
     id: "generali",
@@ -1103,11 +1037,11 @@ export const PROJECTS = [
       "Três sistemas de gestão de rede de uma operadora de saúde — negociar, formalizar e medir aditivos — construídos sobre um design system compartilhado. Protótipos de 2020–2021 revisitados em 2026.",
     accent: "#2C5282",
     bg: "#0C1824",
-    size: "large",
+    size: "small",
     heroImg:
-      "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=1400&q=85&auto=format",
+      "/images/cases/suite-orla/img-suite-cards.jpg",
     thumbImg:
-      "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=800&q=80&auto=format",
+      "/images/cases/suite-orla/img-suite-cards.jpg",
     figmaLink: null,
     externalLink: "https://fernandopinhel.github.io/redeMais/",
     githubLink: "https://github.com/fernandopinhel/redeMais",
