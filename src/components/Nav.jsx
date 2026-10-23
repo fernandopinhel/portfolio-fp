@@ -154,7 +154,7 @@ export const Nav = ({
               className="hj-nav-link"
               data-gtm={`desktop-menu-${l.toLowerCase()}`}
               style={{
-                background: "none", border: "none", cursor: "none",
+                background: "none", border: "none", cursor: "pointer",
                 fontFamily: "var(--font-mono)", fontSize: 13,
                 letterSpacing: ".1em", textTransform: "uppercase",
                 color: activeNav === l ? "var(--fg)" : "var(--dim)",
