@@ -455,65 +455,92 @@ export const PROJECTS = [
 
   // ── 7 ─────────────────────────────────────────────────────────────────────
   {
-    id: "generali",
-    tag: "UX/UI · Seguros",
-    title: "Cotação de Seguros Generali",
+    id: "rumo-auto",
+    tag: "Designer Engineer · Seguros",
+    title: "Rumo Auto",
     description:
-      "Jornada conversacional que eliminou formulários longos — case premiado internamente como inovação.",
-    accent: "#A78BFA",
-    bg: "#0F0A1A",
+      "Cotação e contratação de seguro auto em conversa, dentro do app de uma operadora parceira — uma pergunta por vez, com o porquê de cada uma. Protótipo de 2020 revisitado em 2026.",
+    accent: "#7A2160",
+    bg: "#1A0A14",
     size: "small",
     heroImg:
-      "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1400&q=85&auto=format",
+      "/images/cases/rumo-auto/img-entrada.jpg",
     thumbImg:
-      "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80&auto=format",
+      "/images/cases/rumo-auto/img-entrada.jpg",
     figmaLink: null,
-    year: "2021",
+    externalLink: "https://fernandopinhel.github.io/rumo-seguro-auto/",
+    githubLink: "https://github.com/fernandopinhel/rumo-seguro-auto",
+    year: "2020 · Revisitado em 2026",
     role: "Product Designer · Front-end Developer",
-    client: "Generali & Vivo",
+    client: "Seguradora e operadora parceira — marcas fictícias no case (Rumo Seguros e onda) para preservar os clientes originais",
     challenge:
-      "A Generali precisava de uma experiência que engajasse e convertesse usuários que normalmente abandonavam formulários longos de cotação de seguros.",
-    impact: "Projeto premiado internamente como case de inovação.",
+      "Uma seguradora queria vender seguro auto dentro do app de uma operadora de telefonia, para clientes que muitas vezes nunca tinham feito uma cotação sozinhos. O caminho tradicional era um formulário de corretor: dezenas de campos numa tela só, termos como 'franquia' e 'danos corporais' sem explicação, e uma tabela de planos em que só se via o preço no fim — quem chegava pelo app desistia no meio, sem saber quanto faltava.",
+    impact:
+      "A cotação virou uma conversa curta: uma pergunta por vez, com o porquê de cada uma quando ela é sensível, e um fio com as respostas já dadas para alterar sem perder o resto. Comparar 5 planos deixou de ser decifrar uma tabela — cada etiqueta mostra o que pesou no preço, e o plano personalizado recalcula ao vivo a cada escolha.",
     overview:
-      "Sistema de cotação de seguros online para Generali em parceria com a Vivo. Abordagem conversacional por etapas, eliminando formulários longos e humanizando o processo de contratação.",
-    methodology: "Processo híbrido: Design + Front-end Development",
+      "Cotação e contratação de seguro auto em conversa, dentro do app de uma operadora parceira: uma pergunta por cartão em 4 etapas (você, veículo, cotação, confirmação, pagamento), busca por placa ou por modelo, CEP que preenche o endereço, comparação de 5 planos com o que pesou no preço, plano personalizado com preço ao vivo, cartão de crédito desenhado e apólice nova na tela inicial. HTML, CSS e JavaScript puros, auditado com axe-core para WCAG 2.2 AA e publicado no GitHub Pages.",
+    methodology: "Protótipo Revisitado em Par com IA (Claude)",
     methodologyDesc:
-      "Guia de estilo e implementação front-end completos. Projeto desenvolvido com protótipos construídos diretamente em código, na era pré-Figma dominante.",
+      "Como no Amparo Previdência, o objetivo aqui não era substituir a identidade visual — era preservar o que dava personalidade ao protótipo de 2020 (a faixa vinho para roxo, o carrinho andando na estrada das etapas, os cartões com ilustração) e modernizar o acabamento em volta. Com o Claude como par de engenharia, mapeei elemento por elemento o que ficava e o que mudava, redesenhei as ilustrações em SVG próprio no mesmo estilo flat, e dei intenção a cada efeito: o carrinho dirige até a etapa nova porque a pessoa pergunta 'onde eu estou?', e a borda do plano escolhido gira em gradiente porque ela pergunta 'qual plano está valendo?'.",
     problem:
-      "Como transformar uma jornada burocrática de cotação de seguros em algo fluido, envolvente e com alta taxa de conclusão?",
-    // video: "SEU_YOUTUBE_ID_AQUI",
-    video: "/videos/generali/navegacao-generali.mp4",
+      "Como transformar a cotação de um seguro — cheia de perguntas sensíveis e termos técnicos — numa conversa curta que a pessoa termina sem desistir no meio, dentro de um app que não é o da seguradora?",
     sections: [
       {
-        title: "O Problema dos Formulários Intermináveis",
+        title: "Uma Pergunta Por Vez, Com o Porquê",
         content:
-          "Realizamos benchmark de concorrentes e 3 referências internacionais para identificar padrões que funcionavam. O formulário original tinha 40 campos em uma única página — taxa de abandono altíssima. A solução: transformar cada grupo de perguntas em uma conversa.",
+          "Cada etapa mostra uma pergunta aberta por vez, com uma ilustração e o nome da pessoa ('Marina, você sabe a placa do carro?') — parece conversa, não formulário. Perguntas sensíveis como sexo ou principal motorista vêm com uma frase do motivo: 'as seguradoras ainda usam essa informação no cálculo do preço'. As respostas já dadas ficam num fio compacto acima da pergunta atual, cada uma com 'Alterar'.",
         imgs: [
-          "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=900&q=80&auto=format",
+          "/images/cases/rumo-auto/img-conversa.jpg",
         ],
       },
       {
-        title: "Solução Conversacional por Etapas",
+        title: "A Placa Como na Vida Real",
         content:
-          "Transformamos 40 campos em 8 etapas de 1-3 perguntas cada. Cada etapa tem um propósito claro, progresso visível e linguagem coloquial ('Qual o seu carro?' ao invés de 'Informe o modelo do veículo segurado'). Adicionamos ilustrações contextuais e micro-animações de transição.",
+          "O campo da placa tem a cara de uma placa Mercosul de verdade, aceita o formato antigo e o novo, e a busca devolve as versões do carro com o valor de tabela. Quem não sabe a placa escolhe marca, modelo e ano — o fluxo não trava por falta de um dado.",
         imgs: [
-          "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=900&q=80&auto=format",
+          "/images/cases/rumo-auto/img-placa.jpg",
         ],
       },
       {
-        title: "Guia de Estilo & Reconhecimento",
+        title: "O Preço Deixa de Ser Caixa-Preta",
         content:
-          "O guia de estilo foi documentado e apresentado para toda a empresa. O case foi premiado internamente como inovação — reconhecimento que validou a abordagem centrada no usuário em um setor tradicionalmente conservador.",
+          "A matriz de 5 planos mostra as coberturas lado a lado, com 'Não inclui' escrito por extenso em vez de um traço. Etiquetas na cotação mostram o que pesou no preço — 'Garagem fechada: 8% mais barato', 'Motorista de aplicativo: 28% mais caro' — e o plano personalizado recalcula o preço ao vivo a cada cobertura escolhida.",
         imgs: [
-          "/images/cases/generali/img-prototipo.png",
+          "/images/cases/rumo-auto/img-planos.jpg",
         ],
+      },
+      {
+        title: "Efeitos Que Respondem a uma Pergunta",
+        content:
+          "Nenhum efeito é decoração solta: o carrinho dirige até a etapa nova e engata ré ao voltar, a borda do plano escolhido gira em gradiente vinho, roxo e laranja, o cartão de crédito gira para o verso no código de segurança, e no sucesso o carro entra no escudo com confete nas cores da marca. Tudo desligado com `prefers-reduced-motion`.",
+        imgs: [
+          "/images/cases/rumo-auto/img-sucesso.jpg",
+        ],
+        compact: true,
+      },
+      {
+        title: "Revisitando o Case em 2026",
+        content:
+          "Reescrevi tudo em HTML, CSS e JavaScript puros — zero dependências de runtime —, removendo Bootstrap, jQuery, Popper, o Font Awesome e cerca de 3.600 arquivos de cópias de segurança e imagens com marcas reais (43 MB). Revisei a acessibilidade para WCAG 2.2 AA, verificada com axe-core: no celular, os planos viram cartões com os rótulos dentro, mantendo a mesma matriz de coberturas.",
+        imgs: [
+          "/images/cases/rumo-auto/img-mobile-planos.jpg",
+        ],
+        compact: true,
       },
     ],
+    kpis: [
+      { v: "4", l: "Etapas, de você ao pagamento" },
+      { v: "5", l: "Planos comparáveis lado a lado" },
+      { v: "0", l: "Dependências de runtime" },
+      { v: "AA", l: "WCAG 2.2, verificado com axe-core" },
+    ],
     results: [
-      "Tempo de cotação: de 12 min para 8 min",
-      "Formulários de 40 campos → 8 etapas conversacionais",
-      "Case premiado internamente como inovação",
-      "Guia de estilo documentado e apresentado à empresa",
+      "Cotação em conversa, uma pergunta por vez, com o porquê das perguntas sensíveis",
+      "Busca por placa (padrão antigo ou Mercosul) ou por marca, modelo e ano",
+      "5 planos comparáveis com o que pesou no preço, e plano personalizado com preço ao vivo",
+      "Identidade visual preservada do protótipo original de 2020, com acabamento modernizado",
+      "Correção de conteúdo escondido atrás do visual: campos duplicados, nome trocado entre telas, planos iguais",
+      "Acessibilidade WCAG 2.2 AA verificada com axe-core em todas as etapas e estados, sem violações",
     ],
   },
 
